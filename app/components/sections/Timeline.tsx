@@ -171,6 +171,26 @@ export default function Timeline() {
         const trail = window.innerHeight * 0.5;
         const total = startScroll + 2795 * scale + trail;
 
+        // Fade and reveal the section title as the user transitions out of WhyUs
+        const titleEl = root.querySelector("[data-timeline-title]");
+        if (titleEl) {
+          gsap.fromTo(
+            titleEl,
+            { opacity: 0, y: 50 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.9,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: titleEl,
+                start: "top 85%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
+        }
+
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: root,
@@ -302,7 +322,10 @@ export default function Timeline() {
     >
       {/* Desktop: exact Figma composition, driven by the exported vector */}
       <div className="relative mx-auto hidden w-full max-w-[1728px] aspect-[1728/3722] lg:block">
-        <h2 className="absolute inset-x-0 top-[2.82%] text-center font-cal text-[64px] leading-[0.78] tracking-[-0.03em] text-black">
+        <h2
+          data-timeline-title
+          className="absolute inset-x-0 top-[2.82%] text-center font-cal text-[64px] leading-[0.78] tracking-[-0.03em] text-black will-change-transform"
+        >
           All set for seamless
           <br />
           transportation

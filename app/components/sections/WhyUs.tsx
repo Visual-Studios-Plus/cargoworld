@@ -75,7 +75,7 @@ export default function WhyUs() {
 
   return (
     <section ref={sectionRef} className="w-full bg-white">
-      <div className="mx-auto w-full max-w-[920px] px-6 pt-[clamp(48px,5.7vw,99px)] pb-[clamp(64px,15.4vw,266px)]">
+      <div className="mx-auto w-full max-w-[920px] px-6 pt-[clamp(48px,5.7vw,99px)] pb-[clamp(56px,8vw,120px)]">
         <div data-whyus-header className="will-change-transform">
           <h2 className="text-center font-cal text-[clamp(36px,3.2vw,54px)] leading-[1.05] tracking-[-0.03em] text-black">
             what we do
