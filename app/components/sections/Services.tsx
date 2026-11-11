@@ -1,80 +1,91 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { ComponentType, SVGProps } from "react";
-import {
-  AirCargoArt,
-  CustomsArt,
-  DigitalTrackingArt,
-  GlobalLogisticsArt,
-  LandTransportArt,
-  OceanFreightArt,
-  SpecialCargoArt,
-  WarehousingArt,
-} from "./service-illustrations";
-
-const FEATURED_INDEX = 0;
+import Image from "next/image";
 
 type Service = {
   title: string;
-  description: string;
-  Art: ComponentType<SVGProps<SVGSVGElement>>;
+  image: string;
+  alt: string;
 };
 
 const SERVICES: Service[] = [
   {
     title: "Ocean Freight",
-    description:
-      "FCL and LCL sailings from Colombo to every major US port, with consolidated weekly departures.",
-    Art: OceanFreightArt,
+    image: "/figma/img/services/service-1.webp",
+    alt: "Aerial view of a container ship at sea",
   },
   {
     title: "Air Cargo",
-    description:
-      "Priority airfreight uplift, express clearance, and careful door-to-door handling for urgent freight.",
-    Art: AirCargoArt,
+    image: "/figma/img/services/service-2.webp",
+    alt: "Cargo plane flying above stacked shipping containers",
   },
   {
     title: "Land Transport",
-    description:
-      "First-mile pickups and last-mile deliveries across the US, powered by our own fleet.",
-    Art: LandTransportArt,
+    image: "/figma/img/services/service-3.webp",
+    alt: "Fleet of freight trucks lined up on the road",
   },
   {
     title: "Warehousing",
-    description:
-      "Secure US storage, cross-docking, and fulfilment with real-time inventory visibility.",
-    Art: WarehousingArt,
+    image: "/figma/img/services/service-4.webp",
+    alt: "Palletised goods stored along warehouse aisles",
   },
   {
     title: "Customs Clearance",
-    description:
-      "Licensed brokerage, accurate classification, and compliant documentation from origin to destination.",
-    Art: CustomsArt,
+    image: "/figma/img/services/service-5.webp",
+    alt: "Logistics specialists reviewing documents at a container",
   },
   {
     title: "Global Logistics",
-    description:
-      "Multi-country routing and consolidated supply chain control through one dedicated partner.",
-    Art: GlobalLogisticsArt,
+    image: "/figma/img/services/about.webp",
+    alt: "Container ship and cargo plane at a busy port",
   },
   {
     title: "Digital Tracking",
-    description:
-      "Live shipment visibility with proactive milestone alerts, from booking through delivery.",
-    Art: DigitalTrackingArt,
+    image: "/figma/img/services/service-6.webp",
+    alt: "Operations team monitoring shipments on screens",
   },
   {
     title: "Special Cargo",
-    description:
-      "Temperature-controlled, oversized, and high-value freight handled with specialist care.",
-    Art: SpecialCargoArt,
+    image: "/figma/img/services/service-7.webp",
+    alt: "Oversized cargo being loaded onto a freighter aircraft",
   },
 ];
 
 export default function Services() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [activeIndex, setActiveIndex] = useState(FEATURED_INDEX);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const updateControls = () => {
+      setCanPrev(track.scrollLeft > 4);
+      setCanNext(track.scrollLeft + track.clientWidth < track.scrollWidth - 4);
+    };
+
+    updateControls();
+    track.addEventListener("scroll", updateControls, { passive: true });
+    window.addEventListener("resize", updateControls);
+
+    return () => {
+      track.removeEventListener("scroll", updateControls);
+      window.removeEventListener("resize", updateControls);
+    };
+  }, []);
+
+  const scrollTrack = (direction: 1 | -1) => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const card = track.querySelector<HTMLElement>("[data-service-card]");
+    const step = (card?.getBoundingClientRect().width ?? track.clientWidth) + 50;
+
+    track.scrollBy({ left: direction * step, behavior: "smooth" });
+  };
 
   useEffect(() => {
     const root = sectionRef.current;
@@ -137,7 +148,7 @@ export default function Services() {
       id="services"
       className="w-full overflow-hidden bg-white"
     >
-      <div className="mx-auto w-full max-w-[1240px] px-6 pb-[clamp(64px,8vw,132px)] pt-[clamp(56px,7vw,120px)]">
+      <div className="mx-auto w-full max-w-[1160px] px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
         <div data-services-header className="will-change-transform">
           <p className="text-center font-dm text-[11px] font-bold uppercase tracking-[0.18em] text-[#8f8f8f]">
             Our services
@@ -151,74 +162,98 @@ export default function Services() {
           </p>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-2.5 sm:grid-cols-2 md:mt-12 md:gap-3 lg:grid-cols-4">
-          {SERVICES.map(({ title, description, Art }, index) => {
-            const isActive = activeIndex === index;
-            const number = String(index + 1).padStart(2, "0");
+        <div className="relative mt-8 md:mt-10">
+          <button
+            type="button"
+            onClick={() => scrollTrack(-1)}
+            disabled={!canPrev}
+            aria-label="Previous services"
+            className="absolute -left-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-900 shadow-lg transition-all duration-300 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white disabled:cursor-not-allowed disabled:opacity-35 md:-left-5 md:h-11 md:w-11"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              className="h-[18px] w-[18px]"
+            >
+              <path d="M19 12H5M11 5l-7 7 7 7" />
+            </svg>
+          </button>
 
-            return (
-              <article
+          <button
+            type="button"
+            onClick={() => scrollTrack(1)}
+            disabled={!canNext}
+            aria-label="Next services"
+            className="absolute -right-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-900 shadow-lg transition-all duration-300 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white disabled:cursor-not-allowed disabled:opacity-35 md:-right-5 md:h-11 md:w-11"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              className="h-[18px] w-[18px]"
+            >
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            </svg>
+          </button>
+
+          <div
+            ref={trackRef}
+            aria-label="Services carousel"
+            aria-roledescription="carousel"
+            className="services-track flex snap-x snap-mandatory gap-[50px] overflow-x-auto pb-2"
+          >
+            {SERVICES.map(({ title, image, alt }) => (
+              <a
                 key={title}
                 data-service-card
-                data-active={isActive}
-                onMouseEnter={() => setActiveIndex(index)}
-                onMouseLeave={() => setActiveIndex(FEATURED_INDEX)}
-                onFocus={() => setActiveIndex(index)}
-                onBlur={() => setActiveIndex(FEATURED_INDEX)}
-                className={`services-card group relative flex flex-col justify-between rounded-2xl border p-6 transition-all duration-300 ${
-                  isActive
-                    ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-white shadow-xl"
-                    : "border-neutral-200 bg-white text-neutral-900 shadow-sm hover:border-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white hover:shadow-xl"
-                }`}
+                href="#quote"
+                aria-label={`Learn more about ${title}`}
+                className="group relative h-[320px] w-full shrink-0 snap-start overflow-hidden rounded-2xl border border-neutral-200/80 bg-[#dbe8f3] transition-all duration-300 hover:shadow-xl sm:w-[calc((100%-50px)/2)] lg:w-[calc((100%-150px)/4)]"
               >
-                <div className="relative mb-4 flex h-36 w-full items-center justify-center overflow-hidden">
+                <Image
+                  src={image}
+                  alt={alt}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#061421]/95 via-[#061421]/30 to-transparent" />
+
+                <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 p-5">
+                  <h3 className="font-cal text-xl font-bold leading-tight tracking-tight text-white transition-colors duration-300 group-hover:text-accent">
+                    {title}
+                  </h3>
+
                   <span
                     aria-hidden="true"
-                    className={`absolute right-0 top-0 z-10 font-dm text-[11px] font-bold tracking-[0.16em] transition-colors duration-300 ${
-                      isActive
-                        ? "text-white/35"
-                        : "text-black/25 group-hover:text-white/40"
-                    }`}
+                    className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border border-white/70 text-white transition-all duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-brand-blue"
                   >
-                    {number}
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                      className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    >
+                      <path d="M7 17 17 7M9 7h8v8" />
+                    </svg>
                   </span>
-                  <Art className="service-art h-full w-full object-contain" />
                 </div>
-
-                <h3 className="mb-2 font-cal text-xl font-bold leading-tight tracking-tight">
-                  {title}
-                </h3>
-
-                <p
-                  className={`mb-6 font-dm text-[13px] font-bold leading-relaxed transition-colors duration-300 ${
-                    isActive
-                      ? "text-neutral-100"
-                      : "text-neutral-600 group-hover:text-neutral-100"
-                  }`}
-                >
-                  {description}
-                </p>
-
-                <a
-                  href="#quote"
-                  aria-label={`Learn more about ${title}`}
-                  className={`mt-auto inline-flex w-fit items-center text-sm font-semibold transition-colors duration-300 after:absolute after:inset-0 after:content-[''] ${
-                    isActive
-                      ? "text-accent"
-                      : "text-brand-gold group-hover:text-white"
-                  }`}
-                >
-                  <span>Learn more</span>
-                  <span
-                    aria-hidden="true"
-                    className="ml-1 transition-transform duration-300 group-hover:translate-x-1"
-                  >
-                    →
-                  </span>
-                </a>
-              </article>
-            );
-          })}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </section>

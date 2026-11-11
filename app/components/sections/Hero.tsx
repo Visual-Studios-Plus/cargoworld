@@ -186,6 +186,7 @@ export default function Hero() {
             <form
               className="flex h-[clamp(52px,4.05vw,70px)] flex-1 items-center rounded-tl-[20px] rounded-br-[20px] bg-white/10 pl-6 pr-2 backdrop-blur-md"
               action="#"
+              id="track"
             >
               <input
                 type="text"
