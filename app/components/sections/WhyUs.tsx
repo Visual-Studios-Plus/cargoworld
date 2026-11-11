@@ -27,42 +27,52 @@ export default function WhyUs() {
       mm = gsap.matchMedia();
 
       mm.add("(min-width: 0px)", () => {
-        // Animation only fires once the entire previous section (Hero) is completely
-        // scrolled off the screen and Why Us occupies the viewport.
+        // Begin the reveal while the section is still easing in from the hero,
+        // so the hand-off between the two sections feels continuous.
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: root,
-            start: "top top",
+            start: "top 82%",
             toggleActions: "play none none reverse",
           },
         });
 
-        // 1. Reveal header (title + description)
+        // 1. Reveal the heading, then let the description follow with a stagger.
         tl.fromTo(
-          root.querySelector("[data-whyus-header]"),
-          { opacity: 0, y: 40 },
+          root.querySelector("[data-whyus-title]"),
+          { opacity: 0, y: 56 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.85,
+            duration: 1,
             ease: "power3.out",
           }
+        ).fromTo(
+          root.querySelector("[data-whyus-desc]"),
+          { opacity: 0, y: 28 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out",
+          },
+          "-=0.72"
         );
 
-        // 2. Reveal bento cards sequentially right after
+        // 2. Reveal bento cards sequentially right after.
         const cards = root.querySelectorAll("[data-bento-card]");
         tl.fromTo(
           cards,
-          { opacity: 0, y: 45, scale: 0.96 },
+          { opacity: 0, y: 52, scale: 0.96 },
           {
             opacity: 1,
             y: 0,
             scale: 1,
-            duration: 0.85,
-            stagger: 0.1,
+            duration: 0.8,
+            stagger: 0.09,
             ease: "power2.out",
           },
-          "-=0.4"
+          "-=0.55"
         );
       });
     })();
@@ -77,10 +87,16 @@ export default function WhyUs() {
     <section ref={sectionRef} className="w-full bg-white">
       <div className="mx-auto w-full max-w-[920px] px-6 pt-[clamp(48px,5.7vw,99px)] pb-[clamp(56px,8vw,120px)]">
         <div data-whyus-header className="will-change-transform">
-          <h2 className="text-center font-cal text-[clamp(36px,3.2vw,54px)] leading-[1.05] tracking-[-0.03em] text-black">
+          <h2
+            data-whyus-title
+            className="text-center font-cal text-[clamp(36px,3.2vw,54px)] leading-[1.05] tracking-[-0.03em] text-black will-change-transform"
+          >
             what we do
           </h2>
-          <p className="mx-auto mt-4 max-w-[480px] text-center font-cal text-[15px] leading-[1.45] tracking-[0.015em] text-[#808080]">
+          <p
+            data-whyus-desc
+            className="mx-auto mt-4 max-w-[480px] text-center font-cal text-[15px] leading-[1.45] tracking-[0.015em] text-[#808080] will-change-transform"
+          >
             Comprehensive global logistics solutions engineered for speed,
             security, and complete peace of mind across every link of your supply
             chain

@@ -104,28 +104,48 @@ export default function Services() {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: root,
-            start: "top 82%",
+            start: "top 84%",
             toggleActions: "play none none reverse",
           },
         });
 
+        // Stagger the eyebrow, heading and description so the section eases in
+        // from the closing timeline instead of appearing in one block.
         tl.fromTo(
-          root.querySelector("[data-services-header]"),
-          { opacity: 0, y: 40 },
-          { opacity: 1, y: 0, duration: 0.85, ease: "power3.out" }
-        ).fromTo(
-          root.querySelectorAll("[data-service-card]"),
-          { opacity: 0, y: 45, scale: 0.97 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.75,
-            stagger: 0.07,
-            ease: "power2.out",
-          },
-          "-=0.45"
-        );
+          root.querySelector("[data-services-eyebrow]"),
+          { opacity: 0, y: 24 },
+          { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }
+        )
+          .fromTo(
+            root.querySelector("[data-services-title]"),
+            { opacity: 0, y: 48 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.9,
+              ease: "power3.out",
+            },
+            "-=0.5"
+          )
+          .fromTo(
+            root.querySelector("[data-services-desc]"),
+            { opacity: 0, y: 28 },
+            { opacity: 1, y: 0, duration: 0.75, ease: "power2.out" },
+            "-=0.6"
+          )
+          .fromTo(
+            root.querySelectorAll("[data-service-card]"),
+            { opacity: 0, y: 45, scale: 0.97 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.75,
+              stagger: 0.08,
+              ease: "power2.out",
+            },
+            "-=0.45"
+          );
       });
     })();
 
@@ -139,17 +159,22 @@ export default function Services() {
     <section ref={sectionRef} id="services" className="w-full overflow-hidden bg-white">
       <div className="mx-auto w-full max-w-[1280px] px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)] lg:px-10">
         <div data-services-header className="will-change-transform">
-          <p className="text-center font-dm text-[11px] font-bold uppercase tracking-[0.18em] text-[#8f8f8f]">
+          <p
+            data-services-eyebrow
+            className="text-center font-dm text-[11px] font-bold uppercase tracking-[0.18em] text-[#8f8f8f] will-change-transform"
+          >
             Our services
           </p>
           <h2
-            className="mt-3 text-center font-cal text-[clamp(36px,3.2vw,54px)] text-black"
+            data-services-title
+            className="mt-3 text-center font-cal text-[clamp(36px,3.2vw,54px)] text-black will-change-transform"
             style={{ letterSpacing: "-0.02em", lineHeight: 1.05 }}
           >
             services offer
           </h2>
           <p
-            className="mx-auto mt-4 max-w-[480px] text-center font-cal text-[15px] text-[#808080]"
+            data-services-desc
+            className="mx-auto mt-4 max-w-[480px] text-center font-cal text-[15px] text-[#808080] will-change-transform"
             style={{ lineHeight: 1.5 }}
           >
             End-to-end freight and supply chain services, connected by one team

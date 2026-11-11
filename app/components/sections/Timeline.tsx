@@ -352,7 +352,7 @@ export default function Timeline() {
   return (
     <section
       ref={sectionRef}
-      className="w-full overflow-hidden bg-white lg:pb-[55vh]"
+      className="w-full overflow-hidden bg-white"
     >
       {/* Desktop: exact Figma composition, driven by the exported vector */}
       <div className="relative mx-auto hidden w-full max-w-[1728px] aspect-[1728/3722] lg:block">
