@@ -4,12 +4,17 @@
   --background: #ffffff;
   --foreground: #171717;
   --accent: #fffb96;
+  --brand-blue: #0a1f33;
+  --brand-gold: #d9b34a;
+  --color-primary: var(--brand-blue);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-gold: var(--brand-gold);
   --font-sans: var(--font-cal-sans);
   --font-cal: var(--font-cal-sans);
   --font-syne: var(--font-syne);
@@ -40,4 +45,359 @@ body {
 .timeline-line {
   /* keep the exported vector crisp at every size */
   height: auto;
+}
+
+/* ---------------------------------------------------------------------------
+ * Services illustrations
+ * State-driven SVG palette. The card's [data-active] (or hover/focus) flips
+ * the variables, so every embedded path recolors without extra React props.
+ * ------------------------------------------------------------------------- */
+.services-card {
+  --ill-main: #0a1f33;
+  --ill-secondary: #6f8292;
+  --ill-soft: #e3e8ec;
+  --ill-accent: var(--brand-gold);
+  --ill-window: #ffffff;
+}
+
+.services-card:hover,
+.services-card:focus-within,
+.services-card[data-active="true"] {
+  --ill-main: #ffffff;
+  --ill-secondary: rgba(255, 255, 255, 0.68);
+  --ill-soft: rgba(255, 255, 255, 0.14);
+  --ill-accent: var(--accent);
+  --ill-window: var(--brand-blue);
+}
+
+.ill-main {
+  fill: var(--ill-main);
+}
+.ill-secondary {
+  fill: var(--ill-secondary);
+}
+.ill-soft {
+  fill: var(--ill-soft);
+}
+.ill-accent {
+  fill: var(--ill-accent);
+}
+.ill-window {
+  fill: var(--ill-window);
+}
+.ill-line {
+  stroke: var(--ill-main);
+}
+.ill-line-secondary {
+  stroke: var(--ill-secondary);
+}
+.ill-line-accent {
+  stroke: var(--ill-accent);
+}
+.ill-line-window {
+  stroke: var(--ill-window);
+}
+.ill-main,
+.ill-secondary,
+.ill-soft,
+.ill-accent,
+.ill-window,
+.ill-line,
+.ill-line-secondary,
+.ill-line-accent,
+.ill-line-window {
+  transition:
+    fill 300ms ease,
+    stroke 300ms ease;
+}
+
+/* Artwork scaling on hover / active */
+.service-art {
+  transform-origin: 50% 55%;
+  transition: transform 300ms ease-in-out;
+  will-change: transform;
+}
+.services-card:hover .service-art,
+.services-card:focus-within .service-art,
+.services-card[data-active="true"] .service-art {
+  transform: scale(1.07);
+}
+
+/* Shared transform setup for vector parts */
+.art-bob,
+.art-float,
+.art-float-slow,
+.art-drift,
+.art-plane,
+.art-wheel,
+.art-hook,
+.art-stamp,
+.art-snow {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.art-orbit {
+  transform-box: view-box;
+  transform-origin: 100px 60px;
+}
+
+.art-sweep {
+  transform-box: view-box;
+  transform-origin: 100px 66px;
+}
+
+.art-needle {
+  transform-box: view-box;
+  transform-origin: 164px 84px;
+}
+
+/* Idle loops ------------------------------------------------------------- */
+.art-bob {
+  animation: service-bob-idle 5s ease-in-out infinite;
+}
+.art-float {
+  animation: service-float 4.5s ease-in-out infinite;
+}
+.art-float-slow {
+  animation: service-float-slow 6s ease-in-out infinite;
+}
+.art-drift {
+  animation: service-drift 7s ease-in-out infinite;
+}
+.art-orbit {
+  animation: service-spin 18s linear infinite;
+}
+.art-sweep {
+  animation: service-spin 7s linear infinite;
+}
+.art-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: service-pulse 2.8s ease-out infinite;
+}
+.art-snow {
+  animation: service-spin 18s linear infinite;
+}
+.art-hook {
+  animation: service-lift-idle 6s ease-in-out infinite;
+}
+
+/* Hover / active loops --------------------------------------------------- */
+.services-card:hover .art-bob,
+.services-card:focus-within .art-bob,
+.services-card[data-active="true"] .art-bob {
+  animation: service-bob 2.4s ease-in-out infinite;
+}
+
+.services-card:hover .art-plane,
+.services-card:focus-within .art-plane,
+.services-card[data-active="true"] .art-plane {
+  animation: service-flight 2.8s ease-in-out infinite;
+}
+
+.services-card:hover .art-wheel,
+.services-card:focus-within .art-wheel,
+.services-card[data-active="true"] .art-wheel {
+  animation: service-spin 1.1s linear infinite;
+}
+
+.services-card:hover .art-hook,
+.services-card:focus-within .art-hook,
+.services-card[data-active="true"] .art-hook {
+  animation: service-lift 1.6s ease-in-out infinite;
+}
+
+.services-card:hover .art-stamp,
+.services-card:focus-within .art-stamp,
+.services-card[data-active="true"] .art-stamp {
+  transform: translateY(6px);
+}
+
+.services-card:hover .art-orbit,
+.services-card:focus-within .art-orbit,
+.services-card[data-active="true"] .art-orbit {
+  animation-duration: 5s;
+}
+
+.services-card:hover .art-sweep,
+.services-card:focus-within .art-sweep,
+.services-card[data-active="true"] .art-sweep {
+  animation-duration: 2.2s;
+}
+
+.services-card:hover .art-snow,
+.services-card:focus-within .art-snow,
+.services-card[data-active="true"] .art-snow {
+  animation-duration: 6s;
+}
+
+.services-card:hover .art-drift,
+.services-card:focus-within .art-drift,
+.services-card[data-active="true"] .art-drift {
+  animation: service-drift 3s ease-in-out infinite;
+}
+
+.services-card:hover .art-needle,
+.services-card:focus-within .art-needle,
+.services-card[data-active="true"] .art-needle {
+  animation: service-needle 1.8s ease-in-out infinite;
+}
+
+.services-card:hover .art-wave,
+.services-card:focus-within .art-wave,
+.services-card[data-active="true"] .art-wave,
+.services-card:hover .art-path,
+.services-card:focus-within .art-path,
+.services-card[data-active="true"] .art-path,
+.services-card:hover .art-road,
+.services-card:focus-within .art-road,
+.services-card[data-active="true"] .art-road {
+  animation: service-dash 1s linear infinite;
+}
+
+.art-stamp {
+  transition: transform 300ms ease;
+}
+
+.art-check {
+  stroke-dasharray: 28;
+  stroke-dashoffset: 28;
+}
+.services-card:hover .art-check,
+.services-card:focus-within .art-check,
+.services-card[data-active="true"] .art-check {
+  animation: service-draw 600ms ease-out forwards;
+}
+
+/* Keyframes -------------------------------------------------------------- */
+@keyframes service-bob-idle {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -3px, 0);
+  }
+}
+
+@keyframes service-bob {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -4px, 0) rotate(-1.2deg);
+  }
+}
+
+@keyframes service-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -4px, 0);
+  }
+}
+
+@keyframes service-float-slow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -2.5px, 0);
+  }
+}
+
+@keyframes service-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(5px, -2px, 0);
+  }
+}
+
+@keyframes service-flight {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(2px, -1px, 0) rotate(12deg);
+  }
+}
+
+@keyframes service-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes service-pulse {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.7;
+  }
+  75% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+@keyframes service-lift-idle {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+@keyframes service-lift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -7px, 0);
+  }
+}
+
+@keyframes service-needle {
+  0%,
+  100% {
+    transform: rotate(-28deg);
+  }
+  50% {
+    transform: rotate(22deg);
+  }
+}
+
+@keyframes service-dash {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+@keyframes service-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-art,
+  .service-art * {
+    animation: none !important;
+    transition: none !important;
+  }
 }
