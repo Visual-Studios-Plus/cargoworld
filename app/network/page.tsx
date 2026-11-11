@@ -3,6 +3,7 @@ import Link from "next/link";
 import SiteHeader from "../components/SiteHeader";
 import SectionHeader from "../components/SectionHeader";
 import PageHero from "../components/PageHero";
+import TransitMap from "../components/TransitMap";
 import Footer from "../components/sections/Footer";
 import CallToAction from "../components/sections/CallToAction";
 import { PinIcon } from "../components/Icons";
@@ -13,20 +14,15 @@ export const metadata: Metadata = {
     "Colombo is our hub, connecting India, Europe and the Far East to our own US warehouses in Los Angeles, Houston, New York and West Virginia. See lanes, transit times and offices.",
 };
 
-const US_DESTINATIONS = ["Los Angeles", "Houston", "New York", "West Virginia"];
-const REGIONAL = ["India", "Europe", "China / Far East"];
-
 type Office = { city: string; country: string; role: string };
 
 const OFFICES: Office[] = [
   { city: "Colombo", country: "Sri Lanka", role: "Head office & origin hub" },
-  { city: "Tuticorin", country: "India", role: "Regional gateway" },
-  { city: "Chennai", country: "India", role: "Regional gateway" },
-  { city: "Compton", country: "USA", role: "Los Angeles warehouse & fleet" },
-  { city: "Houston", country: "USA", role: "Warehouse & fleet" },
-  { city: "New York", country: "USA", role: "Warehouse & fleet" },
-  { city: "West Virginia", country: "USA", role: "Warehouse & fleet" },
-  { city: "Mississauga", country: "Canada", role: "Partner office" },
+  { city: "Tuticorin", country: "India", role: "India origin gateway" },
+  { city: "Chennai", country: "India", role: "India origin gateway" },
+  { city: "Compton", country: "California, USA", role: "Los Angeles warehouse & fleet" },
+  { city: "Houston", country: "Texas, USA", role: "Warehouse & fleet" },
+  { city: "Mississauga", country: "Ontario, Canada", role: "Distribution office" },
 ];
 
 type Lane = {
@@ -41,14 +37,6 @@ type Lane = {
 const LANES: Lane[] = [
   {
     from: "Colombo",
-    to: "Houston",
-    transit: "30–36 days",
-    sailings: "Weekly",
-    carriers: "MSC, Maersk, ONE",
-    support: "Own Houston warehouse & trucks",
-  },
-  {
-    from: "Colombo",
     to: "Los Angeles",
     transit: "26–32 days",
     sailings: "Weekly",
@@ -57,19 +45,27 @@ const LANES: Lane[] = [
   },
   {
     from: "Colombo",
-    to: "New York",
-    transit: "32–38 days",
+    to: "Houston",
+    transit: "30–36 days",
     sailings: "Weekly",
     carriers: "MSC, Maersk, ONE",
-    support: "Own New York warehouse & trucks",
+    support: "Own Houston warehouse & trucks",
   },
   {
     from: "Colombo",
-    to: "West Virginia",
-    transit: "34–40 days",
+    to: "Mississauga",
+    transit: "38–45 days",
     sailings: "Weekly",
     carriers: "MSC, Maersk, ONE",
-    support: "Own West Virginia warehouse & trucks",
+    support: "Own Ontario distribution office",
+  },
+  {
+    from: "Tuticorin / Chennai",
+    to: "Colombo",
+    transit: "3–6 days",
+    sailings: "Multiple weekly",
+    carriers: "Feeder services",
+    support: "India origin gateways & consolidation",
   },
 ];
 
@@ -92,66 +88,35 @@ export default function NetworkPage() {
 
       {/* Transit map */}
       <section className="w-full bg-white">
-        <div className="mx-auto w-full max-w-[1160px] px-6 pb-[clamp(48px,6vw,96px)] pt-[clamp(48px,6vw,104px)]">
+        <div className="mx-auto w-full max-w-[1280px] px-6 pb-[clamp(48px,6vw,96px)] pt-[clamp(48px,6vw,104px)]">
           <SectionHeader
             eyebrow="Our global network"
             title="the transit map"
             subtitle="Colombo sits at the centre — feeding regional lanes in and dispatching to our own US warehouses."
           />
 
-          <div className="mt-12 grid grid-cols-1 items-center gap-8 lg:grid-cols-[1fr_auto_1fr]">
-            <div className="flex flex-col gap-3">
-              <p className="text-center font-dm text-[11px] font-bold uppercase tracking-[0.15em] text-[#8f8f8f] lg:text-left">
-                Regional lanes
-              </p>
-              {REGIONAL.map((r) => (
-                <div
-                  key={r}
-                  className="flex items-center justify-between rounded-tl-[18px] rounded-br-[18px] bg-[#F0F4F9] px-5 py-4"
-                >
-                  <span className="font-cal text-[17px] text-[#0a1f33]">{r}</span>
-                  <span aria-hidden="true" className="text-[#0a1f33]/40">
-                    →
-                  </span>
-                </div>
-              ))}
-            </div>
+          <TransitMap />
 
-            <div className="flex justify-center">
-              <div className="flex size-40 flex-col items-center justify-center rounded-full bg-[#0a1f33] text-center shadow-xl">
-                <PinIcon className="h-7 w-7 text-[#fffb96]" />
-                <p className="mt-1 font-syne text-[22px] font-bold text-white">
-                  Colombo
-                </p>
-                <p className="font-cal text-[11px] text-white/60">Origin hub</p>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-3">
-              <p className="text-center font-dm text-[11px] font-bold uppercase tracking-[0.15em] text-[#8f8f8f] lg:text-right">
-                US destinations · our warehouses
-              </p>
-              {US_DESTINATIONS.map((d) => (
-                <div
-                  key={d}
-                  className="flex items-center justify-between rounded-tl-[18px] rounded-br-[18px] border border-[#fffb96] bg-[#fffdf0] px-5 py-4"
-                >
-                  <span aria-hidden="true" className="text-[#0a1f33]/40">
-                    →
-                  </span>
-                  <span className="font-cal text-[17px] font-bold text-[#0a1f33]">
-                    {d}
-                  </span>
-                </div>
-              ))}
-            </div>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            <span className="inline-flex items-center gap-2 font-dm text-[12px] font-bold uppercase tracking-[0.1em] text-[#5b6675]">
+              <span className="inline-block h-4 w-4 rounded-[4px] border-2 border-[#0a1f33] bg-[#fffb96]" />
+              Colombo origin hub
+            </span>
+            <span className="inline-flex items-center gap-2 font-dm text-[12px] font-bold uppercase tracking-[0.1em] text-[#5b6675]">
+              <span className="inline-block h-3 w-6 rounded-full bg-[#0a1f33]" />
+              Sea lane
+            </span>
+            <span className="inline-flex items-center gap-2 font-dm text-[12px] font-bold uppercase tracking-[0.1em] text-[#5b6675]">
+              <span className="inline-block h-3.5 w-3.5 rounded-full border-2 border-[#0a1f33] bg-white" />
+              Port / transit point
+            </span>
           </div>
         </div>
       </section>
 
       {/* Lane specs */}
       <section className="w-full bg-[#F0F4F9]">
-        <div className="mx-auto w-full max-w-[1160px] px-6 pb-[clamp(48px,6vw,96px)] pt-[clamp(48px,6vw,104px)]">
+        <div className="mx-auto w-full max-w-[1280px] px-6 pb-[clamp(48px,6vw,96px)] pt-[clamp(48px,6vw,104px)]">
           <SectionHeader
             eyebrow="Core lanes"
             title="lane specifications"
@@ -227,7 +192,7 @@ export default function NetworkPage() {
 
       {/* Offices */}
       <section className="w-full bg-white">
-        <div className="mx-auto w-full max-w-[1160px] px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
+        <div className="mx-auto w-full max-w-[1280px] px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
           <SectionHeader
             eyebrow="On the ground"
             title="offices & warehouses"

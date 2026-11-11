@@ -54,7 +54,7 @@ export default function AboutPage() {
 
       {/* Story + image */}
       <section className="w-full bg-white">
-        <div className="mx-auto grid w-full max-w-[1160px] grid-cols-1 items-center gap-10 px-6 pb-[clamp(48px,6vw,88px)] pt-[clamp(48px,6vw,104px)] lg:grid-cols-2">
+        <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-10 px-6 pb-[clamp(48px,6vw,88px)] pt-[clamp(48px,6vw,104px)] lg:grid-cols-2">
           <div>
             <p className="font-dm text-[11px] font-bold uppercase tracking-[0.18em] text-[#8f8f8f]">
               Who we are
@@ -91,7 +91,7 @@ export default function AboutPage() {
 
       {/* Stats */}
       <section className="w-full bg-[#0a1f33]">
-        <div className="mx-auto w-full max-w-[1160px] px-6 py-[clamp(44px,5vw,80px)]">
+        <div className="mx-auto w-full max-w-[1280px] px-6 py-[clamp(44px,5vw,80px)]">
           <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
             {STATS.map((s) => (
               <div key={s.label} className="text-center">
@@ -109,7 +109,7 @@ export default function AboutPage() {
 
       {/* Pillars */}
       <section className="w-full bg-white">
-        <div className="mx-auto w-full max-w-[1160px] px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
+        <div className="mx-auto w-full max-w-[1280px] px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
           <SectionHeader
             eyebrow="How we work"
             title="two teams, one promise"

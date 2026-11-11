@@ -93,8 +93,6 @@ export default function TrackPage() {
     };
   }, []);
 
-  const progress =
-    STAGES.length > 1 ? (activeStage / (STAGES.length - 1)) * 100 : 0;
   const current = tracked ? STAGES[activeStage] : null;
 
   const waText = tracked
@@ -162,7 +160,7 @@ export default function TrackPage() {
 
       {/* Milestones */}
       <section className="w-full bg-white">
-        <div className="mx-auto w-full max-w-[1160px] px-6 pb-[clamp(40px,5vw,80px)] pt-[clamp(48px,6vw,96px)]">
+        <div className="mx-auto w-full max-w-[1280px] px-6 pb-[clamp(40px,5vw,80px)] pt-[clamp(48px,6vw,96px)]">
           {tracked && (
             <div className="mb-10 flex flex-wrap items-center justify-between gap-3 rounded-tl-[24px] rounded-br-[24px] bg-[#F0F4F9] px-6 py-4">
               <div>
@@ -185,64 +183,124 @@ export default function TrackPage() {
             subtitle="Every shipment moves through the same clear path. Enter a reference above to watch it light up stage by stage."
           />
 
-          {/* Progress rail */}
-          <div className="relative mt-14">
-            <div className="absolute left-0 right-0 top-[22px] hidden h-[3px] rounded-full bg-[#E3E9F1] md:block" />
-            <div
-              className="absolute left-0 top-[22px] hidden h-[3px] rounded-full bg-[#fffb96] transition-all duration-700 ease-out md:block"
-              style={{ width: `${progress}%` }}
-            />
+          <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+            {/* From -> To arc */}
+            <div className="rounded-tl-[32px] rounded-br-[32px] bg-[#F0F4F9] p-8">
+              <svg viewBox="0 0 400 180" className="w-full" aria-hidden="true">
+                <path
+                  d="M46 150 Q200 -10 354 150"
+                  fill="none"
+                  stroke="#0a1f33"
+                  strokeWidth="2.5"
+                  strokeDasharray="1 11"
+                  strokeLinecap="round"
+                />
+                {/* apex interchange node */}
+                <circle cx="200" cy="40" r="24" fill="#0a1f33" />
+                <circle cx="200" cy="40" r="30" fill="none" stroke="#fffb96" strokeWidth="2.5" />
+                <g
+                  transform="translate(182 22)"
+                  stroke="#fffb96"
+                  strokeWidth="1.6"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M3 24l1.6-8h27l3.3 8" opacity="0.5" />
+                  <path d="M9 16V7h8l6 9" />
+                  <path d="M1 28c2.3 0 2.3 1.6 4.6 1.6S8 28 10.3 28s2.3 1.6 4.6 1.6S17.3 28 19.6 28s2.3 1.6 4.6 1.6S26.6 28 29 28s2.3 1.6 4.6 1.6" />
+                </g>
+                {/* endpoints */}
+                <circle cx="46" cy="150" r="8" fill="#fff" stroke="#0a1f33" strokeWidth="3" />
+                <circle cx="354" cy="150" r="8" fill="#0a1f33" />
+              </svg>
+              <div className="mt-2 flex items-center justify-between">
+                <div className="text-left">
+                  <p className="font-dm text-[11px] font-bold uppercase tracking-[0.14em] text-[#808080]">
+                    From
+                  </p>
+                  <p className="font-cal text-[18px] font-bold text-[#0a1f33]">
+                    Colombo
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="font-dm text-[11px] font-bold uppercase tracking-[0.14em] text-[#808080]">
+                    To
+                  </p>
+                  <p className="font-cal text-[18px] font-bold text-[#0a1f33]">
+                    Buyer&apos;s door
+                  </p>
+                </div>
+              </div>
+            </div>
 
-            <ol className="grid grid-cols-1 gap-6 md:grid-cols-6 md:gap-3">
-              {STAGES.map((stage, i) => {
-                const done = tracked && i < activeStage;
-                const activeNow = tracked && i === activeStage;
-                const reached = done || activeNow;
-                return (
-                  <li
-                    key={stage.label}
-                    className="relative flex gap-4 md:flex-col md:gap-0"
-                  >
-                    <div
-                      className={`relative z-10 flex size-11 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-500 ${
-                        reached
-                          ? "border-[#fffb96] bg-[#fffb96] text-[#0a1f33]"
-                          : "border-[#E3E9F1] bg-white text-[#9aa6b5]"
-                      } ${
-                        activeNow
-                          ? "scale-110 shadow-[0_0_0_6px_rgba(255,251,150,0.3)]"
-                          : ""
-                      }`}
-                    >
-                      {done ? (
-                        <CheckIcon className="h-5 w-5" />
-                      ) : (
-                        <stage.Icon className="h-6 w-6" />
+            {/* Numbered vertical timeline */}
+            <div className="rounded-tl-[32px] rounded-br-[32px] border border-[#E3E9F1] bg-white p-6 sm:p-8">
+              <div className="mb-5 flex items-center justify-between">
+                <p className="font-cal text-[18px] font-bold text-[#0a1f33]">
+                  {tracked ? `Shipment ${tracked}` : "Shipment journey"}
+                </p>
+                {tracked && (
+                  <span className="rounded-full bg-[#fffb96] px-3 py-1 font-dm text-[11px] font-bold uppercase tracking-[0.1em] text-[#0a1f33]">
+                    In transit
+                  </span>
+                )}
+              </div>
+
+              <ol>
+                {STAGES.map((stage, i) => {
+                  const done = tracked ? i < activeStage : false;
+                  const activeNow = tracked ? i === activeStage : false;
+                  const last = i === STAGES.length - 1;
+                  return (
+                    <li key={stage.label} className="relative flex gap-4 pb-6 last:pb-0">
+                      {!last && (
+                        <span
+                          className={`absolute left-[19px] top-10 bottom-0 w-[2px] transition-colors duration-500 ${
+                            done ? "bg-[#fffb96]" : "bg-[#E3E9F1]"
+                          }`}
+                        />
                       )}
-                    </div>
-                    <div className="md:mt-4">
-                      <p
-                        className={`font-cal text-[16px] font-bold leading-tight ${
-                          reached ? "text-[#0a1f33]" : "text-[#9aa6b5]"
+                      <span
+                        className={`relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border-2 font-cal text-[15px] font-bold transition-all duration-500 ${
+                          done
+                            ? "border-[#fffb96] bg-[#fffb96] text-[#0a1f33]"
+                            : activeNow
+                            ? "border-[#fffb96] bg-[#fffb96] text-[#0a1f33] shadow-[0_0_0_5px_rgba(255,251,150,0.35)]"
+                            : "border-[#E3E9F1] bg-white text-[#9aa6b5]"
                         }`}
                       >
-                        {stage.label}
-                      </p>
-                      <p className="mt-1 font-cal text-[13px] leading-[1.4] text-[#808080]">
-                        {stage.caption}
-                      </p>
-                    </div>
-                  </li>
-                );
-              })}
-            </ol>
+                        {done ? <CheckIcon className="h-5 w-5" /> : i + 1}
+                      </span>
+
+                      <div
+                        className={`flex-1 rounded-tl-[16px] rounded-br-[16px] px-4 py-2.5 transition-colors duration-500 ${
+                          activeNow ? "bg-[#F0F4F9]" : ""
+                        }`}
+                      >
+                        <p
+                          className={`font-cal text-[16px] font-bold leading-tight ${
+                            done || activeNow ? "text-[#0a1f33]" : "text-[#9aa6b5]"
+                          }`}
+                        >
+                          {stage.label}
+                        </p>
+                        <p className="mt-1 font-cal text-[13.5px] leading-[1.45] text-[#808080]">
+                          {stage.caption}
+                        </p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Documentation checklist */}
       <section className="w-full bg-[#F0F4F9]">
-        <div className="mx-auto w-full max-w-[1160px] px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
+        <div className="mx-auto w-full max-w-[1280px] px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
           <SectionHeader
             eyebrow="Documentation"
             title="paperwork at every stage"

@@ -3,14 +3,6 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 
-const NAV_LINKS = [
-  { label: "Ship", href: "/ship" },
-  { label: "Track", href: "/track" },
-  { label: "Network", href: "/network" },
-  { label: "Industries", href: "/industries" },
-  { label: "About", href: "/about" },
-];
-
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
 
@@ -44,12 +36,6 @@ export default function Hero() {
           { scale: 1, opacity: 1, duration: 1.4, ease: "power2.out" },
           0
         )
-          .fromTo(
-            root.querySelector("[data-hero-nav]"),
-            { opacity: 0, y: -20 },
-            { opacity: 1, y: 0, duration: 0.9 },
-            0.2
-          )
           .fromTo(
             root.querySelector("[data-hero-title]"),
             { opacity: 0, y: 40, letterSpacing: "-0.05em" },
@@ -127,41 +113,6 @@ export default function Hero() {
           />
         </div>
 
-        {/* Nav */}
-        <header
-          data-hero-nav
-          className="absolute inset-x-0 top-0 z-20 flex h-[45px] items-center justify-between px-[3.53%]"
-          style={{ top: "1.52%" }}
-        >
-          <Image
-            src="/figma/img/logo.png"
-            alt="Cargo World Wide"
-            width={97}
-            height={40}
-            priority
-            className="h-[40px] w-[97px] object-contain"
-          />
-
-          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-[30px] lg:flex">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="font-cal text-[16px] leading-none text-white transition-opacity hover:opacity-70"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-
-          <a
-            href="/quote"
-            className="rounded-tl-[20px] rounded-br-[20px] bg-[#fffb96] px-5 py-2.5 font-cal text-[16px] leading-none text-black transition-transform hover:scale-[1.03]"
-          >
-            Get a quote
-          </a>
-        </header>
-
         {/* Hero content — smaller and centered in the frame */}
         <div
           data-hero-content
@@ -187,10 +138,10 @@ export default function Hero() {
 
           <div
             data-hero-actions
-            className="mt-[clamp(28px,3.4vw,58px)] flex w-full max-w-[478px] items-center gap-2"
+            className="mt-[clamp(28px,3.4vw,58px)] flex w-full max-w-[478px] flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-2"
           >
             <form
-              className="flex h-[clamp(52px,4.05vw,70px)] flex-1 items-center rounded-tl-[20px] rounded-br-[20px] bg-white/10 pl-6 pr-2 backdrop-blur-md"
+              className="flex h-[56px] w-full items-center rounded-tl-[20px] rounded-br-[20px] bg-white/10 pl-6 pr-2 backdrop-blur-md sm:h-[clamp(52px,4.05vw,70px)] sm:flex-1"
               action="/track"
               id="track"
             >
@@ -217,7 +168,7 @@ export default function Hero() {
 
             <a
               href="/quote"
-              className="flex h-[clamp(52px,4.05vw,70px)] shrink-0 items-center justify-center rounded-tl-[20px] rounded-br-[20px] bg-[#fffb96] px-[clamp(18px,1.7vw,30px)] font-cal text-[clamp(15px,1.25vw,21px)] text-black transition-transform hover:scale-[1.03]"
+              className="flex h-[56px] w-full shrink-0 items-center justify-center rounded-tl-[20px] rounded-br-[20px] bg-[#fffb96] px-6 font-cal text-[17px] text-black transition-transform hover:scale-[1.03] sm:h-[clamp(52px,4.05vw,70px)] sm:w-auto sm:px-[clamp(18px,1.7vw,30px)] sm:text-[clamp(15px,1.25vw,21px)]"
             >
               Get a quote
             </a>

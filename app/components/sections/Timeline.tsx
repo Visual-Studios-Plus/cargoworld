@@ -291,6 +291,40 @@ export default function Timeline() {
       });
 
       mm.add("(max-width: 1023px)", () => {
+        // Draw the vertical rail as the steps scroll past.
+        const rail = root.querySelector<SVGPathElement>("[data-rail]");
+        const wrap = root.querySelector<HTMLElement>("[data-rail-wrap]");
+        if (rail && wrap) {
+          const len = rail.getTotalLength();
+          gsap.set(rail, { strokeDasharray: len, strokeDashoffset: len });
+          gsap.to(rail, {
+            strokeDashoffset: 0,
+            ease: "none",
+            scrollTrigger: {
+              trigger: wrap,
+              start: "top 78%",
+              end: "bottom 62%",
+              scrub: 0.8,
+            },
+          });
+        }
+
+        // Pop each dot as it enters the frame.
+        const dots = root.querySelectorAll<HTMLElement>("[data-dot-mobile]");
+        gsap.set(dots, { scale: 0, transformOrigin: "50% 50%" });
+        dots.forEach((dot) => {
+          gsap.to(dot, {
+            scale: 1,
+            duration: 0.5,
+            ease: "back.out(2)",
+            scrollTrigger: {
+              trigger: dot,
+              start: "top 84%",
+              toggleActions: "play none none reverse",
+            },
+          });
+        });
+
         root
           .querySelectorAll<HTMLElement>("[data-card-mobile]")
           .forEach((card) => {
@@ -301,7 +335,7 @@ export default function Timeline() {
               ease: "power2.out",
               scrollTrigger: {
                 trigger: card,
-                start: "top 90%",
+                start: "top 88%",
                 toggleActions: "play none none reverse",
               },
             });
@@ -389,19 +423,41 @@ export default function Timeline() {
           transportation
         </h2>
 
-        <div className="mt-12 flex flex-col gap-12 border-l-2 border-dashed border-black/15 pl-6">
-          {STEPS.map((step, i) => (
-            <article
-              key={step.id}
-              data-card-mobile
-              className="relative flex items-start gap-5 will-change-transform"
-            >
-              <span className="absolute -left-[35px] top-2 size-4 rounded-full bg-black" />
-              <StepImage
-                step={step}
-                className="w-[38%] shrink-0 aspect-[249/316]"
-              />
-              <div className="flex flex-1 flex-col text-left">
+        <div data-rail-wrap className="relative mt-12">
+          {/* Animated vertical SVG rail (draws on scroll) */}
+          <svg
+            aria-hidden="true"
+            preserveAspectRatio="none"
+            viewBox="0 0 32 1000"
+            className="pointer-events-none absolute left-0 top-1 h-[calc(100%-0.5rem)] w-8"
+          >
+            <path
+              data-rail
+              d="M16 0 L16 1000"
+              fill="none"
+              stroke="black"
+              strokeWidth={2.5}
+              strokeLinecap="round"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+
+          <div className="flex flex-col gap-12">
+            {STEPS.map((step, i) => (
+              <article
+                key={step.id}
+                data-card-mobile
+                className="relative flex items-start gap-5 pl-12 will-change-transform"
+              >
+                <span
+                  data-dot-mobile
+                  className="absolute left-4 top-2 size-4 -translate-x-1/2 rounded-full bg-black ring-4 ring-white will-change-transform"
+                />
+                <StepImage
+                  step={step}
+                  className="w-[38%] shrink-0 aspect-[249/316]"
+                />
+                <div className="flex flex-1 flex-col text-left">
                 <span className="font-cal text-[12px] uppercase tracking-widest text-black/40">
                   Step {i + 1}
                 </span>
@@ -411,9 +467,10 @@ export default function Timeline() {
                 <p className="mt-3 font-cal text-[clamp(12px,2.8vw,16px)] leading-[1.3] text-[#8f8f8f]">
                   {COPY}
                 </p>
-              </div>
-            </article>
-          ))}
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>

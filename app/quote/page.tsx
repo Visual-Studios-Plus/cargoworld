@@ -92,7 +92,7 @@ export default function QuotePage() {
       </PageHero>
 
       <section className="w-full bg-white">
-        <div className="mx-auto grid w-full max-w-[1160px] grid-cols-1 gap-8 px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(40px,5vw,80px)] lg:grid-cols-[1.4fr_1fr]">
+        <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-8 px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(40px,5vw,80px)] lg:grid-cols-[1.4fr_1fr]">
           {/* Builder */}
           <div>
             {/* Sentence */}

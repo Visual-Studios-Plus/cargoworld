@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 type Service = {
   title: string;
@@ -16,37 +17,32 @@ const SERVICES: Service[] = [
     alt: "Aerial view of a container ship at sea",
   },
   {
-    title: "Air Cargo",
+    title: "Air Freight",
     image: "/figma/img/services/service-2.webp",
     alt: "Cargo plane flying above stacked shipping containers",
   },
   {
-    title: "Land Transport",
+    title: "Transportation",
     image: "/figma/img/services/service-3.webp",
     alt: "Fleet of freight trucks lined up on the road",
   },
   {
-    title: "Warehousing",
+    title: "Warehousing & Distribution",
     image: "/figma/img/services/service-4.webp",
     alt: "Palletised goods stored along warehouse aisles",
   },
   {
-    title: "Customs Clearance",
+    title: "Customs Brokerage",
     image: "/figma/img/services/service-5.webp",
     alt: "Logistics specialists reviewing documents at a container",
   },
   {
-    title: "Global Logistics",
+    title: "4PL Services",
     image: "/figma/img/services/about.webp",
     alt: "Container ship and cargo plane at a busy port",
   },
   {
-    title: "Digital Tracking",
-    image: "/figma/img/services/service-6.webp",
-    alt: "Operations team monitoring shipments on screens",
-  },
-  {
-    title: "Special Cargo",
+    title: "Project Cargo",
     image: "/figma/img/services/service-7.webp",
     alt: "Oversized cargo being loaded onto a freighter aircraft",
   },
@@ -100,10 +96,7 @@ export default function Services() {
       gsap.registerPlugin(ScrollTrigger);
 
       if (disposed) return;
-
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        return;
-      }
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
       mm = gsap.matchMedia();
 
@@ -143,26 +136,28 @@ export default function Services() {
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      id="services"
-      className="w-full overflow-hidden bg-white"
-    >
-      <div className="mx-auto w-full max-w-[1160px] px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
+    <section ref={sectionRef} id="services" className="w-full overflow-hidden bg-white">
+      <div className="mx-auto w-full max-w-[1280px] px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)] lg:px-10">
         <div data-services-header className="will-change-transform">
           <p className="text-center font-dm text-[11px] font-bold uppercase tracking-[0.18em] text-[#8f8f8f]">
             Our services
           </p>
-          <h2 className="mt-3 text-center font-cal text-[clamp(36px,3.2vw,54px)] leading-[1.05] tracking-[-0.03em] text-black">
+          <h2
+            className="mt-3 text-center font-cal text-[clamp(36px,3.2vw,54px)] text-black"
+            style={{ letterSpacing: "-0.02em", lineHeight: 1.05 }}
+          >
             services offer
           </h2>
-          <p className="mx-auto mt-4 max-w-[480px] text-center font-cal text-[15px] leading-[1.45] tracking-[0.015em] text-[#808080]">
+          <p
+            className="mx-auto mt-4 max-w-[480px] text-center font-cal text-[15px] text-[#808080]"
+            style={{ lineHeight: 1.5 }}
+          >
             End-to-end freight and supply chain services, connected by one team
             and one promise: your cargo arrives exactly as planned.
           </p>
         </div>
 
-        <div className="relative mt-8 md:mt-10">
+        <div className="relative mt-10">
           <button
             type="button"
             onClick={() => scrollTrack(-1)}
@@ -170,16 +165,7 @@ export default function Services() {
             aria-label="Previous services"
             className="absolute -left-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-900 shadow-lg transition-all duration-300 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white disabled:cursor-not-allowed disabled:opacity-35 md:-left-5 md:h-11 md:w-11"
           >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-              className="h-[18px] w-[18px]"
-            >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-[18px] w-[18px]">
               <path d="M19 12H5M11 5l-7 7 7 7" />
             </svg>
           </button>
@@ -191,16 +177,7 @@ export default function Services() {
             aria-label="Next services"
             className="absolute -right-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-900 shadow-lg transition-all duration-300 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white disabled:cursor-not-allowed disabled:opacity-35 md:-right-5 md:h-11 md:w-11"
           >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-              className="h-[18px] w-[18px]"
-            >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-[18px] w-[18px]">
               <path d="M5 12h14M13 5l7 7-7 7" />
             </svg>
           </button>
@@ -212,11 +189,11 @@ export default function Services() {
             className="services-track flex snap-x snap-mandatory gap-[50px] overflow-x-auto pb-2"
           >
             {SERVICES.map(({ title, image, alt }) => (
-              <a
+              <Link
                 key={title}
                 data-service-card
                 href="/quote"
-                aria-label={`Learn more about ${title}`}
+                aria-label={`Get a quote for ${title}`}
                 className="group relative h-[320px] w-full shrink-0 snap-start overflow-hidden rounded-2xl border border-neutral-200/80 bg-[#dbe8f3] transition-all duration-300 hover:shadow-xl sm:w-[calc((100%-50px)/2)] lg:w-[calc((100%-150px)/4)]"
               >
                 <Image
@@ -237,21 +214,12 @@ export default function Services() {
                     aria-hidden="true"
                     className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border border-white/70 text-white transition-all duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-brand-blue"
                   >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                      className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                       <path d="M7 17 17 7M9 7h8v8" />
                     </svg>
                   </span>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </div>

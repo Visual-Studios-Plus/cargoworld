@@ -98,7 +98,7 @@ export default function ShipPage() {
       </PageHero>
 
       <section className="w-full bg-white">
-        <div className="mx-auto w-full max-w-[1160px] px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
+        <div className="mx-auto w-full max-w-[1280px] px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
           <SectionHeader
             eyebrow="Our services"
             title="everything you need to move cargo"
