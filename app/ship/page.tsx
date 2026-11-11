@@ -1,18 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import SiteHeader from "../components/SiteHeader";
+import SectionHeader from "../components/SectionHeader";
+import PageHero from "../components/PageHero";
 import Footer from "../components/sections/Footer";
 import CallToAction from "../components/sections/CallToAction";
-import {
-  OceanIcon,
-  AirIcon,
-  CustomsIcon,
-  TruckIcon,
-  WarehouseIcon,
-  FourPlIcon,
-  ProjectIcon,
-  ArrowUpRight,
-} from "../components/Icons";
 
 export const metadata: Metadata = {
   title: "Ship — Freight & logistics services | Cargo World Wide",
@@ -23,51 +16,52 @@ export const metadata: Metadata = {
 type Service = {
   title: string;
   blurb: string;
-  Icon: typeof OceanIcon;
+  image: string;
+  alt: string;
 };
 
 const SERVICES: Service[] = [
   {
     title: "Ocean Freight",
-    blurb:
-      "FCL & LCL consolidations from Colombo with weekly sailings via MSC, Maersk and ONE to our US ports.",
-    Icon: OceanIcon,
+    blurb: "FCL & LCL from Colombo, weekly sailings via MSC, Maersk and ONE.",
+    image: "/figma/img/services/service-1.webp",
+    alt: "Aerial view of a container ship at sea",
   },
   {
     title: "Air Cargo",
-    blurb:
-      "Time-critical and perishable air freight with priority uplift when the deadline cannot move.",
-    Icon: AirIcon,
+    blurb: "Time-critical uplift when the deadline simply cannot move.",
+    image: "/figma/img/services/service-2.webp",
+    alt: "Cargo plane above stacked shipping containers",
   },
   {
     title: "Customs Brokerage",
-    blurb:
-      "In-house brokers clear your cargo at the US port and keep every HS code and document compliant.",
-    Icon: CustomsIcon,
+    blurb: "In-house brokers clear your cargo and keep every document compliant.",
+    image: "/figma/img/services/service-5.webp",
+    alt: "Specialists reviewing documents at a container",
   },
   {
     title: "Transportation / Trucking",
-    blurb:
-      "Final-mile delivery on our own trucks from our warehouses straight to the buyer's door.",
-    Icon: TruckIcon,
+    blurb: "Final-mile on our own trucks, warehouse to buyer's door.",
+    image: "/figma/img/services/service-3.webp",
+    alt: "Fleet of freight trucks on the road",
   },
   {
     title: "Warehousing",
-    blurb:
-      "Secure, scalable storage and fulfilment at our own US warehouses in LA, Houston, NY and West Virginia.",
-    Icon: WarehouseIcon,
+    blurb: "Secure, scalable storage at our own US warehouses.",
+    image: "/figma/img/services/service-4.webp",
+    alt: "Palletised goods stored along warehouse aisles",
   },
   {
     title: "4PL Services",
-    blurb:
-      "End-to-end supply chain management — we orchestrate origin to final delivery as your single point of contact.",
-    Icon: FourPlIcon,
+    blurb: "We orchestrate origin to final delivery as your single contact.",
+    image: "/figma/img/services/about.webp",
+    alt: "Container ship and cargo plane at a busy port",
   },
   {
     title: "Project Cargo",
-    blurb:
-      "Oversized, heavy-lift and out-of-gauge consignments planned and moved with specialist handling.",
-    Icon: ProjectIcon,
+    blurb: "Oversized, heavy-lift and out-of-gauge moves, specially handled.",
+    image: "/figma/img/services/service-7.webp",
+    alt: "Oversized cargo loaded onto a freighter aircraft",
   },
 ];
 
@@ -76,74 +70,86 @@ export default function ShipPage() {
     <main className="flex w-full flex-col bg-white">
       <SiteHeader />
 
-      <section className="bg-[#0D253F]">
-        <div className="mx-auto w-full max-w-[1160px] px-6 pb-[clamp(56px,7vw,104px)] pt-[clamp(48px,6vw,88px)]">
-          <p className="font-dm text-[11px] font-bold uppercase tracking-[0.18em] text-[#fffb96]">
-            Ship with Cargo World Wide
-          </p>
-          <h1 className="mt-4 max-w-[760px] font-syne text-[clamp(34px,5vw,64px)] font-bold leading-[0.95] tracking-[-0.02em] text-white">
-            Comprehensive freight &amp; logistics, one accountable team.
-          </h1>
-          <p className="mt-6 max-w-[560px] font-cal text-[clamp(15px,1.3vw,18px)] leading-[1.5] text-white/70">
-            From a single pallet to a full project move, we run every link of the
-            chain — direct from Colombo to our own US warehouses in Los Angeles,
-            Houston, New York and West Virginia, then to your door on our own
-            fleet.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/quote"
-              className="rounded-tl-[20px] rounded-br-[20px] bg-[#fffb96] px-6 py-3.5 font-cal text-[16px] text-black transition-transform hover:scale-[1.03]"
-            >
-              Get a quote
-            </Link>
-            <Link
-              href="/track"
-              className="rounded-tl-[20px] rounded-br-[20px] border border-white/25 px-6 py-3.5 font-cal text-[16px] text-white transition-colors hover:bg-white/10"
-            >
-              Track a shipment
-            </Link>
-          </div>
+      <PageHero
+        image="/figma/img/services/service-1.webp"
+        title={
+          <>
+            ship it door to door,
+            <br />
+            one accountable team
+          </>
+        }
+        description="From a single pallet to a full project move, we run every link — direct from Colombo to our own US warehouses in Los Angeles, Houston, New York and West Virginia, then to your door on our own fleet."
+      >
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <Link
+            href="/quote"
+            className="flex h-[58px] items-center justify-center rounded-tl-[20px] rounded-br-[20px] bg-[#fffb96] px-7 font-cal text-[18px] text-black transition-transform hover:scale-[1.03]"
+          >
+            Get a quote
+          </Link>
+          <Link
+            href="/track"
+            className="flex h-[58px] items-center justify-center rounded-tl-[20px] rounded-br-[20px] bg-white/10 px-7 font-cal text-[18px] text-white backdrop-blur-md transition-colors hover:bg-white/20"
+          >
+            Track a shipment
+          </Link>
         </div>
-      </section>
+      </PageHero>
 
       <section className="w-full bg-white">
-        <div className="mx-auto w-full max-w-[1160px] px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,96px)]">
-          <div className="max-w-[520px]">
-            <h2 className="font-cal text-[clamp(28px,3vw,44px)] leading-[1.05] tracking-[-0.03em] text-[#0D253F]">
-              Everything you need to move cargo
-            </h2>
-            <p className="mt-3 font-cal text-[15px] leading-[1.5] text-[#6b7280]">
-              Seven connected services, searchable and transparent, each linking
-              straight to a quote.
-            </p>
-          </div>
+        <div className="mx-auto w-full max-w-[1160px] px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
+          <SectionHeader
+            eyebrow="Our services"
+            title="everything you need to move cargo"
+            subtitle="Seven connected services, searchable and transparent, each one a tap away from a quote."
+          />
 
-          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map(({ title, blurb, Icon }) => (
+          <div className="mt-10 grid grid-cols-1 gap-[50px] sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+            {SERVICES.map(({ title, blurb, image, alt }) => (
               <Link
                 key={title}
                 href="/quote"
                 aria-label={`Get a quote for ${title}`}
-                className="group relative flex flex-col overflow-hidden rounded-3xl bg-[#F0F4F9] p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                className="group relative h-[340px] overflow-hidden rounded-2xl border border-neutral-200/80 bg-[#dbe8f3] transition-all duration-300 hover:shadow-xl"
               >
-                <span className="flex size-16 items-center justify-center rounded-2xl bg-white text-[#0D253F] shadow-sm transition-transform duration-300 group-hover:scale-110">
-                  <Icon className="h-9 w-9" />
-                </span>
+                <Image
+                  src={image}
+                  alt={alt}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#061421]/95 via-[#061421]/35 to-transparent" />
 
-                <h3 className="mt-6 font-cal text-[22px] font-bold leading-tight tracking-tight text-[#0D253F]">
-                  {title}
-                </h3>
-                <p className="mt-2.5 font-cal text-[14.5px] leading-[1.5] text-[#5b6675]">
-                  {blurb}
-                </p>
+                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5">
+                  <div>
+                    <h3 className="font-cal text-xl font-bold leading-tight tracking-tight text-white transition-colors duration-300 group-hover:text-accent">
+                      {title}
+                    </h3>
+                    <p className="mt-1.5 max-w-[240px] font-cal text-[13.5px] leading-[1.45] text-white/75">
+                      {blurb}
+                    </p>
+                  </div>
 
-                <span
-                  aria-hidden="true"
-                  className="mt-6 flex size-11 items-center justify-center rounded-full border border-[#0D253F]/15 text-[#0D253F] transition-all duration-300 group-hover:border-[#fffb96] group-hover:bg-[#fffb96]"
-                >
-                  <ArrowUpRight className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </span>
+                  <span
+                    aria-hidden="true"
+                    className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border border-white/70 text-white transition-all duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-brand-blue"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                      className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    >
+                      <path d="M7 17 17 7M9 7h8v8" />
+                    </svg>
+                  </span>
+                </div>
               </Link>
             ))}
           </div>

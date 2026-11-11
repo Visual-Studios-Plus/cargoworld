@@ -15,14 +15,30 @@ export const NAV_LINKS = [
 
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const solid = scrolled || open;
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#0D253F]/95 backdrop-blur-md">
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+        solid
+          ? "border-b border-white/10 bg-[#0a1f33]/95 backdrop-blur-md"
+          : "bg-transparent"
+      }`}
+    >
       <div className="mx-auto flex h-[68px] w-full max-w-[1160px] items-center justify-between px-6">
         <Link href="/" aria-label="Cargo World Wide — home" className="shrink-0">
           <Image
@@ -31,7 +47,7 @@ export default function SiteHeader() {
             width={97}
             height={40}
             priority
-            className="h-[38px] w-[92px] object-contain"
+            className="h-[40px] w-[97px] object-contain"
           />
         </Link>
 
@@ -87,7 +103,7 @@ export default function SiteHeader() {
       </div>
 
       {open && (
-        <nav className="border-t border-white/10 bg-[#0D253F] px-6 py-4 lg:hidden">
+        <nav className="border-t border-white/10 bg-[#0a1f33] px-6 py-4 lg:hidden">
           <ul className="flex flex-col gap-1">
             {NAV_LINKS.map(({ label, href }) => (
               <li key={href}>
