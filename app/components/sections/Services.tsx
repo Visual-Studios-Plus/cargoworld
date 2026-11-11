@@ -215,7 +215,7 @@ export default function Services() {
               <a
                 key={title}
                 data-service-card
-                href="#quote"
+                href="/quote"
                 aria-label={`Learn more about ${title}`}
                 className="group relative h-[320px] w-full shrink-0 snap-start overflow-hidden rounded-2xl border border-neutral-200/80 bg-[#dbe8f3] transition-all duration-300 hover:shadow-xl sm:w-[calc((100%-50px)/2)] lg:w-[calc((100%-150px)/4)]"
               >

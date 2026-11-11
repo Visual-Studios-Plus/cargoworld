@@ -23,7 +23,7 @@ export default function CallToAction() {
 
       <div className="relative z-10 mx-auto flex w-full max-w-2xl flex-col items-center justify-center gap-4 sm:flex-row">
         <form
-          action="#track"
+          action="/track"
           className="flex h-[64px] w-full items-center rounded-tl-[20px] rounded-br-[20px] bg-white/10 pl-6 pr-2 backdrop-blur-md sm:w-[420px]"
         >
           <label htmlFor="cta-tracking" className="sr-only">
@@ -52,7 +52,7 @@ export default function CallToAction() {
         </form>
 
         <a
-          href="#quote"
+          href="/quote"
           className="flex h-[64px] w-full shrink-0 cursor-pointer items-center justify-center rounded-tl-[20px] rounded-br-[20px] bg-[#fffb96] px-7 font-cal text-lg leading-none text-black transition-transform hover:scale-[1.03] sm:w-auto"
         >
           Get a quote

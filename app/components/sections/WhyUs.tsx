@@ -110,7 +110,7 @@ export default function WhyUs() {
                 peace of mind
               </h3>
               <a
-                href="#quote"
+                href="/quote"
                 className="flex h-[52px] w-[165px] items-center justify-center rounded-tl-[16px] rounded-br-[16px] bg-[#fffb96] font-syne text-[16px] font-semibold text-black transition-transform hover:scale-[1.03]"
               >
                 Explore more
