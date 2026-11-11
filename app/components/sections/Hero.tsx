@@ -88,7 +88,11 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={heroRef} className="relative w-full overflow-hidden bg-black">
+    <section
+      ref={heroRef}
+      data-hero-section
+      className="relative w-full overflow-hidden bg-black"
+    >
       <div className="relative mx-auto w-full max-w-[1728px] md:aspect-[1728/1117]">
         {/* Background artwork */}
         <div data-hero-bg className="absolute inset-0 overflow-hidden will-change-transform">

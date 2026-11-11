@@ -52,16 +52,16 @@ export default function CoreCarriers() {
       `}</style>
 
       <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10">
-        <p className="font-dm text-[11px] font-bold uppercase tracking-[0.18em] text-[#8f8f8f]">
+        <p className="text-center font-dm text-[11px] font-bold uppercase tracking-[0.18em] text-[#8f8f8f]">
           Trusted lanes
         </p>
         <h2
-          className="mt-3 font-cal text-[clamp(32px,3vw,48px)] text-black"
+          className="mt-3 text-center font-cal text-[clamp(32px,3vw,48px)] text-black"
           style={{ letterSpacing: "-0.02em", lineHeight: 1.05 }}
         >
           Core Carriers
         </h2>
-        <p className="mt-3 max-w-[520px] font-cal text-[15px] text-[#808080]" style={{ lineHeight: 1.5 }}>
+        <p className="mx-auto mt-3 max-w-[520px] text-center font-cal text-[15px] text-[#808080]" style={{ lineHeight: 1.5 }}>
           We book space across the world&apos;s leading ocean and air carriers,
           so your cargo always has a sailing.
         </p>
