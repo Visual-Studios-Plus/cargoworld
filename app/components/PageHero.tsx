@@ -4,44 +4,56 @@ type Props = {
   image: string;
   title: React.ReactNode;
   description?: string;
+  eyebrow?: string;
   children?: React.ReactNode;
 };
 
+/**
+ * Sub-page hero — Custo gallery split: anodized-graphite band, left-aligned
+ * display type, and the photograph contained in an 8px card on the right.
+ */
 export default function PageHero({
   image,
   title,
   description,
+  eyebrow,
   children,
 }: Props) {
   return (
-    <section className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-neutral-950 px-6 pt-[clamp(120px,14vw,180px)] pb-[clamp(56px,7vw,104px)] text-center">
-      <Image
-        src={image}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
-      />
-      <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-neutral-950/75 via-neutral-950/70 to-neutral-950/92" />
-      {/* Fade into the white canvas below, echoing the home hero transition */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[22%] bg-gradient-to-t from-white via-white/50 to-transparent" />
+    <section className="w-full bg-[#4b514d] pt-[60px]">
+      <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 items-end gap-10 px-6 py-[clamp(56px,8vw,110px)] lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:px-10">
+        <div className="flex flex-col items-start">
+          {eyebrow && (
+            <p className="mb-6 text-[15px] leading-[1.43] text-[#d8d8d8]">
+              {eyebrow}
+            </p>
+          )}
+          <h1 className="text-[clamp(40px,5.2vw,72px)] font-medium leading-[1] tracking-[-0.02em] text-white">
+            {title}
+          </h1>
+          {description && (
+            <p className="mt-6 max-w-[52ch] text-[clamp(16px,1.3vw,19px)] leading-[1.42] text-[#d8d8d8]">
+              {description}
+            </p>
+          )}
+          {children && (
+            <div className="mt-10 flex w-full flex-col items-start [&>div]:justify-start">
+              {children}
+            </div>
+          )}
+        </div>
 
-      <div className="relative z-10 flex w-full max-w-[820px] flex-col items-center">
-        <h1 className="font-syne text-[clamp(38px,5.4vw,80px)] font-bold leading-[0.9] tracking-[-0.02em] text-white">
-          {title}
-        </h1>
-        {description && (
-          <p className="mt-5 max-w-[620px] font-dm text-[clamp(12px,0.95vw,15px)] font-bold leading-[1.5] text-[#fff8cf]">
-            {description}
-          </p>
-        )}
-        {children && (
-          <div className="mt-[clamp(26px,3vw,44px)] flex w-full flex-col items-center">
-            {children}
-          </div>
-        )}
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-[#ffffff]">
+          <Image
+            src={image}
+            alt=""
+            fill
+            priority
+            sizes="(max-width: 1024px) 100vw, 560px"
+            aria-hidden="true"
+            className="object-cover"
+          />
+        </div>
       </div>
     </section>
   );

@@ -9,7 +9,7 @@ import Footer from "./components/sections/Footer";
 
 export default function Home() {
   return (
-    <main className="flex w-full flex-col bg-white">
+    <main className="flex w-full flex-col bg-[#ffffff]">
       <SiteHeader />
       <Hero />
       <WhyUs />

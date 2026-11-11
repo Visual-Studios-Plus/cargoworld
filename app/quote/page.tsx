@@ -33,7 +33,7 @@ const PAPERWORK = ["Commercial Invoice", "Packing List", "Certificate of Origin"
 
 function Field({ children }: { children: React.ReactNode }) {
   return (
-    <span className="relative mx-1 inline-flex items-center rounded-tl-[12px] rounded-br-[12px] bg-[#F0F4F9] ring-1 ring-inset ring-[#0a1f33]/10 transition-colors focus-within:ring-2 focus-within:ring-[#fffb96]">
+    <span className="relative mx-1 inline-flex items-center rounded-full bg-[#f1f1f1] ring-1 ring-inset ring-[#000000]/10 transition-colors focus-within:ring-2 focus-within:ring-black">
       {children}
     </span>
   );
@@ -78,7 +78,7 @@ export default function QuotePage() {
   )}&body=${encodeURIComponent(summary)}`;
 
   return (
-    <main className="flex w-full flex-col bg-white">
+    <main className="flex w-full flex-col bg-[#ffffff]">
       <SiteHeader />
 
       <PageHero
@@ -86,32 +86,32 @@ export default function QuotePage() {
         title={<>tell us your shipment in one sentence</>}
         description="No long forms. Fill in the blanks, pick your services, and send it straight to our team."
       >
-        <span className="rounded-full bg-[#fffb96] px-4 py-1.5 font-dm text-[12px] font-bold uppercase tracking-[0.12em] text-[#0a1f33]">
+        <span className="rounded-full bg-[#fffb96] px-4 py-1.5 font-dm text-[12px] font-medium uppercase tracking-[0.12em] text-black">
           Reference {ref}
         </span>
       </PageHero>
 
-      <section className="w-full bg-white">
-        <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-8 px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(40px,5vw,80px)] lg:grid-cols-[1.4fr_1fr]">
+      <section className="w-full bg-[#ffffff]">
+        <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-8 px-6 lg:px-10 pb-[clamp(56px,7vw,112px)] pt-[clamp(40px,5vw,80px)] lg:grid-cols-[1.4fr_1fr]">
           {/* Builder */}
           <div>
             {/* Sentence */}
-            <div className="rounded-tl-[32px] rounded-br-[32px] border border-[#E3E9F1] bg-white p-7 sm:p-9">
-              <p className="font-syne text-[clamp(20px,2.1vw,30px)] font-semibold leading-[1.9] tracking-[-0.01em] text-[#0a1f33]">
+            <div className="rounded-lg border border-[#d8d8d8] bg-[#ffffff] p-7 sm:p-9">
+              <p className="font-syne text-[clamp(20px,2.1vw,30px)] font-medium leading-[1.9] tracking-[-0.01em] text-[#000000]">
                 I&apos;m shipping a
                 <Field>
                   <select
                     aria-label="Load type"
                     value={load}
                     onChange={(e) => setLoad(e.target.value)}
-                    className="cursor-pointer appearance-none bg-transparent px-3 py-1.5 pr-8 font-syne text-[#0a1f33] focus:outline-none"
+                    className="cursor-pointer appearance-none bg-transparent px-3 py-1.5 pr-8 font-syne text-[#000000] focus:outline-none"
                   >
                     {LOADS.map((l) => (
                       <option key={l}>{l}</option>
                     ))}
                   </select>
                   <svg
-                    className="pointer-events-none absolute right-2.5 h-4 w-4 text-[#0a1f33]/50"
+                    className="pointer-events-none absolute right-2.5 h-4 w-4 text-[#000000]/50"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -129,12 +129,12 @@ export default function QuotePage() {
                     onChange={(e) => setCargo(e.target.value)}
                     placeholder="cargo type"
                     size={Math.max(cargo.length || 10, 8)}
-                    className="bg-transparent px-3 py-1.5 font-syne text-[#0a1f33] placeholder:text-[#0a1f33]/40 focus:outline-none"
+                    className="bg-transparent px-3 py-1.5 font-syne text-[#000000] placeholder:text-[#000000]/40 focus:outline-none"
                   />
                 </Field>
                 from
                 <Field>
-                  <span className="px-3 py-1.5 font-syne text-[#0a1f33]">
+                  <span className="px-3 py-1.5 font-syne text-[#000000]">
                     Colombo
                   </span>
                 </Field>
@@ -144,14 +144,14 @@ export default function QuotePage() {
                     aria-label="Destination"
                     value={destination}
                     onChange={(e) => setDestination(e.target.value)}
-                    className="cursor-pointer appearance-none bg-transparent px-3 py-1.5 pr-8 font-syne text-[#0a1f33] focus:outline-none"
+                    className="cursor-pointer appearance-none bg-transparent px-3 py-1.5 pr-8 font-syne text-[#000000] focus:outline-none"
                   >
                     {DESTINATIONS.map((d) => (
                       <option key={d}>{d}</option>
                     ))}
                   </select>
                   <svg
-                    className="pointer-events-none absolute right-2.5 h-4 w-4 text-[#0a1f33]/50"
+                    className="pointer-events-none absolute right-2.5 h-4 w-4 text-[#000000]/50"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -168,7 +168,7 @@ export default function QuotePage() {
                     aria-label="Ready by date"
                     value={readyBy}
                     onChange={(e) => setReadyBy(e.target.value)}
-                    className="cursor-pointer bg-transparent px-3 py-1.5 font-syne text-[#0a1f33] focus:outline-none"
+                    className="cursor-pointer bg-transparent px-3 py-1.5 font-syne text-[#000000] focus:outline-none"
                   />
                 </Field>
                 .
@@ -177,10 +177,10 @@ export default function QuotePage() {
 
             {/* Add-ons */}
             <div className="mt-8">
-              <h2 className="font-cal text-[22px] font-bold text-[#0a1f33]">
+              <h2 className="font-cal text-[22px] font-medium text-[#000000]">
                 Add services
               </h2>
-              <p className="mt-1 font-cal text-[14px] text-[#808080]">
+              <p className="mt-1 font-cal text-[14px] text-[#8e9194]">
                 Select everything you need — tap to toggle.
               </p>
               <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -193,17 +193,17 @@ export default function QuotePage() {
                       role="checkbox"
                       aria-checked={checked}
                       onClick={() => toggleAddon(a)}
-                      className={`flex items-center gap-3 rounded-tl-[16px] rounded-br-[16px] border px-4 py-3.5 text-left font-cal text-[15px] transition-all duration-300 ${
+                      className={`flex items-center gap-3 rounded-full border px-4 py-3.5 text-left font-cal text-[15px] transition-all duration-300 ${
                         checked
-                          ? "border-[#fffb96] bg-[#fffdf0] text-[#0a1f33]"
-                          : "border-[#E3E9F1] bg-white text-[#44505f] hover:border-[#0a1f33]/25"
+                          ? "border-black bg-[#f1f1f1] text-[#000000]"
+                          : "border-[#d8d8d8] bg-[#ffffff] text-[#4b514d] hover:border-[#000000]/25"
                       }`}
                     >
                       <span
                         className={`flex size-6 shrink-0 items-center justify-center rounded-md border transition-colors ${
                           checked
-                            ? "border-[#fffb96] bg-[#fffb96] text-[#0a1f33]"
-                            : "border-[#cbd3de] bg-white text-transparent"
+                            ? "border-black bg-black text-white"
+                            : "border-[#cbd3de] bg-[#ffffff] text-transparent"
                         }`}
                       >
                         <CheckIcon className="h-4 w-4" />
@@ -218,12 +218,12 @@ export default function QuotePage() {
 
           {/* Live preview */}
           <aside className="lg:sticky lg:top-[88px] lg:self-start">
-            <div className="overflow-hidden rounded-tl-[32px] rounded-br-[32px] border border-[#E3E9F1] bg-[#F0F4F9]">
-              <div className="flex items-center justify-between bg-[#0a1f33] px-6 py-4">
-                <p className="font-cal text-[16px] font-bold text-white">
+            <div className="overflow-hidden rounded-lg border border-[#d8d8d8] bg-[#f1f1f1]">
+              <div className="flex items-center justify-between bg-[#000000] px-6 py-4">
+                <p className="font-cal text-[16px] font-medium text-white">
                   Your quote
                 </p>
-                <span className="rounded-full bg-[#fffb96] px-3 py-1 font-dm text-[12px] font-bold text-[#0a1f33]">
+                <span className="rounded-full bg-[#fffb96] px-3 py-1 font-dm text-[12px] font-medium text-black">
                   {ref}
                 </span>
               </div>
@@ -231,40 +231,40 @@ export default function QuotePage() {
               <div className="px-6 py-6">
                 <dl className="space-y-3 font-cal text-[14.5px]">
                   <div className="flex justify-between gap-4">
-                    <dt className="text-[#808080]">Load</dt>
-                    <dd className="text-right font-bold text-[#0a1f33]">
+                    <dt className="text-[#8e9194]">Load</dt>
+                    <dd className="text-right font-medium text-[#000000]">
                       {load}
                     </dd>
                   </div>
                   <div className="flex justify-between gap-4">
-                    <dt className="text-[#808080]">Cargo</dt>
-                    <dd className="text-right font-bold text-[#0a1f33]">
+                    <dt className="text-[#8e9194]">Cargo</dt>
+                    <dd className="text-right font-medium text-[#000000]">
                       {cargoText}
                     </dd>
                   </div>
                   <div className="flex justify-between gap-4">
-                    <dt className="text-[#808080]">Lane</dt>
-                    <dd className="text-right font-bold text-[#0a1f33]">
+                    <dt className="text-[#8e9194]">Lane</dt>
+                    <dd className="text-right font-medium text-[#000000]">
                       Colombo → {destination}
                     </dd>
                   </div>
                   <div className="flex justify-between gap-4">
-                    <dt className="text-[#808080]">Ready by</dt>
-                    <dd className="text-right font-bold text-[#0a1f33]">
+                    <dt className="text-[#8e9194]">Ready by</dt>
+                    <dd className="text-right font-medium text-[#000000]">
                       {readyBy || "—"}
                     </dd>
                   </div>
                 </dl>
 
                 {/* Transit estimate */}
-                <div className="mt-5 rounded-tl-[18px] rounded-br-[18px] bg-white p-4">
-                  <p className="font-dm text-[11px] font-bold uppercase tracking-[0.12em] text-[#808080]">
+                <div className="mt-5 rounded-full bg-[#ffffff] p-4">
+                  <p className="font-dm text-[11px] font-medium uppercase tracking-[0.12em] text-[#8e9194]">
                     Estimated transit
                   </p>
-                  <p className="mt-1 font-syne text-[26px] font-bold text-[#0a1f33]">
+                  <p className="mt-1 font-syne text-[26px] font-medium text-[#000000]">
                     {transit}
                   </p>
-                  <p className="font-cal text-[12px] text-[#808080]">
+                  <p className="font-cal text-[12px] text-[#8e9194]">
                     Weekly sailings via MSC, Maersk, ONE · our own warehouse &amp;
                     trucks at {destination}.
                   </p>
@@ -272,7 +272,7 @@ export default function QuotePage() {
 
                 {/* Services */}
                 <div className="mt-5">
-                  <p className="font-dm text-[11px] font-bold uppercase tracking-[0.12em] text-[#808080]">
+                  <p className="font-dm text-[11px] font-medium uppercase tracking-[0.12em] text-[#8e9194]">
                     Services
                   </p>
                   <div className="mt-2 flex flex-wrap gap-2">
@@ -280,13 +280,13 @@ export default function QuotePage() {
                       addons.map((a) => (
                         <span
                           key={a}
-                          className="rounded-full bg-[#0a1f33] px-3 py-1 font-cal text-[12px] text-[#fffb96]"
+                          className="rounded-full bg-[#000000] px-3 py-1 font-cal text-[12px] text-[#fffb96]"
                         >
                           {a}
                         </span>
                       ))
                     ) : (
-                      <span className="font-cal text-[13px] text-[#9aa6b5]">
+                      <span className="font-cal text-[13px] text-[#d8d8d8]">
                         None selected yet
                       </span>
                     )}
@@ -295,16 +295,16 @@ export default function QuotePage() {
 
                 {/* Paperwork */}
                 <div className="mt-5">
-                  <p className="font-dm text-[11px] font-bold uppercase tracking-[0.12em] text-[#808080]">
+                  <p className="font-dm text-[11px] font-medium uppercase tracking-[0.12em] text-[#8e9194]">
                     Required paperwork
                   </p>
                   <ul className="mt-2 space-y-2">
                     {PAPERWORK.map((d) => (
                       <li
                         key={d}
-                        className="flex items-center gap-2.5 font-cal text-[13.5px] text-[#44505f]"
+                        className="flex items-center gap-2.5 font-cal text-[13.5px] text-[#4b514d]"
                       >
-                        <DocIcon className="h-4 w-4 shrink-0 text-[#0a1f33]/60" />
+                        <DocIcon className="h-4 w-4 shrink-0 text-[#000000]/60" />
                         {d}
                       </li>
                     ))}
@@ -316,14 +316,14 @@ export default function QuotePage() {
                   href={waHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 flex w-full items-center justify-center gap-2 rounded-tl-[18px] rounded-br-[18px] bg-[#fffb96] px-6 py-4 font-cal text-[17px] text-black transition-transform hover:scale-[1.02]"
+                  className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#fffb96] px-6 py-4 font-cal text-[17px] text-black transition-transform hover:scale-[1.02]"
                 >
                   <WhatsAppIcon className="h-5 w-5" />
                   Send on WhatsApp
                 </a>
                 <a
                   href={mailHref}
-                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-tl-[18px] rounded-br-[18px] border border-[#0a1f33]/15 px-6 py-3.5 font-cal text-[15px] text-[#0a1f33] transition-colors hover:bg-white"
+                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-full border border-[#000000]/15 px-6 py-3.5 font-cal text-[15px] text-[#000000] transition-colors hover:bg-[#ffffff]"
                 >
                   Email the sales team
                 </a>

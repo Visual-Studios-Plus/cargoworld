@@ -100,7 +100,7 @@ export default function TrackPage() {
     : "Hi Cargo World Wide, I'd like to track my shipment.";
 
   return (
-    <main className="flex w-full flex-col bg-white">
+    <main className="flex w-full flex-col bg-[#ffffff]">
       <SiteHeader />
 
       <PageHero
@@ -118,18 +118,18 @@ export default function TrackPage() {
           <label htmlFor="ref" className="sr-only">
             B/L or container number
           </label>
-          <div className="flex h-[62px] flex-1 items-center rounded-tl-[20px] rounded-br-[20px] bg-white/10 pl-6 pr-2 backdrop-blur-md">
+          <div className="flex h-[62px] flex-1 items-center rounded-full bg-white/10 pl-6 pr-2 backdrop-blur-md">
             <input
               id="ref"
               value={reference}
               onChange={(e) => setReference(e.target.value)}
               placeholder="B/L or container no. (e.g. OWWU 162037)"
-              className="min-w-0 flex-1 bg-transparent font-dm text-[13px] font-bold text-white placeholder:text-white/70 focus:outline-none"
+              className="min-w-0 flex-1 bg-transparent font-dm text-[13px] font-medium text-white placeholder:text-white/70 focus:outline-none"
             />
           </div>
           <button
             type="submit"
-            className="flex h-[62px] shrink-0 items-center justify-center rounded-tl-[20px] rounded-br-[20px] bg-[#fffb96] px-8 font-cal text-[18px] text-black transition-transform hover:scale-[1.03]"
+            className="flex h-[62px] shrink-0 items-center justify-center rounded-full bg-[#fffb96] px-8 font-cal text-[18px] text-black transition-transform hover:scale-[1.03]"
           >
             Track
           </button>
@@ -142,7 +142,7 @@ export default function TrackPage() {
               setReference("OWWU 162037");
               startTracking("OWWU 162037");
             }}
-            className="font-dm text-[13px] font-bold text-[#fff8cf]/80 underline-offset-4 transition-colors hover:text-[#fffb96] hover:underline"
+            className="font-dm text-[13px] font-medium text-[#fff8cf]/80 underline-offset-4 transition-colors hover:text-black hover:underline"
           >
             Try sample: OWWU 162037
           </button>
@@ -159,19 +159,19 @@ export default function TrackPage() {
       </PageHero>
 
       {/* Milestones */}
-      <section className="w-full bg-white">
-        <div className="mx-auto w-full max-w-[1280px] px-6 pb-[clamp(40px,5vw,80px)] pt-[clamp(48px,6vw,96px)]">
+      <section className="w-full bg-[#ffffff]">
+        <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(40px,5vw,80px)] pt-[clamp(48px,6vw,96px)]">
           {tracked && (
-            <div className="mb-10 flex flex-wrap items-center justify-between gap-3 rounded-tl-[24px] rounded-br-[24px] bg-[#F0F4F9] px-6 py-4">
+            <div className="mb-10 flex flex-wrap items-center justify-between gap-3 rounded-lg bg-[#f1f1f1] px-6 py-4">
               <div>
-                <p className="font-dm text-[11px] font-bold uppercase tracking-[0.15em] text-[#808080]">
+                <p className="font-dm text-[11px] font-medium uppercase tracking-[0.15em] text-[#8e9194]">
                   Tracking reference
                 </p>
-                <p className="font-cal text-[20px] font-bold text-[#0a1f33]">
+                <p className="font-cal text-[20px] font-medium text-[#000000]">
                   {tracked}
                 </p>
               </div>
-              <span className="rounded-full bg-[#0a1f33] px-4 py-1.5 font-cal text-[13px] text-[#fffb96]">
+              <span className="rounded-full bg-[#000000] px-4 py-1.5 font-cal text-[13px] text-[#fffb96]">
                 Stage {activeStage + 1} of {STAGES.length} · {current?.label}
               </span>
             </div>
@@ -185,18 +185,18 @@ export default function TrackPage() {
 
           <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
             {/* From -> To arc */}
-            <div className="rounded-tl-[32px] rounded-br-[32px] bg-[#F0F4F9] p-8">
+            <div className="rounded-lg bg-[#f1f1f1] p-8">
               <svg viewBox="0 0 400 180" className="w-full" aria-hidden="true">
                 <path
                   d="M46 150 Q200 -10 354 150"
                   fill="none"
-                  stroke="#0a1f33"
+                  stroke="#000000"
                   strokeWidth="2.5"
                   strokeDasharray="1 11"
                   strokeLinecap="round"
                 />
                 {/* apex interchange node */}
-                <circle cx="200" cy="40" r="24" fill="#0a1f33" />
+                <circle cx="200" cy="40" r="24" fill="#000000" />
                 <circle cx="200" cy="40" r="30" fill="none" stroke="#fffb96" strokeWidth="2.5" />
                 <g
                   transform="translate(182 22)"
@@ -211,23 +211,23 @@ export default function TrackPage() {
                   <path d="M1 28c2.3 0 2.3 1.6 4.6 1.6S8 28 10.3 28s2.3 1.6 4.6 1.6S17.3 28 19.6 28s2.3 1.6 4.6 1.6S26.6 28 29 28s2.3 1.6 4.6 1.6" />
                 </g>
                 {/* endpoints */}
-                <circle cx="46" cy="150" r="8" fill="#fff" stroke="#0a1f33" strokeWidth="3" />
-                <circle cx="354" cy="150" r="8" fill="#0a1f33" />
+                <circle cx="46" cy="150" r="8" fill="#fff" stroke="#000000" strokeWidth="3" />
+                <circle cx="354" cy="150" r="8" fill="#000000" />
               </svg>
               <div className="mt-2 flex items-center justify-between">
                 <div className="text-left">
-                  <p className="font-dm text-[11px] font-bold uppercase tracking-[0.14em] text-[#808080]">
+                  <p className="font-dm text-[11px] font-medium uppercase tracking-[0.14em] text-[#8e9194]">
                     From
                   </p>
-                  <p className="font-cal text-[18px] font-bold text-[#0a1f33]">
+                  <p className="font-cal text-[18px] font-medium text-[#000000]">
                     Colombo
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="font-dm text-[11px] font-bold uppercase tracking-[0.14em] text-[#808080]">
+                  <p className="font-dm text-[11px] font-medium uppercase tracking-[0.14em] text-[#8e9194]">
                     To
                   </p>
-                  <p className="font-cal text-[18px] font-bold text-[#0a1f33]">
+                  <p className="font-cal text-[18px] font-medium text-[#000000]">
                     Buyer&apos;s door
                   </p>
                 </div>
@@ -235,13 +235,13 @@ export default function TrackPage() {
             </div>
 
             {/* Numbered vertical timeline */}
-            <div className="rounded-tl-[32px] rounded-br-[32px] border border-[#E3E9F1] bg-white p-6 sm:p-8">
+            <div className="rounded-lg border border-[#d8d8d8] bg-[#ffffff] p-6 sm:p-8">
               <div className="mb-5 flex items-center justify-between">
-                <p className="font-cal text-[18px] font-bold text-[#0a1f33]">
+                <p className="font-cal text-[18px] font-medium text-[#000000]">
                   {tracked ? `Shipment ${tracked}` : "Shipment journey"}
                 </p>
                 {tracked && (
-                  <span className="rounded-full bg-[#fffb96] px-3 py-1 font-dm text-[11px] font-bold uppercase tracking-[0.1em] text-[#0a1f33]">
+                  <span className="rounded-full bg-[#fffb96] px-3 py-1 font-dm text-[11px] font-medium uppercase tracking-[0.1em] text-black">
                     In transit
                   </span>
                 )}
@@ -257,35 +257,35 @@ export default function TrackPage() {
                       {!last && (
                         <span
                           className={`absolute left-[19px] top-10 bottom-0 w-[2px] transition-colors duration-500 ${
-                            done ? "bg-[#fffb96]" : "bg-[#E3E9F1]"
+                            done ? "bg-black" : "bg-[#d8d8d8]"
                           }`}
                         />
                       )}
                       <span
-                        className={`relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border-2 font-cal text-[15px] font-bold transition-all duration-500 ${
+                        className={`relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border-2 font-cal text-[15px] font-medium transition-all duration-500 ${
                           done
-                            ? "border-[#fffb96] bg-[#fffb96] text-[#0a1f33]"
+                            ? "border-black bg-black text-white"
                             : activeNow
-                            ? "border-[#fffb96] bg-[#fffb96] text-[#0a1f33] shadow-[0_0_0_5px_rgba(255,251,150,0.35)]"
-                            : "border-[#E3E9F1] bg-white text-[#9aa6b5]"
+                            ? "border-black bg-black text-white shadow-[0_0_0_5px_rgba(255,251,150,0.35)]"
+                            : "border-[#d8d8d8] bg-[#ffffff] text-[#d8d8d8]"
                         }`}
                       >
                         {done ? <CheckIcon className="h-5 w-5" /> : i + 1}
                       </span>
 
                       <div
-                        className={`flex-1 rounded-tl-[16px] rounded-br-[16px] px-4 py-2.5 transition-colors duration-500 ${
-                          activeNow ? "bg-[#F0F4F9]" : ""
+                        className={`flex-1 rounded-full px-4 py-2.5 transition-colors duration-500 ${
+                          activeNow ? "bg-[#f1f1f1]" : ""
                         }`}
                       >
                         <p
-                          className={`font-cal text-[16px] font-bold leading-tight ${
-                            done || activeNow ? "text-[#0a1f33]" : "text-[#9aa6b5]"
+                          className={`font-cal text-[16px] font-medium leading-tight ${
+                            done || activeNow ? "text-[#000000]" : "text-[#d8d8d8]"
                           }`}
                         >
                           {stage.label}
                         </p>
-                        <p className="mt-1 font-cal text-[13.5px] leading-[1.45] text-[#808080]">
+                        <p className="mt-1 font-cal text-[13.5px] leading-[1.45] text-[#8e9194]">
                           {stage.caption}
                         </p>
                       </div>
@@ -299,8 +299,8 @@ export default function TrackPage() {
       </section>
 
       {/* Documentation checklist */}
-      <section className="w-full bg-[#F0F4F9]">
-        <div className="mx-auto w-full max-w-[1280px] px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
+      <section className="w-full bg-[#ffffff]">
+        <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
           <SectionHeader
             eyebrow="Documentation"
             title="paperwork at every stage"
@@ -311,17 +311,17 @@ export default function TrackPage() {
             {STAGES.map((stage, i) => (
               <div
                 key={stage.label}
-                className={`rounded-tl-[24px] rounded-br-[24px] border bg-white p-6 transition-all duration-300 ${
+                className={`rounded-lg border bg-[#ffffff] p-6 transition-all duration-300 ${
                   tracked && i === activeStage
-                    ? "border-[#fffb96] shadow-lg ring-2 ring-[#fffb96]/40"
-                    : "border-[#E3E9F1]"
+                    ? "border-black ring-2 ring-black/40"
+                    : "border-[#d8d8d8]"
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <span className="flex size-9 items-center justify-center rounded-full bg-[#0a1f33] font-cal text-[14px] text-[#fffb96]">
+                  <span className="flex size-9 items-center justify-center rounded-full bg-[#000000] font-cal text-[14px] text-[#fffb96]">
                     {i + 1}
                   </span>
-                  <h3 className="font-cal text-[18px] font-bold text-[#0a1f33]">
+                  <h3 className="font-cal text-[18px] font-medium text-[#000000]">
                     {stage.label}
                   </h3>
                 </div>
@@ -329,9 +329,9 @@ export default function TrackPage() {
                   {stage.docs.map((doc) => (
                     <li
                       key={doc}
-                      className="flex items-center gap-2.5 font-cal text-[14px] text-[#44505f]"
+                      className="flex items-center gap-2.5 font-cal text-[14px] text-[#4b514d]"
                     >
-                      <DocIcon className="h-4 w-4 shrink-0 text-[#0a1f33]/60" />
+                      <DocIcon className="h-4 w-4 shrink-0 text-[#000000]/60" />
                       {doc}
                     </li>
                   ))}
@@ -343,7 +343,7 @@ export default function TrackPage() {
           <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/quote"
-              className="rounded-tl-[20px] rounded-br-[20px] bg-[#fffb96] px-7 py-3.5 font-cal text-[16px] text-black transition-transform hover:scale-[1.03]"
+              className="rounded-full bg-[#fffb96] px-7 py-3.5 font-cal text-[16px] text-black transition-transform hover:scale-[1.03]"
             >
               Get a quote
             </Link>
@@ -351,7 +351,7 @@ export default function TrackPage() {
               href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(waText)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-tl-[20px] rounded-br-[20px] border border-[#0a1f33]/15 bg-white px-7 py-3.5 font-cal text-[16px] text-[#0a1f33] transition-colors hover:bg-[#F0F4F9]"
+              className="inline-flex items-center gap-2 rounded-full border border-[#000000]/15 bg-[#ffffff] px-7 py-3.5 font-cal text-[16px] text-[#000000] transition-colors hover:bg-[#f1f1f1]"
             >
               <WhatsAppIcon className="h-5 w-5 text-[#25D366]" />
               Chat with support

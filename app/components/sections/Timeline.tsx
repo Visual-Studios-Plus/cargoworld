@@ -1,476 +1,91 @@
-"use client";
+import Link from "next/link";
 
-import { useEffect, useRef } from "react";
-import Image from "next/image";
-
-type Align = "left" | "right";
-
-type Step = {
-  id: string;
-  image: string;
-  alt: string;
-  layout: "image-left" | "image-right";
-  position: { left: string; top: string; width: string };
-  imageRadius: string;
-  align: Align;
-};
-
-const STEPS: Step[] = [
+const STEPS = [
   {
-    id: "01",
-    image: "/figma/img/bento-1.jpg",
-    alt: "GWW container truck",
-    layout: "image-left",
-    position: { left: "6.48%", top: "10.99%", width: "46.53%" },
-    imageRadius: "rounded-tr-[78px] rounded-bl-[78px]",
-    align: "left",
+    n: "01",
+    title: "Tell us the shipment",
+    body: "What you are shipping, where it is going, and when it needs to move.",
+    href: "/quote",
   },
   {
-    id: "02",
-    image: "/figma/img/bento-2.jpg",
-    alt: "Parcel handover",
-    layout: "image-right",
-    position: { left: "34.14%", top: "23.72%", width: "47.22%" },
-    imageRadius: "rounded-tl-[78px] rounded-br-[78px]",
-    align: "right",
+    n: "02",
+    title: "Confirm route & service",
+    body: "We confirm the lane, transit time, carrier and the service that fits the cargo.",
+    href: "/network",
   },
   {
-    id: "03",
-    image: "/figma/img/bento-1.jpg",
-    alt: "GWW container truck",
-    layout: "image-left",
-    position: { left: "22.11%", top: "38.28%", width: "46.53%" },
-    imageRadius: "rounded-tr-[78px] rounded-bl-[78px]",
-    align: "left",
+    n: "03",
+    title: "Book space & documents",
+    body: "Space is booked and every document — invoice, packing list, certificate of origin — is prepared.",
+    href: "/track",
   },
   {
-    id: "04",
-    image: "/figma/img/bento-2.jpg",
-    alt: "Parcel handover",
-    layout: "image-right",
-    position: { left: "40.05%", top: "53.60%", width: "47.22%" },
-    imageRadius: "rounded-tl-[78px] rounded-br-[78px]",
-    align: "right",
+    n: "04",
+    title: "Collection in Colombo",
+    body: "Cargo is collected, consolidated and loaded for the sailing.",
+    href: "/ship",
   },
   {
-    id: "05",
-    image: "/figma/img/bento-1.jpg",
-    alt: "GWW container truck",
-    layout: "image-left",
-    position: { left: "27.43%", top: "68.16%", width: "46.53%" },
-    imageRadius: "rounded-tr-[78px] rounded-bl-[78px]",
-    align: "left",
+    n: "05",
+    title: "Sail, clear & warehouse",
+    body: "Our brokers clear customs at the US port and goods arrive at our own warehouse.",
+    href: "/network",
   },
   {
-    id: "06",
-    image: "/figma/img/bento-2.jpg",
-    alt: "Parcel handover",
-    layout: "image-right",
-    position: { left: "35.13%", top: "85.17%", width: "47.22%" },
-    imageRadius: "rounded-tl-[78px] rounded-br-[78px]",
-    align: "right",
+    n: "06",
+    title: "Final-mile delivery",
+    body: "Our own trucks carry the cargo the last mile — straight to the buyer's door.",
+    href: "/ship",
   },
 ];
 
-const COPY =
-  "Share what you are shipping, where it is going, and when it needs to move. Your logistics team confirms the route, service, and space.";
-
-function StepText({ align }: { align: Align }) {
-  const right = align === "right";
-  return (
-    <div
-      className={`flex flex-1 flex-col ${
-        right ? "items-end text-right" : "items-start text-left"
-      }`}
-    >
-      <h3 className="font-cal text-[clamp(16px,2.315vw,40px)] leading-[1] tracking-[-0.03em] text-black">
-        All set for seamless
-        <br />
-        transportation
-      </h3>
-      <p className="mt-4 w-[328px] max-w-full font-cal text-[clamp(9px,0.926vw,16px)] leading-[1.25] tracking-[-0.03em] text-[#8f8f8f]">
-        {COPY}
-      </p>
-    </div>
-  );
-}
-
-function StepImage({ step, className = "" }: { step: Step; className?: string }) {
-  return (
-    <div
-      className={`relative shrink-0 overflow-hidden ${step.imageRadius} ${className}`}
-    >
-      <Image
-        src={step.image}
-        alt={step.alt}
-        fill
-        sizes="(max-width: 1024px) 40vw, 249px"
-        className="object-cover"
-      />
-    </div>
-  );
-}
-
+/** Solid graphite band with numbered, hairline-ruled rows — the Swiss "index" block. */
 export default function Timeline() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const root = sectionRef.current;
-    if (!root) return;
-
-    let disposed = false;
-    let mm: ReturnType<typeof import("gsap").gsap.matchMedia> | undefined;
-
-    (async () => {
-      const { gsap } = await import("gsap");
-      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-      gsap.registerPlugin(ScrollTrigger);
-
-      if (disposed) return;
-
-      // Respect users who prefer reduced motion: leave everything visible.
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        root
-          .querySelectorAll<SVGElement>("[data-dot]")
-          .forEach((dot) => dot.style.removeProperty("transform"));
-        return;
-      }
-
-      mm = gsap.matchMedia();
-
-      mm.add("(min-width: 1024px)", () => {
-        const svg = root.querySelector<SVGSVGElement>("[data-timeline-svg]");
-        const line = root.querySelector<SVGPathElement>("[data-line]");
-        if (!svg || !line) return;
-
-        const length = line.getTotalLength();
-        gsap.set(line, {
-          strokeDasharray: length,
-          strokeDashoffset: length,
-        });
-
-        const dots = Array.from(
-          root.querySelectorAll<SVGElement>("[data-dot]")
-        );
-        gsap.set(dots, { scale: 0, transformOrigin: "50% 50%" });
-
-        const cards = Array.from(
-          root.querySelectorAll<HTMLElement>("[data-card-desktop]")
-        );
-        gsap.set(cards, { opacity: 0, y: 70, scale: 0.95 });
-
-        // Map the timeline to the real geometry: a dot is revealed exactly when
-        // the drawing tip (and the dot itself) reach slightly below the middle of the
-        // viewport (~58% from top).
-        const svgRect = svg.getBoundingClientRect();
-        const sectionRect = root.getBoundingClientRect();
-        const scale = svgRect.height / 2795;
-        const svgTop = svgRect.top - sectionRect.top;
-        const anchor = window.innerHeight * 0.58;
-        const startScroll = Math.max(0, svgTop - anchor);
-        const trail = window.innerHeight * 0.5;
-        const total = startScroll + 2795 * scale + trail;
-
-        // Fade and reveal the section title as the user transitions out of WhyUs
-        const titleEl = root.querySelector("[data-timeline-title]");
-        if (titleEl) {
-          gsap.fromTo(
-            titleEl,
-            { opacity: 0, y: 50 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.9,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: titleEl,
-                start: "top 85%",
-                toggleActions: "play none none reverse",
-              },
-            }
-          );
-        }
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: root,
-            start: "top top",
-            end: () => `+=${total}`,
-            scrub: 1.2,
-          },
-        });
-
-        // Anchor the timeline to exactly 1.0 total duration so ScrollTrigger's
-        // progress (0.0 to 1.0) maps 1:1 without compressing intermediate tweens.
-        tl.set({}, {}, 1.0);
-
-        // Draw the vector line as the section scrolls.
-        tl.to(
-          line,
-          {
-            strokeDashoffset: 0,
-            ease: "none",
-            duration: (2795 * scale) / total,
-          },
-          startScroll / total
-        );
-
-        const dotCenters: number[] = [];
-        const dotStarts: number[] = [];
-
-        // Sample the path once so each dot can be matched to the exact point
-        // where the drawing tip reaches it.
-        const SAMPLES = 800;
-        const pathPoints: { x: number; y: number; at: number }[] = [];
-        for (let i = 0; i <= SAMPLES; i++) {
-          const at = (i / SAMPLES) * length;
-          const pt = line.getPointAtLength(at);
-          pathPoints.push({ x: pt.x, y: pt.y, at });
-        }
-
-        // A dot is the anchor point: it pops just as the tip arrives (so it is
-        // fully visible when its circle reaches the middle of the frame), and
-        // its card follows right after.
-        const PRE_ROLL = 0.012;
-
-        const fractionForDot = (dot: SVGElement) => {
-          const box = (dot as SVGGraphicsElement).getBBox();
-          const cx = box.x + box.width / 2;
-          const cy = box.y + box.height / 2;
-          let nearestY = 0;
-          let nearestDist = Infinity;
-          for (const point of pathPoints) {
-            const dx = point.x - cx;
-            const dy = point.y - cy;
-            const dist = dx * dx + dy * dy;
-            if (dist < nearestDist) {
-              nearestDist = dist;
-              nearestY = point.y;
-            }
-          }
-          // Scroll position at which this dot sits in the middle of the frame.
-          const dotScroll = startScroll + nearestY * scale;
-          return Math.min(Math.max(dotScroll / total, 0), 1);
-        };
-
-        const cardGap = (window.innerHeight * 0.015) / total;
-
-        // Pop each dot when the drawn line reaches its position.
-        dots.forEach((dot) => {
-          const center = fractionForDot(dot);
-          dotCenters.push(center);
-          const start = Math.max(center - PRE_ROLL, 0);
-          dotStarts.push(start);
-          tl.to(
-            dot,
-            { scale: 1, ease: "back.out(2.4)", duration: 0.02 },
-            start
-          );
-        });
-
-        // Reveal each card group right after its circle reaches the frame
-        // centre, so the dot leads and the card follows.
-        cards.forEach((card, i) => {
-          const start = (dotCenters[i] ?? 0) + cardGap;
-          tl.to(
-            card,
-            {
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              duration: 0.03,
-              ease: "power2.out",
-            },
-            start
-          );
-        });
-
-        return () => {
-          gsap.set(dots, { clearProps: "transform" });
-        };
-      });
-
-      mm.add("(max-width: 1023px)", () => {
-        // Draw the vertical rail as the steps scroll past.
-        const rail = root.querySelector<SVGPathElement>("[data-rail]");
-        const wrap = root.querySelector<HTMLElement>("[data-rail-wrap]");
-        if (rail && wrap) {
-          const len = rail.getTotalLength();
-          gsap.set(rail, { strokeDasharray: len, strokeDashoffset: len });
-          gsap.to(rail, {
-            strokeDashoffset: 0,
-            ease: "none",
-            scrollTrigger: {
-              trigger: wrap,
-              start: "top 78%",
-              end: "bottom 62%",
-              scrub: 0.8,
-            },
-          });
-        }
-
-        // Pop each dot as it enters the frame.
-        const dots = root.querySelectorAll<HTMLElement>("[data-dot-mobile]");
-        gsap.set(dots, { scale: 0, transformOrigin: "50% 50%" });
-        dots.forEach((dot) => {
-          gsap.to(dot, {
-            scale: 1,
-            duration: 0.5,
-            ease: "back.out(2)",
-            scrollTrigger: {
-              trigger: dot,
-              start: "top 84%",
-              toggleActions: "play none none reverse",
-            },
-          });
-        });
-
-        root
-          .querySelectorAll<HTMLElement>("[data-card-mobile]")
-          .forEach((card) => {
-            gsap.from(card, {
-              opacity: 0,
-              y: 40,
-              duration: 0.7,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: card,
-                start: "top 88%",
-                toggleActions: "play none none reverse",
-              },
-            });
-          });
-      });
-    })();
-
-    return () => {
-      disposed = true;
-      mm?.revert();
-    };
-  }, []);
-
   return (
-    <section
-      ref={sectionRef}
-      className="w-full overflow-hidden bg-white"
-    >
-      {/* Desktop: exact Figma composition, driven by the exported vector */}
-      <div className="relative mx-auto hidden w-full max-w-[1728px] aspect-[1728/3722] lg:block">
-        <h2
-          data-timeline-title
-          className="absolute inset-x-0 top-[2.82%] text-center font-cal text-[64px] leading-[0.78] tracking-[-0.03em] text-black will-change-transform"
-        >
-          All set for seamless
-          <br />
-          transportation
+    <section className="w-full bg-[#4b514d] text-white">
+      <div className="mx-auto w-full max-w-[1280px] px-6 py-[clamp(72px,9vw,110px)] lg:px-10">
+        <div className="flex items-start justify-between gap-6">
+          <p className="kicker max-w-[22ch] text-white/80">How it works</p>
+          <Link
+            href="/quote"
+            className="kicker rounded-full border border-white/60 px-3 py-1.5 text-white transition-colors hover:border-[#fffb96] hover:bg-[#fffb96] hover:text-black"
+          >
+            Start a quote ↗
+          </Link>
+        </div>
+
+        <h2 className="mt-[clamp(48px,7vw,96px)] text-[clamp(44px,6vw,88px)] text-white md:ml-[calc(280px+40px)]">
+          Six steps, one team
         </h2>
 
-        <svg
-          data-timeline-svg
-          viewBox="0 0 684 2795"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-          className="absolute z-0 h-auto"
-          style={{ left: "33.16%", top: "14.32%", width: "39.58%" }}
-        >
-          <circle data-dot cx="209.776" cy="25" r="25" fill="black" />
-          <circle data-dot cx="27.7764" cy="463" r="25" fill="black" />
-          <path
-            data-dot
-            d="M612.776 1036.5C612.776 1050.31 601.583 1061.5 587.776 1061.5C573.969 1061.5 562.776 1050.31 562.776 1036.5C562.776 1022.69 573.969 1011.5 587.776 1011.5C601.583 1011.5 612.776 1022.69 612.776 1036.5Z"
-            fill="black"
-          />
-          <circle data-dot cx="216.776" cy="1580" r="25" fill="black" />
-          <circle data-dot cx="658.776" cy="2088" r="25" fill="black" />
-          <circle data-dot cx="104.776" cy="2770" r="25" fill="black" />
-          <path
-            data-line
-            d="M211.276 26C211.276 26 -56.7238 161.5 25.7762 468C108.276 774.5 588.776 664 588.776 1041C588.776 1418 217.776 1302.5 217.776 1583.5C217.776 1864.5 663.276 1753 663.276 2098C663.276 2443 106.776 2241 100.276 2780"
-            strokeWidth="20"
-            stroke="black"
-            strokeLinecap="round"
-          />
-        </svg>
-
-        {STEPS.map((step) => (
-          <article
-            key={step.id}
-            data-card-desktop
-            className="absolute z-10 flex items-start gap-[2%] will-change-transform"
-            style={step.position}
-          >
-            {step.layout === "image-left" ? (
-              <>
-                <StepImage step={step} className="w-[31%] aspect-[249/316]" />
-                <StepText align={step.align} />
-              </>
-            ) : (
-              <>
-                <StepText align={step.align} />
-                <StepImage step={step} className="w-[30.5%] aspect-[249/316]" />
-              </>
-            )}
-          </article>
-        ))}
-      </div>
-
-      {/* Mobile / tablet: stacked steps */}
-      <div className="mx-auto w-full max-w-[720px] px-6 py-16 lg:hidden">
-        <h2 className="text-center font-cal text-[clamp(32px,6vw,48px)] leading-[0.9] tracking-[-0.03em] text-black">
-          All set for seamless
-          <br />
-          transportation
-        </h2>
-
-        <div data-rail-wrap className="relative mt-12">
-          {/* Animated vertical SVG rail (draws on scroll) */}
-          <svg
-            aria-hidden="true"
-            preserveAspectRatio="none"
-            viewBox="0 0 32 1000"
-            className="pointer-events-none absolute left-0 top-1 h-[calc(100%-0.5rem)] w-8"
-          >
-            <path
-              data-rail
-              d="M16 0 L16 1000"
-              fill="none"
-              stroke="black"
-              strokeWidth={2.5}
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-
-          <div className="flex flex-col gap-12">
-            {STEPS.map((step, i) => (
-              <article
-                key={step.id}
-                data-card-mobile
-                className="relative flex items-start gap-5 pl-12 will-change-transform"
-              >
-                <span
-                  data-dot-mobile
-                  className="absolute left-4 top-2 size-4 -translate-x-1/2 rounded-full bg-black ring-4 ring-white will-change-transform"
-                />
-                <StepImage
-                  step={step}
-                  className="w-[38%] shrink-0 aspect-[249/316]"
-                />
-                <div className="flex flex-1 flex-col text-left">
-                <span className="font-cal text-[12px] uppercase tracking-widest text-black/40">
-                  Step {i + 1}
-                </span>
-                <h3 className="mt-1 font-cal text-[clamp(18px,4.5vw,28px)] leading-[0.95] tracking-[-0.03em] text-black">
-                  All set for seamless transportation
-                </h3>
-                <p className="mt-3 font-cal text-[clamp(12px,2.8vw,16px)] leading-[1.3] text-[#8f8f8f]">
-                  {COPY}
+        <div className="mt-[clamp(40px,5vw,64px)] border-t border-white/30">
+          {STEPS.map((s) => (
+            <Link
+              key={s.n}
+              href={s.href}
+              className="group grid grid-cols-[48px_1fr_24px] items-start gap-4 border-b border-white/30 py-6 transition-colors hover:bg-white/5 md:grid-cols-[280px_1fr_24px] md:gap-10 md:py-7"
+            >
+              <span className="pl-0 text-[15px] tabular-nums text-white/80 md:pl-4">{s.n}</span>
+              <div>
+                <h3 className="text-[clamp(18px,1.8vw,24px)] text-white">{s.title}</h3>
+                <p className="mt-2 max-w-[60ch] text-[15px] leading-[1.5] text-white/75">
+                  {s.body}
                 </p>
-                </div>
-              </article>
-            ))}
-          </div>
+              </div>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                className="mt-1 h-5 w-5 text-white transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              >
+                <path d="M7 17 17 7M9 7h8v8" />
+              </svg>
+            </Link>
+          ))}
         </div>
       </div>
     </section>

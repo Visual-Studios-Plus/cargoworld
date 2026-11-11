@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import SectionHeader from "../SectionHeader";
 
 type Service = {
   title: string;
@@ -78,7 +79,7 @@ export default function Services() {
     if (!track) return;
 
     const card = track.querySelector<HTMLElement>("[data-service-card]");
-    const step = (card?.getBoundingClientRect().width ?? track.clientWidth) + 50;
+    const step = (card?.getBoundingClientRect().width ?? track.clientWidth) + 24;
 
     track.scrollBy({ left: direction * step, behavior: "smooth" });
   };
@@ -156,30 +157,15 @@ export default function Services() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="services" className="w-full overflow-hidden bg-white">
-      <div className="mx-auto w-full max-w-[1280px] px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)] lg:px-10">
+    <section ref={sectionRef} id="services" className="w-full overflow-hidden bg-[#ffffff]">
+      <div className="mx-auto w-full max-w-[1280px] px-6 py-[clamp(72px,9vw,110px)] lg:px-10">
         <div data-services-header className="will-change-transform">
-          <p
-            data-services-eyebrow
-            className="text-center font-dm text-[11px] font-bold uppercase tracking-[0.18em] text-[#8f8f8f] will-change-transform"
-          >
-            Our services
-          </p>
-          <h2
-            data-services-title
-            className="mt-3 text-center font-cal text-[clamp(36px,3.2vw,54px)] text-black will-change-transform"
-            style={{ letterSpacing: "-0.02em", lineHeight: 1.05 }}
-          >
-            services offer
-          </h2>
-          <p
-            data-services-desc
-            className="mx-auto mt-4 max-w-[480px] text-center font-cal text-[15px] text-[#808080] will-change-transform"
-            style={{ lineHeight: 1.5 }}
-          >
-            End-to-end freight and supply chain services, connected by one team
-            and one promise: your cargo arrives exactly as planned.
-          </p>
+          <SectionHeader
+            eyebrow="Services"
+            index="07"
+            title="Every link in the chain, under one roof."
+            subtitle="Ocean and air freight, customs, warehousing and trucking — booked, moved and delivered by one team."
+          />
         </div>
 
         <div className="relative mt-10">
@@ -188,7 +174,7 @@ export default function Services() {
             onClick={() => scrollTrack(-1)}
             disabled={!canPrev}
             aria-label="Previous services"
-            className="absolute -left-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-900 shadow-lg transition-all duration-300 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white disabled:cursor-not-allowed disabled:opacity-35 md:-left-5 md:h-11 md:w-11"
+            className="absolute -left-3 top-[38%] z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200 bg-[#ffffff] text-neutral-900 transition-all duration-300 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white disabled:cursor-not-allowed disabled:opacity-35 md:-left-5 md:h-11 md:w-11"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-[18px] w-[18px]">
               <path d="M19 12H5M11 5l-7 7 7 7" />
@@ -200,7 +186,7 @@ export default function Services() {
             onClick={() => scrollTrack(1)}
             disabled={!canNext}
             aria-label="Next services"
-            className="absolute -right-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-900 shadow-lg transition-all duration-300 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white disabled:cursor-not-allowed disabled:opacity-35 md:-right-5 md:h-11 md:w-11"
+            className="absolute -right-3 top-[38%] z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200 bg-[#ffffff] text-neutral-900 transition-all duration-300 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white disabled:cursor-not-allowed disabled:opacity-35 md:-right-5 md:h-11 md:w-11"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-[18px] w-[18px]">
               <path d="M5 12h14M13 5l7 7-7 7" />
@@ -211,7 +197,7 @@ export default function Services() {
             ref={trackRef}
             aria-label="Services carousel"
             aria-roledescription="carousel"
-            className="services-track flex snap-x snap-mandatory gap-[50px] overflow-x-auto pb-2"
+            className="services-track flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2"
           >
             {SERVICES.map(({ title, image, alt }) => (
               <Link
@@ -219,25 +205,26 @@ export default function Services() {
                 data-service-card
                 href="/quote"
                 aria-label={`Get a quote for ${title}`}
-                className="group relative h-[320px] w-full shrink-0 snap-start overflow-hidden rounded-2xl border border-neutral-200/80 bg-[#dbe8f3] transition-all duration-300 hover:shadow-xl sm:w-[calc((100%-50px)/2)] lg:w-[calc((100%-150px)/4)]"
+                className="group block w-full shrink-0 snap-start sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-72px)/4)]"
               >
-                <Image
-                  src={image}
-                  alt={alt}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#061421]/95 via-[#061421]/30 to-transparent" />
+                <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-[#4b514d]">
+                  <Image
+                    src={image}
+                    alt={alt}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                  />
+                </div>
 
-                <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 p-5">
-                  <h3 className="font-cal text-xl font-bold leading-tight tracking-tight text-white transition-colors duration-300 group-hover:text-accent">
+                <div className="mt-5 flex items-center justify-between gap-4 border-t border-black pt-4">
+                  <h3 className="text-[20px] font-medium leading-[1.2] text-black">
                     {title}
                   </h3>
 
                   <span
                     aria-hidden="true"
-                    className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border border-white/70 text-white transition-all duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-brand-blue"
+                    className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-black text-black transition-colors duration-300 group-hover:bg-[#fffb96] group-hover:border-[#fffb96]"
                   >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                       <path d="M7 17 17 7M9 7h8v8" />

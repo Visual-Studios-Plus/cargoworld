@@ -109,56 +109,59 @@ export default function Hero() {
           />
           <div className="pointer-events-none absolute inset-0 bg-black/15" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-[18%] bg-gradient-to-l from-black/25 to-transparent" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[16%] bg-gradient-to-t from-white via-white/40 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[16%] bg-gradient-to-t from-[#ffffff] via-[#ffffff]/40 to-transparent" />
           {/* Dynamic transition veil connecting hero dark void into what-we-do bone canvas */}
           <div
             data-hero-fade
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-[28%] bg-gradient-to-t from-white via-white/70 to-transparent opacity-0 will-change-[opacity]"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-[28%] bg-gradient-to-t from-[#ffffff] via-[#ffffff]/70 to-transparent opacity-0 will-change-[opacity]"
           />
         </div>
 
         {/* Hero content — smaller and centered in the frame */}
         <div
           data-hero-content
-          className="relative z-10 flex min-h-[620px] w-full flex-col items-center justify-center px-6 pb-16 pt-28 text-center will-change-transform md:absolute md:inset-0 md:min-h-0 md:-translate-y-[6.5%] md:p-0"
+          className="relative z-10 flex min-h-[640px] w-full flex-col items-center justify-center px-6 pb-20 pt-32 text-center will-change-transform md:absolute md:inset-0 md:min-h-0 md:px-10 md:pb-[6%] md:pt-[60px]"
         >
+          <p className="mb-6 text-[13px] uppercase tracking-[0.14em] text-white/75">
+            Freight forwarding since 2008
+          </p>
           <h1
             data-hero-title
-            className="font-syne text-[clamp(40px,6.6vw,112px)] font-bold leading-[0.8] tracking-[-0.02em] text-white"
+            className="max-w-[16ch] text-[clamp(56px,8.4vw,144px)] text-white"
           >
-            Sri lanka to US,
+            Sri Lanka to the US,
             <br />
             door to door
           </h1>
 
           <p
             data-hero-desc
-            className="mt-5 max-w-[640px] font-dm text-[clamp(11px,0.81vw,14px)] font-bold leading-[1.45] text-[#fff8cf]"
+            className="mt-6 max-w-[56ch] text-[clamp(15px,1.25vw,19px)] leading-[1.45] text-white/85"
           >
-            Seamless door-to-door delivery: shipping directly from Colombo to our
-            US warehouses in Los Angeles, Houston, New York, and West Virginia,
-            and straight to your door with our own fleet.
+            Direct from Colombo to our own warehouses in Los Angeles, Houston,
+            New York and West Virginia — then to your door on our own fleet.
           </p>
 
           <div
             data-hero-actions
-            className="mt-[clamp(28px,3.4vw,58px)] flex w-full max-w-[478px] flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-2"
+            className="mt-10 flex w-full max-w-[540px] flex-col items-stretch gap-3 sm:flex-row sm:items-center"
           >
             <form
-              className="flex h-[56px] w-full items-center rounded-tl-[20px] rounded-br-[20px] bg-white/10 pl-6 pr-2 backdrop-blur-md sm:h-[clamp(52px,4.05vw,70px)] sm:flex-1"
+              className="flex h-[56px] w-full items-center rounded-full border border-white/35 bg-black/25 pl-6 pr-1.5 backdrop-blur-md transition-colors focus-within:border-white sm:flex-1"
               action="/track"
               id="track"
             >
               <input
                 type="text"
+                name="ref"
                 aria-label="Tracking number"
-                placeholder="Enter the tracking number"
-                className="min-w-0 flex-1 bg-transparent font-dm text-[clamp(11px,0.75vw,13px)] font-bold text-white placeholder:text-white/90 focus:outline-none"
+                placeholder="B/L or container number"
+                className="min-w-0 flex-1 bg-transparent text-[15px] text-white placeholder:text-white/65 focus:outline-none"
               />
               <button
                 type="submit"
-                aria-label="Search"
-                className="flex size-[clamp(42px,3.35vw,58px)] shrink-0 items-center justify-center rounded-tl-[10px] rounded-br-[10px] bg-[#fffb96] transition-transform hover:scale-[1.05]"
+                aria-label="Track shipment"
+                className="flex size-11 shrink-0 items-center justify-center rounded-full bg-white transition-transform hover:scale-[1.05]"
               >
                 <Image
                   src="/figma/svg/search.svg"
@@ -172,7 +175,7 @@ export default function Hero() {
 
             <a
               href="/quote"
-              className="flex h-[56px] w-full shrink-0 items-center justify-center rounded-tl-[20px] rounded-br-[20px] bg-[#fffb96] px-6 font-cal text-[17px] text-black transition-transform hover:scale-[1.03] sm:h-[clamp(52px,4.05vw,70px)] sm:w-auto sm:px-[clamp(18px,1.7vw,30px)] sm:text-[clamp(15px,1.25vw,21px)]"
+              className="flex h-[56px] w-full shrink-0 items-center justify-center rounded-full bg-[#fffb96] px-8 text-[16px] font-medium text-black transition-transform hover:scale-[1.03] sm:w-auto"
             >
               Get a quote
             </a>

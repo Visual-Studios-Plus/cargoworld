@@ -1,23 +1,19 @@
 import type { Metadata } from "next";
-import { Cal_Sans, Syne, DM_Sans } from "next/font/google";
+import { Inter, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 
-const calSans = Cal_Sans({
-  variable: "--font-cal-sans",
+// Swiss corporate typography: Inter for text, a DIN-like condensed face for
+// uppercase display headings.
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "500", "600", "700"],
 });
 
-const syne = Syne({
-  variable: "--font-syne",
+const display = Barlow_Condensed({
+  variable: "--font-display",
   subsets: ["latin"],
-  weight: ["600", "700"],
-});
-
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
-  subsets: ["latin"],
-  weight: ["700"],
+  weight: ["500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -30,9 +26,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${calSans.variable} ${syne.variable} ${dmSans.variable} h-full antialiased`}
+      className={`${inter.variable} ${display.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-white">{children}</body>
+      <body className="flex min-h-full flex-col bg-[#ffffff]">{children}</body>
     </html>
   );
 }

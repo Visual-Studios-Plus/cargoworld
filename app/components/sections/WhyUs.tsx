@@ -2,6 +2,72 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
+
+const CELL = "border-b border-r border-black/20";
+
+function Arrow() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+    >
+      <path d="M7 17 17 7M9 7h8v8" />
+    </svg>
+  );
+}
+
+function TextCell({
+  title,
+  body,
+  tag,
+  href,
+}: {
+  title: string;
+  body: string;
+  tag: string;
+  href: string;
+}) {
+  return (
+    <Link
+      href={href}
+      data-bento-card
+      className={`group flex min-h-[280px] flex-col justify-between bg-white p-5 transition-colors hover:bg-[#f6f6f4] ${CELL}`}
+    >
+      <div>
+        <h3 className="text-[22px] text-black">{title}</h3>
+        <p className="mt-3 max-w-[30ch] text-[14px] leading-[1.5] text-black/70">{body}</p>
+      </div>
+      <div className="mt-6 flex items-end justify-between">
+        <span className="chip">{tag}</span>
+        <span className="text-black">
+          <Arrow />
+        </span>
+      </div>
+    </Link>
+  );
+}
+
+function ImageCell({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
+  return (
+    <div data-bento-card className={`relative min-h-[280px] overflow-hidden bg-[#4b514d] ${CELL} ${className}`}>
+      <Image src={src} alt={alt} fill sizes="(max-width: 768px) 100vw, 320px" className="object-cover" />
+    </div>
+  );
+}
+
+const FIGURES = [
+  { value: "2008", label: "Forwarding since" },
+  { value: "4", label: "Own US warehouses" },
+  { value: "Weekly", label: "Sailings from Colombo" },
+  { value: "26–36", label: "Days to the US" },
+];
 
 export default function WhyUs() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -19,60 +85,21 @@ export default function WhyUs() {
       gsap.registerPlugin(ScrollTrigger);
 
       if (disposed) return;
-
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        return;
-      }
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
       mm = gsap.matchMedia();
-
       mm.add("(min-width: 0px)", () => {
-        // Begin the reveal while the section is still easing in from the hero,
-        // so the hand-off between the two sections feels continuous.
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: root,
-            start: "top 82%",
-            toggleActions: "play none none reverse",
-          },
-        });
-
-        // 1. Reveal the heading, then let the description follow with a stagger.
-        tl.fromTo(
-          root.querySelector("[data-whyus-title]"),
-          { opacity: 0, y: 56 },
+        gsap.fromTo(
+          root.querySelectorAll("[data-bento-card]"),
+          { opacity: 0, y: 24 },
           {
             opacity: 1,
             y: 0,
-            duration: 1,
-            ease: "power3.out",
+            duration: 0.7,
+            stagger: 0.06,
+            ease: "power2.out",
+            scrollTrigger: { trigger: root, start: "top 80%", toggleActions: "play none none reverse" },
           }
-        ).fromTo(
-          root.querySelector("[data-whyus-desc]"),
-          { opacity: 0, y: 28 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power2.out",
-          },
-          "-=0.72"
-        );
-
-        // 2. Reveal bento cards sequentially right after.
-        const cards = root.querySelectorAll("[data-bento-card]");
-        tl.fromTo(
-          cards,
-          { opacity: 0, y: 52, scale: 0.96 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.8,
-            stagger: 0.09,
-            ease: "power2.out",
-          },
-          "-=0.55"
         );
       });
     })();
@@ -85,114 +112,70 @@ export default function WhyUs() {
 
   return (
     <section ref={sectionRef} className="w-full bg-white">
-      <div className="mx-auto w-full max-w-[920px] px-6 pt-[clamp(48px,5.7vw,99px)] pb-[clamp(56px,8vw,120px)]">
-        <div data-whyus-header className="will-change-transform">
-          <h2
-            data-whyus-title
-            className="text-center font-cal text-[clamp(36px,3.2vw,54px)] leading-[1.05] tracking-[-0.03em] text-black will-change-transform"
+      <div className="mx-auto w-full max-w-[1280px] px-6 py-[clamp(72px,9vw,110px)] lg:px-10">
+        <div className="flex items-start justify-between gap-6 pb-6">
+          <p className="kicker max-w-[22ch] text-black">We move it all, door to door</p>
+          <Link
+            href="/ship"
+            className="kicker rounded-full border border-black px-3 py-1.5 text-black transition-colors hover:bg-[#fffb96] hover:border-[#fffb96]"
           >
-            what we do
-          </h2>
-          <p
-            data-whyus-desc
-            className="mx-auto mt-4 max-w-[480px] text-center font-cal text-[15px] leading-[1.45] tracking-[0.015em] text-[#808080] will-change-transform"
-          >
-            Comprehensive global logistics solutions engineered for speed,
-            security, and complete peace of mind across every link of your supply
-            chain
-          </p>
+            All services ↗
+          </Link>
         </div>
 
-        <div
-          data-bento-grid
-          className="mt-8 grid grid-cols-1 gap-2.5 md:grid-cols-3 md:grid-rows-[225px_225px]"
-        >
-          {/* Large card */}
-          <article
+        {/* Ruled cell grid — cells share 1px hairlines */}
+        <div className="grid grid-cols-1 border-l border-t border-black/20 sm:grid-cols-2 lg:grid-cols-4">
+          <ImageCell src="/figma/img/bento-1.jpg" alt="Cargo World Wide container truck" />
+          <TextCell
+            title="Our own trucks"
+            body="Final-mile delivery on our own fleet — no hand-off to a stranger at the port."
+            tag="Final mile"
+            href="/ship"
+          />
+
+          {/* Statement cell */}
+          <div
             data-bento-card
-            className="group relative row-span-2 aspect-[2/3] overflow-hidden rounded-tl-[48px] will-change-transform md:aspect-auto"
+            className={`flex min-h-[280px] flex-col justify-between bg-white p-5 sm:col-span-2 ${CELL}`}
           >
-            <Image
-              src="/figma/img/bento-1.jpg"
-              alt="GWW container truck"
-              fill
-              sizes="(max-width: 768px) 100vw, 320px"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 flex flex-col items-start gap-4 p-4">
-              <h3 className="w-[300px] max-w-full font-cal text-[clamp(19px,1.45vw,24px)] leading-[1.05] text-white">
-                Simplified logistics engineered for complete reliability and
-                peace of mind
-              </h3>
-              <a
-                href="/quote"
-                className="flex h-[52px] w-[165px] items-center justify-center rounded-tl-[16px] rounded-br-[16px] bg-[#fffb96] font-syne text-[16px] font-semibold text-black transition-transform hover:scale-[1.03]"
+            <p className="kicker text-black/60">What we do</p>
+            <div>
+              <h2 className="max-w-[16ch] text-[clamp(36px,4.2vw,64px)] text-black">
+                One team from Colombo to your buyer&apos;s door
+              </h2>
+              <Link
+                href="/about"
+                className="mt-5 inline-flex items-center gap-2 border-b border-black pb-1 text-[14px] text-black transition-opacity hover:opacity-60"
               >
-                Explore more
-              </a>
+                About the company <span aria-hidden="true">→</span>
+              </Link>
             </div>
-          </article>
+          </div>
 
-          {/* Trusted */}
-          <article
-            data-bento-card
-            className="group relative aspect-[380/287] overflow-hidden will-change-transform md:aspect-auto"
-          >
-            <Image
-              src="/figma/img/bento-2.jpg"
-              alt="Team handing over a parcel"
-              fill
-              sizes="(max-width: 768px) 100vw, 320px"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
-            <h3 className="absolute inset-x-0 bottom-0 w-[300px] max-w-full p-4 font-cal text-[clamp(19px,1.45vw,24px)] leading-[1.05] text-white">
-              Trusted by clients worldwide through lasting partnerships
-            </h3>
-          </article>
+          <TextCell
+            title="Our own warehouses"
+            body="Los Angeles, Houston, New York and West Virginia — your cargo lands with us."
+            tag="US hubs"
+            href="/network"
+          />
+          <ImageCell src="/figma/img/bento-4.jpg" alt="Branded containers at the yard" />
+          <TextCell
+            title="One accountable team"
+            body="Sri Lanka and US teams working the same shipment, from booking to delivery."
+            tag="End to end"
+            href="/about"
+          />
+          <ImageCell src="/figma/img/bento-2.jpg" alt="Parcel handover to a customer" />
 
-          {/* 10+ */}
-          <article
-            data-bento-card
-            className="group relative aspect-[380/287] overflow-hidden will-change-transform md:aspect-auto"
-          >
-            <Image
-              src="/figma/img/bento-3.jpg"
-              alt="GWW shipping container"
-              fill
-              sizes="(max-width: 768px) 100vw, 320px"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 w-[290px] max-w-full p-4">
-              <p className="font-cal text-[38px] leading-[0.8] tracking-[-0.02em] text-white">
-                10 +
-              </p>
-              <p className="mt-1.5 w-[260px] max-w-full font-cal text-[16px] leading-[1.1] text-[#c9c9c9]">
-                Years of industry expertise and on-time delivery
+          {/* Figures row */}
+          {FIGURES.map((f) => (
+            <div key={f.label} data-bento-card className={`bg-white p-5 ${CELL}`}>
+              <p className="kicker text-black/60">{f.label}</p>
+              <p className="mt-6 font-[family-name:var(--font-display)] text-[clamp(40px,4.4vw,64px)] font-semibold uppercase leading-[0.9] text-black">
+                {f.value}
               </p>
             </div>
-          </article>
-
-          {/* Wide card */}
-          <article
-            data-bento-card
-            className="group relative col-span-1 aspect-[772/286] overflow-hidden rounded-br-[48px] will-change-transform md:col-span-2 md:aspect-auto"
-          >
-            <Image
-              src="/figma/img/bento-4.jpg"
-              alt="GWW containers at golden hour"
-              fill
-              sizes="(max-width: 768px) 100vw, 640px"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-black/26" />
-            <h3 className="absolute inset-x-0 bottom-0 w-[360px] max-w-full p-4 font-cal text-[clamp(19px,1.45vw,24px)] leading-[1.05] text-white md:top-[68%] md:bottom-auto md:-translate-y-1/2">
-              Powered by advanced technology, transparency, and total security
-              from start to finish
-            </h3>
-          </article>
+          ))}
         </div>
       </div>
     </section>

@@ -2,30 +2,48 @@ type Props = {
   eyebrow?: string;
   title: string;
   subtitle?: string;
+  index?: string;
   className?: string;
+  /** "dark" for use on graphite bands */
+  tone?: "light" | "dark";
 };
 
+/**
+ * Custo two-column section opener: a small caption on the left, the statement
+ * on the right, both hung from one 1px rule.
+ */
 export default function SectionHeader({
   eyebrow,
   title,
   subtitle,
+  index,
   className = "",
+  tone = "light",
 }: Props) {
+  const ink = tone === "dark" ? "text-white" : "text-black";
+  const muted = tone === "dark" ? "text-[#d8d8d8]" : "text-black/70";
+  const rule = tone === "dark" ? "border-white/40" : "border-black";
+
   return (
-    <div className={`will-change-transform ${className}`}>
-      {eyebrow && (
-        <p className="text-center font-dm text-[11px] font-bold uppercase tracking-[0.18em] text-[#8f8f8f]">
-          {eyebrow}
-        </p>
-      )}
-      <h2 className="mt-3 text-center font-cal text-[clamp(36px,3.2vw,54px)] leading-[1.05] tracking-[-0.03em] text-black">
-        {title}
-      </h2>
-      {subtitle && (
-        <p className="mx-auto mt-4 max-w-[520px] text-center font-cal text-[15px] leading-[1.45] tracking-[0.015em] text-[#808080]">
-          {subtitle}
-        </p>
-      )}
+    <div
+      className={`grid grid-cols-1 gap-4 border-t ${rule} pt-6 md:grid-cols-[280px_1fr] md:gap-10 ${className}`}
+    >
+      <p className={`kicker ${ink}`}>
+        {eyebrow}
+        {index && <span className={`ml-2 ${muted}`}>({index})</span>}
+      </p>
+      <div>
+        <h2
+          className={`max-w-[22ch] text-[clamp(30px,3.6vw,57px)] font-medium leading-[1.05] tracking-[-0.015em] ${ink}`}
+        >
+          {title}
+        </h2>
+        {subtitle && (
+          <p className={`mt-5 max-w-[60ch] text-[clamp(16px,1.3vw,19px)] leading-[1.42] ${muted}`}>
+            {subtitle}
+          </p>
+        )}
+      </div>
     </div>
   );
 }

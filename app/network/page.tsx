@@ -71,7 +71,7 @@ const LANES: Lane[] = [
 
 export default function NetworkPage() {
   return (
-    <main className="flex w-full flex-col bg-white">
+    <main className="flex w-full flex-col bg-[#ffffff]">
       <SiteHeader />
 
       <PageHero
@@ -87,8 +87,8 @@ export default function NetworkPage() {
       />
 
       {/* Transit map */}
-      <section className="w-full bg-white">
-        <div className="mx-auto w-full max-w-[1280px] px-6 pb-[clamp(48px,6vw,96px)] pt-[clamp(48px,6vw,104px)]">
+      <section className="w-full bg-[#ffffff]">
+        <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(48px,6vw,96px)] pt-[clamp(48px,6vw,104px)]">
           <SectionHeader
             eyebrow="Our global network"
             title="the transit map"
@@ -98,16 +98,16 @@ export default function NetworkPage() {
           <TransitMap />
 
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-            <span className="inline-flex items-center gap-2 font-dm text-[12px] font-bold uppercase tracking-[0.1em] text-[#5b6675]">
-              <span className="inline-block h-4 w-4 rounded-[4px] border-2 border-[#0a1f33] bg-[#fffb96]" />
+            <span className="inline-flex items-center gap-2 font-dm text-[12px] font-medium uppercase tracking-[0.1em] text-[#8e9194]">
+              <span className="inline-block h-4 w-4 rounded-[4px] border-2 border-[#000000] bg-black" />
               Colombo origin hub
             </span>
-            <span className="inline-flex items-center gap-2 font-dm text-[12px] font-bold uppercase tracking-[0.1em] text-[#5b6675]">
-              <span className="inline-block h-3 w-6 rounded-full bg-[#0a1f33]" />
+            <span className="inline-flex items-center gap-2 font-dm text-[12px] font-medium uppercase tracking-[0.1em] text-[#8e9194]">
+              <span className="inline-block h-3 w-6 rounded-full bg-[#000000]" />
               Sea lane
             </span>
-            <span className="inline-flex items-center gap-2 font-dm text-[12px] font-bold uppercase tracking-[0.1em] text-[#5b6675]">
-              <span className="inline-block h-3.5 w-3.5 rounded-full border-2 border-[#0a1f33] bg-white" />
+            <span className="inline-flex items-center gap-2 font-dm text-[12px] font-medium uppercase tracking-[0.1em] text-[#8e9194]">
+              <span className="inline-block h-3.5 w-3.5 rounded-full border-2 border-[#000000] bg-[#ffffff]" />
               Port / transit point
             </span>
           </div>
@@ -115,8 +115,8 @@ export default function NetworkPage() {
       </section>
 
       {/* Lane specs */}
-      <section className="w-full bg-[#F0F4F9]">
-        <div className="mx-auto w-full max-w-[1280px] px-6 pb-[clamp(48px,6vw,96px)] pt-[clamp(48px,6vw,104px)]">
+      <section className="w-full bg-[#ffffff]">
+        <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(48px,6vw,96px)] pt-[clamp(48px,6vw,104px)]">
           <SectionHeader
             eyebrow="Core lanes"
             title="lane specifications"
@@ -124,24 +124,24 @@ export default function NetworkPage() {
           />
 
           {/* Table on desktop */}
-          <div className="mt-10 hidden overflow-hidden rounded-tl-[32px] rounded-br-[32px] border border-[#E3E9F1] bg-white md:block">
+          <div className="mt-10 hidden overflow-hidden rounded-lg border border-[#d8d8d8] bg-[#ffffff] md:block">
             <table className="w-full border-collapse text-left">
               <thead>
-                <tr className="bg-[#0a1f33] font-dm text-[12px] uppercase tracking-[0.1em] text-white/80">
-                  <th className="px-6 py-4 font-bold">Lane</th>
-                  <th className="px-6 py-4 font-bold">Transit</th>
-                  <th className="px-6 py-4 font-bold">Sailings</th>
-                  <th className="px-6 py-4 font-bold">Carriers</th>
-                  <th className="px-6 py-4 font-bold">Our support</th>
+                <tr className="bg-[#000000] font-dm text-[12px] uppercase tracking-[0.1em] text-white/80">
+                  <th className="px-6 py-4 font-medium">Lane</th>
+                  <th className="px-6 py-4 font-medium">Transit</th>
+                  <th className="px-6 py-4 font-medium">Sailings</th>
+                  <th className="px-6 py-4 font-medium">Carriers</th>
+                  <th className="px-6 py-4 font-medium">Our support</th>
                 </tr>
               </thead>
-              <tbody className="font-cal text-[15px] text-[#44505f]">
+              <tbody className="font-cal text-[15px] text-[#4b514d]">
                 {LANES.map((lane) => (
                   <tr
                     key={lane.to}
-                    className="border-t border-[#E3E9F1] transition-colors hover:bg-[#F0F4F9]"
+                    className="border-t border-[#d8d8d8] transition-colors hover:bg-[#f1f1f1]"
                   >
-                    <td className="px-6 py-4 font-bold text-[#0a1f33]">
+                    <td className="px-6 py-4 font-medium text-[#000000]">
                       {lane.from} → {lane.to}
                     </td>
                     <td className="px-6 py-4">{lane.transit}</td>
@@ -159,28 +159,28 @@ export default function NetworkPage() {
             {LANES.map((lane) => (
               <div
                 key={lane.to}
-                className="rounded-tl-[24px] rounded-br-[24px] border border-[#E3E9F1] bg-white p-6"
+                className="rounded-lg border border-[#d8d8d8] bg-[#ffffff] p-6"
               >
-                <p className="font-cal text-[18px] font-bold text-[#0a1f33]">
+                <p className="font-cal text-[18px] font-medium text-[#000000]">
                   {lane.from} → {lane.to}
                 </p>
-                <dl className="mt-4 space-y-2 font-cal text-[14px] text-[#44505f]">
+                <dl className="mt-4 space-y-2 font-cal text-[14px] text-[#4b514d]">
                   <div className="flex justify-between gap-4">
-                    <dt className="text-[#808080]">Transit</dt>
-                    <dd className="text-right font-bold text-[#0a1f33]">
+                    <dt className="text-[#8e9194]">Transit</dt>
+                    <dd className="text-right font-medium text-[#000000]">
                       {lane.transit}
                     </dd>
                   </div>
                   <div className="flex justify-between gap-4">
-                    <dt className="text-[#808080]">Sailings</dt>
+                    <dt className="text-[#8e9194]">Sailings</dt>
                     <dd className="text-right">{lane.sailings}</dd>
                   </div>
                   <div className="flex justify-between gap-4">
-                    <dt className="text-[#808080]">Carriers</dt>
+                    <dt className="text-[#8e9194]">Carriers</dt>
                     <dd className="text-right">{lane.carriers}</dd>
                   </div>
                   <div className="flex justify-between gap-4">
-                    <dt className="text-[#808080]">Support</dt>
+                    <dt className="text-[#8e9194]">Support</dt>
                     <dd className="text-right">{lane.support}</dd>
                   </div>
                 </dl>
@@ -191,8 +191,8 @@ export default function NetworkPage() {
       </section>
 
       {/* Offices */}
-      <section className="w-full bg-white">
-        <div className="mx-auto w-full max-w-[1280px] px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
+      <section className="w-full bg-[#ffffff]">
+        <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
           <SectionHeader
             eyebrow="On the ground"
             title="offices & warehouses"
@@ -202,18 +202,18 @@ export default function NetworkPage() {
             {OFFICES.map((o) => (
               <div
                 key={o.city}
-                className="group rounded-tl-[24px] rounded-br-[24px] bg-[#F0F4F9] p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="group rounded-lg bg-[#f1f1f1] p-6 transition-all duration-300 hover:-translate-y-1"
               >
-                <span className="flex size-11 items-center justify-center rounded-full bg-white text-[#0a1f33] shadow-sm transition-colors duration-300 group-hover:bg-[#fffb96]">
+                <span className="flex size-11 items-center justify-center rounded-full bg-[#ffffff] text-[#000000] shadow-sm transition-colors duration-300 group-hover:bg-black">
                   <PinIcon className="h-5 w-5" />
                 </span>
-                <p className="mt-4 font-cal text-[20px] font-bold text-[#0a1f33]">
+                <p className="mt-4 font-cal text-[20px] font-medium text-[#000000]">
                   {o.city}
                 </p>
-                <p className="font-dm text-[12px] font-bold uppercase tracking-[0.12em] text-[#808080]">
+                <p className="font-dm text-[12px] font-medium uppercase tracking-[0.12em] text-[#8e9194]">
                   {o.country}
                 </p>
-                <p className="mt-2 font-cal text-[14px] leading-[1.45] text-[#5b6675]">
+                <p className="mt-2 font-cal text-[14px] leading-[1.45] text-[#8e9194]">
                   {o.role}
                 </p>
               </div>
@@ -223,7 +223,7 @@ export default function NetworkPage() {
           <div className="mt-10 text-center">
             <Link
               href="/quote"
-              className="inline-flex items-center justify-center rounded-tl-[20px] rounded-br-[20px] bg-[#fffb96] px-7 py-3.5 font-cal text-[16px] text-black transition-transform hover:scale-[1.03]"
+              className="inline-flex items-center justify-center rounded-full bg-[#fffb96] px-7 py-3.5 font-cal text-[16px] text-black transition-transform hover:scale-[1.03]"
             >
               Quote a lane
             </Link>

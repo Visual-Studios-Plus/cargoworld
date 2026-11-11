@@ -37,7 +37,7 @@ const STATS = [
 
 export default function AboutPage() {
   return (
-    <main className="flex w-full flex-col bg-white">
+    <main className="flex w-full flex-col bg-[#ffffff]">
       <SiteHeader />
 
       <PageHero
@@ -53,16 +53,16 @@ export default function AboutPage() {
       />
 
       {/* Story + image */}
-      <section className="w-full bg-white">
-        <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-10 px-6 pb-[clamp(48px,6vw,88px)] pt-[clamp(48px,6vw,104px)] lg:grid-cols-2">
+      <section className="w-full bg-[#ffffff]">
+        <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-10 px-6 lg:px-10 pb-[clamp(48px,6vw,88px)] pt-[clamp(48px,6vw,104px)] lg:grid-cols-2">
           <div>
-            <p className="font-dm text-[11px] font-bold uppercase tracking-[0.18em] text-[#8f8f8f]">
+            <p className="font-dm text-[11px] font-medium uppercase tracking-[0.18em] text-[#8e9194]">
               Who we are
             </p>
-            <h2 className="mt-3 font-cal text-[clamp(30px,3vw,46px)] leading-[1.1] tracking-[-0.03em] text-black">
+            <h2 className="mt-3 font-cal text-[clamp(30px,3vw,46px)] leading-[1.1] tracking-[-0.03em] text-[#000000]">
               a forwarder that owns the last mile
             </h2>
-            <div className="mt-5 space-y-4 font-cal text-[15.5px] leading-[1.6] text-[#5b6675]">
+            <div className="mt-5 space-y-4 font-cal text-[15.5px] leading-[1.6] text-[#8e9194]">
               <p>
                 Most forwarders wave goodbye to your cargo at the port of
                 discharge. We don&apos;t. The container arrives at a warehouse we
@@ -77,7 +77,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="relative aspect-[4/3] overflow-hidden rounded-tl-[48px] rounded-br-[48px]">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
             <Image
               src="/figma/img/bento-4.jpg"
               alt="Cargo World Wide containers at golden hour"
@@ -90,12 +90,12 @@ export default function AboutPage() {
       </section>
 
       {/* Stats */}
-      <section className="w-full bg-[#0a1f33]">
-        <div className="mx-auto w-full max-w-[1280px] px-6 py-[clamp(44px,5vw,80px)]">
+      <section className="w-full bg-[#4b514d]">
+        <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 py-[clamp(44px,5vw,80px)]">
           <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
             {STATS.map((s) => (
               <div key={s.label} className="text-center">
-                <p className="font-syne text-[clamp(34px,4vw,56px)] font-bold leading-none text-[#fffb96]">
+                <p className="font-syne text-[clamp(34px,4vw,56px)] font-medium leading-none text-black">
                   {s.value}
                 </p>
                 <p className="mt-2 font-cal text-[14px] text-white/70">
@@ -108,8 +108,8 @@ export default function AboutPage() {
       </section>
 
       {/* Pillars */}
-      <section className="w-full bg-white">
-        <div className="mx-auto w-full max-w-[1280px] px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
+      <section className="w-full bg-[#ffffff]">
+        <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
           <SectionHeader
             eyebrow="How we work"
             title="two teams, one promise"
@@ -119,15 +119,15 @@ export default function AboutPage() {
             {PILLARS.map((p, i) => (
               <div
                 key={p.title}
-                className="rounded-tl-[24px] rounded-br-[24px] bg-[#F0F4F9] p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="rounded-lg bg-[#f1f1f1] p-7 transition-all duration-300 hover:-translate-y-1"
               >
-                <span className="flex size-10 items-center justify-center rounded-full bg-[#0a1f33] font-cal text-[16px] text-[#fffb96]">
+                <span className="flex size-10 items-center justify-center rounded-full bg-[#000000] font-cal text-[16px] text-[#fffb96]">
                   {i + 1}
                 </span>
-                <h3 className="mt-5 font-cal text-[21px] font-bold text-[#0a1f33]">
+                <h3 className="mt-5 font-cal text-[21px] font-medium text-[#000000]">
                   {p.title}
                 </h3>
-                <p className="mt-2.5 font-cal text-[14.5px] leading-[1.55] text-[#5b6675]">
+                <p className="mt-2.5 font-cal text-[14.5px] leading-[1.55] text-[#8e9194]">
                   {p.body}
                 </p>
               </div>
@@ -137,14 +137,14 @@ export default function AboutPage() {
           <div className="mt-10 text-center">
             <Link
               href="/quote"
-              className="inline-block rounded-tl-[20px] rounded-br-[20px] bg-[#fffb96] px-7 py-3.5 font-cal text-[16px] text-black transition-transform hover:scale-[1.03]"
+              className="inline-block rounded-full bg-[#fffb96] px-7 py-3.5 font-cal text-[16px] text-black transition-transform hover:scale-[1.03]"
             >
               Work with us
             </Link>
           </div>
 
           {/* Group endorsement */}
-          <p className="mt-16 border-t border-[#E3E9F1] pt-8 text-center font-dm text-[13px] uppercase tracking-[0.15em] text-[#9aa6b5]">
+          <p className="mt-16 border-t border-[#d8d8d8] pt-8 text-center font-dm text-[13px] uppercase tracking-[0.15em] text-[#d8d8d8]">
             Cargo World Wide is proudly part of the Cargo Worldwide group.
           </p>
         </div>

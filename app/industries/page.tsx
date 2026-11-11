@@ -58,7 +58,7 @@ const SECTORS: Sector[] = [
 
 export default function IndustriesPage() {
   return (
-    <main className="flex w-full flex-col bg-white">
+    <main className="flex w-full flex-col bg-[#ffffff]">
       <SiteHeader />
 
       <PageHero
@@ -73,8 +73,8 @@ export default function IndustriesPage() {
         description="Cargo isn't generic, so our handling isn't either. Each sector gets the equipment, care and paperwork it actually needs."
       />
 
-      <section className="w-full bg-white">
-        <div className="mx-auto w-full max-w-[1280px] px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
+      <section className="w-full bg-[#ffffff]">
+        <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
           <SectionHeader
             eyebrow="Industries we serve"
             title="sectors we move every day"
@@ -87,7 +87,7 @@ export default function IndustriesPage() {
                 key={title}
                 href="/quote"
                 aria-label={`Request a quote for ${title}`}
-                className="group relative flex h-[380px] flex-col justify-end overflow-hidden rounded-tl-[40px] rounded-br-[40px] border border-neutral-200/80 bg-[#dbe8f3] transition-all duration-300 hover:shadow-xl"
+                className="group relative flex h-[380px] flex-col justify-end overflow-hidden rounded-lg border border-neutral-200/80 bg-[#dbe8f3] transition-all duration-300"
               >
                 <Image
                   src={image}
@@ -98,18 +98,18 @@ export default function IndustriesPage() {
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#061421]/95 via-[#061421]/40 to-transparent" />
 
-                <span className="absolute left-6 top-6 rounded-full bg-[#fffb96] px-3.5 py-1.5 font-dm text-[11px] font-bold uppercase tracking-[0.1em] text-[#0a1f33]">
+                <span className="absolute left-6 top-6 rounded-full bg-[#fffb96] px-3.5 py-1.5 font-dm text-[11px] font-medium uppercase tracking-[0.1em] text-black">
                   {tag}
                 </span>
 
                 <div className="relative z-10 p-7">
-                  <h3 className="font-cal text-[26px] font-bold leading-tight tracking-tight text-white transition-colors duration-300 group-hover:text-accent">
+                  <h3 className="font-cal text-[26px] font-medium leading-tight tracking-tight text-white transition-colors duration-300 group-hover:text-[#ffdd00]">
                     {title}
                   </h3>
                   <p className="mt-2.5 max-w-[360px] font-cal text-[14.5px] leading-[1.5] text-white/80">
                     {blurb}
                   </p>
-                  <span className="mt-4 inline-flex items-center gap-2 font-cal text-[14.5px] font-bold text-accent">
+                  <span className="mt-4 inline-flex items-center gap-2 font-cal text-[14.5px] font-medium text-accent">
                     Request a quote
                     <svg
                       viewBox="0 0 24 24"

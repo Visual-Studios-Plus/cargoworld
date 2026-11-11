@@ -1,3 +1,4 @@
+import SectionHeader from "../SectionHeader";
 /* eslint-disable @next/next/no-img-element */
 
 const OCEAN = Array.from({ length: 12 }, (_, i) => ({
@@ -37,7 +38,7 @@ function Track({
 
 export default function CoreCarriers() {
   return (
-    <section className="w-full overflow-hidden bg-white py-[clamp(48px,6vw,88px)]">
+    <section className="w-full overflow-hidden bg-[#ffffff] py-[clamp(72px,9vw,110px)]">
       <style>{`
         @keyframes marq-left{from{transform:translateX(0)}to{transform:translateX(-50%)}}
         .marq-track{animation:marq-left linear infinite;will-change:transform}
@@ -52,19 +53,11 @@ export default function CoreCarriers() {
       `}</style>
 
       <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10">
-        <p className="text-center font-dm text-[11px] font-bold uppercase tracking-[0.18em] text-[#8f8f8f]">
-          Trusted lanes
-        </p>
-        <h2
-          className="mt-3 text-center font-cal text-[clamp(32px,3vw,48px)] text-black"
-          style={{ letterSpacing: "-0.02em", lineHeight: 1.05 }}
-        >
-          Core Carriers
-        </h2>
-        <p className="mx-auto mt-3 max-w-[520px] text-center font-cal text-[15px] text-[#808080]" style={{ lineHeight: 1.5 }}>
-          We book space across the world&apos;s leading ocean and air carriers,
-          so your cargo always has a sailing.
-        </p>
+        <SectionHeader
+          eyebrow="Core carriers"
+          title="Space on the world's leading ocean and air lines."
+          subtitle="Long-standing allocations mean your cargo always has a sailing."
+        />
       </div>
 
       <div className="marq-mask mt-12 flex flex-col gap-10">

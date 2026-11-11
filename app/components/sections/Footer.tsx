@@ -1,130 +1,102 @@
 import Image from "next/image";
+import Link from "next/link";
 
-const SITE = "https://www.cargoworldwideincsl.com";
-
-const ABOUT_LINKS = [
-  { label: "Who We Are", href: `${SITE}/about-us/` },
-  { label: "Our Global Network", href: `${SITE}/our-global-network/` },
-  { label: "Get A Quote", href: `${SITE}/get-a-quote/` },
-  { label: "Partner With Us", href: `${SITE}/partner-with-us/` },
-  { label: "Contact Us", href: `${SITE}/contact-us/` },
-  { label: "Blog", href: `${SITE}/blog/` },
-  { label: "Careers", href: `${SITE}/careers/` },
-];
-
-const INDUSTRY_LINKS = [
-  { label: "Retail & Fashion", href: `${SITE}/retail-fashion/` },
-  { label: "FMCG", href: `${SITE}/fmcg/` },
-  { label: "HealthCare", href: `${SITE}/healthcare/` },
-  { label: "Manufacturing", href: `${SITE}/manufacturing/` },
-  { label: "Steam Activated Carbon", href: `${SITE}/steam-activated-carbon/` },
-  { label: "Automobile", href: `${SITE}/automobile/` },
-];
-
-const SERVICE_LINKS = [
-  { label: "Ocean Freight", href: `${SITE}/ocean-freight/` },
-  { label: "Air Freight", href: `${SITE}/air-freight/` },
-  { label: "Transportation", href: `${SITE}/transportation/` },
+const COLUMNS = [
   {
-    label: "Warehousing & Distribution",
-    href: `${SITE}/warehousing-distribution/`,
+    title: "Services",
+    links: [
+      { label: "Ocean Freight", href: "/ship" },
+      { label: "Air Freight", href: "/ship" },
+      { label: "Customs Brokerage", href: "/ship" },
+      { label: "Warehousing", href: "/ship" },
+      { label: "Transportation", href: "/ship" },
+      { label: "4PL & Project Cargo", href: "/ship" },
+    ],
   },
-  { label: "Customs Brokerage", href: `${SITE}/customs-brokerage/` },
   {
-    label: "4PL Services",
-    href: `${SITE}/4pl-logistics-service-provider-cargo-worldwide-sri-lanka/`,
+    title: "Company",
+    links: [
+      { label: "About", href: "/about" },
+      { label: "Network", href: "/network" },
+      { label: "Industries", href: "/industries" },
+      { label: "Careers", href: "https://www.cargoworldwideincsl.com/careers/" },
+    ],
   },
-  { label: "Project Cargo", href: `${SITE}/project-cargo/` },
+  {
+    title: "Customers",
+    links: [
+      { label: "Get a quote", href: "/quote" },
+      { label: "Track a shipment", href: "/track" },
+      { label: "Contact", href: "https://www.cargoworldwideincsl.com/contact-us/" },
+    ],
+  },
 ];
 
-function LinkColumn({
-  title,
-  links,
-}: {
-  title: string;
-  links: { label: string; href: string }[];
-}) {
-  return (
-    <div>
-      <h3 className="mb-4 font-cal font-bold text-white">{title}</h3>
-      <ul className="space-y-3 text-sm">
-        {links.map((link) => (
-          <li key={link.label}>
-            <a
-              href={link.href}
-              className="text-neutral-400 transition-colors hover:text-white"
-            >
-              {link.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
+/** Paper-white footer with a hairline rule — Custo's quiet close. */
 export default function Footer() {
   return (
-    <footer className="relative min-h-[500px] overflow-hidden border-t border-neutral-800 bg-[#111111] pb-36 pt-24 font-cal text-white lg:min-h-[600px]">
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 gap-12 px-6 pb-16 pt-8 md:grid-cols-2 lg:grid-cols-4">
-        <div className="flex flex-col">
-          <Image
-            src="/figma/img/logo.png"
-            alt="Cargo Worldwide Lanka"
-            width={129}
-            height={53}
-            className="h-[53px] w-[129px] object-contain"
-          />
-
-          <h4 className="mt-7 text-sm font-bold text-white">
-            Cargo Worldwide
-          </h4>
-          <address className="mt-3 space-y-2 text-sm not-italic leading-relaxed text-neutral-400">
-            <p>
-              Level 17, &quot;Parkland&quot;
-              <br />
-              33 Park Street, Colombo 2
-            </p>
-            <p>
-              Phone:{" "}
-              <a
-                href="tel:+94112307748"
-                className="transition-colors hover:text-white"
-              >
+    <footer className="w-full border-t border-[#a7aaad] bg-white">
+      <div className="mx-auto w-full max-w-[1280px] px-6 pt-[clamp(56px,7vw,96px)] lg:px-10">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+          <div>
+            <span className="inline-flex rounded-2xl bg-black px-3 py-2">
+              <Image
+                src="/figma/img/logo.png"
+                alt="Cargo World Wide"
+                width={97}
+                height={40}
+                className="h-[28px] w-auto object-contain"
+              />
+            </span>
+            <address className="mt-8 space-y-1 text-[15px] not-italic leading-[1.43] text-black">
+              <p>Level 17, &quot;Parkland&quot;</p>
+              <p>33 Park Street, Colombo 2, Sri Lanka</p>
+            </address>
+            <div className="mt-4 space-y-1 text-[15px] leading-[1.43]">
+              <a href="tel:+94112307748" className="block text-black hover:underline">
                 +94 112 307 748
               </a>
-            </p>
-            <p>
-              Email:{" "}
               <a
                 href="mailto:info.sl@cargoworldwideinc.com"
-                className="break-all transition-colors hover:text-white"
+                className="block break-all text-black hover:underline"
               >
                 info.sl@cargoworldwideinc.com
               </a>
-            </p>
-          </address>
+            </div>
+          </div>
 
-          <p className="mt-auto pt-10 text-xs leading-relaxed text-neutral-500">
-            © Copyright 2026 All Rights Reserved. Cargo Worldwide Sri Lanka.
-          </p>
+          {COLUMNS.map((col) => (
+            <div key={col.title}>
+              <p className="kicker text-[#8e9194]">{col.title}</p>
+              <ul className="mt-4 space-y-2.5">
+                {col.links.map((l) => (
+                  <li key={l.label}>
+                    <Link
+                      href={l.href}
+                      className="text-[15px] leading-[1.43] text-black transition-opacity hover:opacity-60"
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        <LinkColumn title="About Us" links={ABOUT_LINKS} />
-        <LinkColumn title="Industries" links={INDUSTRY_LINKS} />
-        <LinkColumn title="E2E Services" links={SERVICE_LINKS} />
-      </div>
+        {/* Wordmark at architectural scale */}
+        <p
+          aria-hidden="true"
+          className="mt-[clamp(56px,7vw,96px)] select-none font-[family-name:var(--font-display)] text-[clamp(56px,13.5vw,208px)] font-semibold uppercase leading-[0.85] text-[#4b514d]"
+        >
+          Cargo World Wide
+        </p>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-72 lg:h-96">
-        <Image
-          src="/figma/img/bento-1.jpg"
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover object-center opacity-40"
-        />
+        <div className="mt-8 flex flex-col gap-2 border-t border-[#d8d8d8] py-6 text-[14px] text-[#8e9194] sm:flex-row sm:justify-between">
+          <p>© 2026 Cargo Worldwide Sri Lanka. All rights reserved.</p>
+          <p>Colombo · Los Angeles · Houston · Mississauga · Chennai · Tuticorin</p>
+        </div>
       </div>
-      <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-t from-[#111111] via-[#111111]/80 to-transparent" />
     </footer>
   );
 }

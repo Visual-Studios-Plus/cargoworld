@@ -67,7 +67,7 @@ const SERVICES: Service[] = [
 
 export default function ShipPage() {
   return (
-    <main className="flex w-full flex-col bg-white">
+    <main className="flex w-full flex-col bg-[#ffffff]">
       <SiteHeader />
 
       <PageHero
@@ -84,21 +84,21 @@ export default function ShipPage() {
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/quote"
-            className="flex h-[58px] items-center justify-center rounded-tl-[20px] rounded-br-[20px] bg-[#fffb96] px-7 font-cal text-[18px] text-black transition-transform hover:scale-[1.03]"
+            className="flex h-[58px] items-center justify-center rounded-full bg-[#fffb96] px-7 font-cal text-[18px] text-black transition-transform hover:scale-[1.03]"
           >
             Get a quote
           </Link>
           <Link
             href="/track"
-            className="flex h-[58px] items-center justify-center rounded-tl-[20px] rounded-br-[20px] bg-white/10 px-7 font-cal text-[18px] text-white backdrop-blur-md transition-colors hover:bg-white/20"
+            className="flex h-[58px] items-center justify-center rounded-full bg-white/10 px-7 font-cal text-[18px] text-white backdrop-blur-md transition-colors hover:bg-white/20"
           >
             Track a shipment
           </Link>
         </div>
       </PageHero>
 
-      <section className="w-full bg-white">
-        <div className="mx-auto w-full max-w-[1280px] px-6 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
+      <section className="w-full bg-[#ffffff]">
+        <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
           <SectionHeader
             eyebrow="Our services"
             title="everything you need to move cargo"
@@ -111,7 +111,7 @@ export default function ShipPage() {
                 key={title}
                 href="/quote"
                 aria-label={`Get a quote for ${title}`}
-                className="group relative h-[340px] overflow-hidden rounded-2xl border border-neutral-200/80 bg-[#dbe8f3] transition-all duration-300 hover:shadow-xl"
+                className="group relative h-[340px] overflow-hidden rounded-lg border border-neutral-200/80 bg-[#dbe8f3] transition-all duration-300"
               >
                 <Image
                   src={image}
@@ -124,7 +124,7 @@ export default function ShipPage() {
 
                 <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5">
                   <div>
-                    <h3 className="font-cal text-xl font-bold leading-tight tracking-tight text-white transition-colors duration-300 group-hover:text-accent">
+                    <h3 className="font-cal text-xl font-medium leading-tight tracking-tight text-white transition-colors duration-300 group-hover:text-[#ffdd00]">
                       {title}
                     </h3>
                     <p className="mt-1.5 max-w-[240px] font-cal text-[13.5px] leading-[1.45] text-white/75">
@@ -134,7 +134,7 @@ export default function ShipPage() {
 
                   <span
                     aria-hidden="true"
-                    className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border border-white/70 text-white transition-all duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-brand-blue"
+                    className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border border-white/70 text-white transition-all duration-300 group-hover:border-white group-hover:bg-white group-hover:text-black"
                   >
                     <svg
                       viewBox="0 0 24 24"
