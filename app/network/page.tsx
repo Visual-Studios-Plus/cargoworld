@@ -92,7 +92,7 @@ export default function NetworkPage() {
           <SectionHeader
             eyebrow="Our global network"
             title="the transit map"
-            subtitle="Colombo sits at the centre — feeding regional lanes in and dispatching to our own US warehouses."
+            subtitle="Every lane runs direct from Colombo to one of our own US warehouses — no hand-offs on the way."
           />
 
           <TransitMap />
