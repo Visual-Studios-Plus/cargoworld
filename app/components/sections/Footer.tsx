@@ -35,10 +35,11 @@ const COLUMNS = [
 /** Paper-white footer with a hairline rule — Custo's quiet close. */
 export default function Footer() {
   return (
-    <footer className="w-full border-t border-[#a7aaad] bg-white">
+    <footer className="w-full bg-white">
       <div className="mx-auto w-full max-w-[1280px] px-6 pt-[clamp(56px,7vw,96px)] lg:px-10">
-        <div data-stagger className="grid grid-cols-1 gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
-          <div>
+        {/* 12-column grid: address + three link columns, each a quarter on desktop */}
+        <div data-stagger className="grid grid-cols-1 gap-y-12 md:grid-cols-12 md:gap-x-6">
+          <div className="md:col-span-12 lg:col-span-3">
             <span className="inline-flex">
               <Image
                 src="/figma/img/logo.png"
@@ -66,8 +67,8 @@ export default function Footer() {
           </div>
 
           {COLUMNS.map((col) => (
-            <div key={col.title}>
-              <p className="kicker text-[#8e9194]">{col.title}</p>
+            <div key={col.title} className="md:col-span-4 lg:col-span-3">
+              <p className="kicker text-black/55">{col.title}</p>
               <ul className="mt-4 space-y-2.5">
                 {col.links.map((l) => (
                   <li key={l.label}>
@@ -84,9 +85,9 @@ export default function Footer() {
           ))}
         </div>
 
-        <div data-reveal className="mt-8 flex flex-col gap-2 border-t border-[#d8d8d8] py-6 text-[14px] text-[#8e9194] sm:flex-row sm:justify-between">
-          <p>© 2026 Cargo Worldwide Sri Lanka. All rights reserved.</p>
-          <p>Colombo · Los Angeles · Houston · Mississauga · Chennai · Tuticorin</p>
+        <div data-reveal className="mt-14 grid grid-cols-1 gap-y-2 py-6 text-[14px] text-black/60 md:grid-cols-12 md:gap-x-6">
+          <p className="md:col-span-12 lg:col-span-3">© 2026 Cargo Worldwide Sri Lanka. All rights reserved.</p>
+          <p className="md:col-span-12 lg:col-span-9">Colombo · Los Angeles · Houston · Mississauga · Chennai · Tuticorin</p>
         </div>
       </div>
     </footer>

@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import SiteHeader from "../components/SiteHeader";
-import SectionHeader from "../components/SectionHeader";
-import PageHero from "../components/PageHero";
 import Footer from "../components/sections/Footer";
-import CallToAction from "../components/sections/CallToAction";
+import { SwissHero, Block, Band, CtaSplit } from "../components/Swiss";
 
 export const metadata: Metadata = {
   title: "Ship — Freight & logistics services | Cargo World Wide",
@@ -67,96 +65,70 @@ const SERVICES: Service[] = [
 
 export default function ShipPage() {
   return (
-    <main className="flex w-full flex-col bg-[#ffffff]">
+    <main className="flex w-full flex-col bg-white">
       <SiteHeader />
 
-      <PageHero
+      <SwissHero
         image="/figma/img/services/service-1.webp"
-        title={
-          <>
-            ship it door to door,
-            <br />
-            one accountable team
-          </>
-        }
-        description="From a single pallet to a full project move, we run every link — direct from Colombo to our own US warehouses in Los Angeles, Houston, New York and West Virginia, then to your door on our own fleet."
+        alt="Aerial view of a container ship at sea"
+        eyebrow="Ship with us"
+        title="Ship it door to door, one accountable team"
+        description="From a single pallet to a full project move, we run every link — direct from Colombo to our own US warehouses, then to your door on our own fleet."
       >
-        <div className="flex flex-wrap items-center justify-center gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row">
           <Link
             href="/quote"
-            className="flex h-[58px] items-center justify-center bg-[#ffe500] px-7 font-cal text-[18px] text-black transition-transform hover:scale-[1.03]"
+            className="flex h-[56px] items-center justify-center bg-[#ffe500] px-8 text-[16px] font-medium text-black transition-colors hover:bg-white"
           >
             Get a quote
           </Link>
           <Link
             href="/track"
-            className="flex h-[58px] items-center justify-center bg-white/10 px-7 font-cal text-[18px] text-white backdrop-blur-md transition-colors hover:bg-white/20"
+            className="flex h-[56px] items-center justify-center border border-white/50 px-8 text-[16px] text-white transition-colors hover:border-white hover:bg-white hover:text-black"
           >
             Track a shipment
           </Link>
         </div>
-      </PageHero>
+      </SwissHero>
 
-      <section className="w-full bg-[#ffffff]">
-        <div data-section className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
-          <SectionHeader
-            eyebrow="Our services"
-            title="everything you need to move cargo"
-            subtitle="Seven connected services, searchable and transparent, each one a tap away from a quote."
-          />
+      <Block
+        eyebrow="Our services"
+        title="Everything you need to move cargo"
+        lead="Seven connected services, each one a tap away from a quote."
+      />
 
-          <div data-stagger className="mt-10 grid grid-cols-1 gap-[50px] sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-            {SERVICES.map(({ title, blurb, image, alt }) => (
-              <Link
-                key={title}
-                href="/quote"
-                aria-label={`Get a quote for ${title}`}
-                className="group relative h-[340px] overflow-hidden border border-neutral-200/80 bg-[#dbe8f3] transition-all duration-300"
-              >
-                <Image
-                  src={image}
-                  alt={alt}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#061421]/95 via-[#061421]/35 to-transparent" />
-
-                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5">
+      <Band>
+        <ul className="grid grid-cols-1 gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+          {SERVICES.map(({ title, blurb, image, alt }, i) => (
+            <li key={title}>
+              <Link href="/quote" aria-label={`Get a quote for ${title}`} className="group block">
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#f4f5f7]">
+                  <Image
+                    src={image}
+                    alt={alt}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover grayscale transition-[filter] duration-500 group-hover:grayscale-0"
+                  />
+                </div>
+                <div className="mt-5 grid grid-cols-[40px_1fr] gap-4">
+                  <span className="pt-1 text-[13px] tabular-nums text-black/40">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                   <div>
-                    <h3 className="font-cal text-xl font-medium leading-tight tracking-tight text-white transition-colors duration-300 group-hover:text-[#ffe500]">
+                    <h3 className="text-[clamp(20px,1.8vw,26px)] text-black underline-offset-4 group-hover:underline">
                       {title}
                     </h3>
-                    <p className="mt-1.5 max-w-[240px] font-cal text-[13.5px] leading-[1.45] text-white/75">
-                      {blurb}
-                    </p>
+                    <p className="mt-2 max-w-[34ch] text-[15px] leading-[1.6] text-black/65">{blurb}</p>
                   </div>
-
-                  <span
-                    aria-hidden="true"
-                    className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border border-white/70 text-white transition-all duration-300 group-hover:border-white group-hover:bg-white group-hover:text-black"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                      className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    >
-                      <path d="M7 17 17 7M9 7h8v8" />
-                    </svg>
-                  </span>
                 </div>
               </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+            </li>
+          ))}
+        </ul>
+      </Band>
 
-      <CallToAction />
+      <CtaSplit image="/figma/img/bento-4.jpg" alt="Branded containers at the yard" />
       <Footer />
     </main>
   );

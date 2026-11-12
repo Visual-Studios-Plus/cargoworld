@@ -4,28 +4,19 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import SiteHeader from "../components/SiteHeader";
 import Footer from "../components/sections/Footer";
 import { CheckIcon, WhatsAppIcon } from "../components/Icons";
-import { LOADS, DESTINATIONS } from "./options";
+import { GRID, COL } from "../components/Swiss";
+import {
+  LOADS,
+  DESTINATIONS,
+  CARGO_SUGGESTIONS,
+  READY,
+  SERVICES,
+  WHATSAPP,
+  SALES_EMAIL,
+  fmtDate,
+} from "./options";
 
-const WHATSAPP = "94112307748";
-const SALES_EMAIL = "info.sl@cargoworldwideinc.com";
 const Y = "#ffe500";
-
-const CARGO_SUGGESTIONS = ["Apparel", "Tea & spices", "FMCG", "Machinery", "Furniture"];
-
-// Phrased to complete "…ready by ___."
-const READY = ["next week", "the end of the month", "next month", "a flexible date"];
-
-const fmtDate = (iso: string) =>
-  new Date(`${iso}T00:00:00`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
-
-const SERVICES = [
-  { v: "Ocean freight", hint: "FCL & LCL sailings" },
-  { v: "Air freight", hint: "When time is critical" },
-  { v: "Customs brokerage", hint: "We clear it at the US port" },
-  { v: "Warehousing", hint: "Our own US warehouses" },
-  { v: "Final-mile trucking", hint: "To the buyer's door" },
-  { v: "Project cargo", hint: "Oversized & heavy-lift" },
-];
 
 const STEPS = ["Load", "Cargo", "Destination", "Timing", "Services", "Contact", "Review"] as const;
 
@@ -181,18 +172,22 @@ export default function QuotePage() {
     <main className="flex w-full flex-col bg-white">
       <SiteHeader />
 
-      {/* Slim title strip — the first question stays above the fold */}
-      <section className="w-full border-b border-black/15 bg-white pt-[60px]">
-        <div className="mx-auto flex w-full max-w-[1280px] items-end justify-between gap-6 px-6 pb-6 pt-8 lg:px-10 lg:pt-14">
-          <div>
-            <p className="text-[11px] uppercase tracking-[0.16em] text-black/60">Get a quote</p>
-            <p className="mt-2 text-[15px] text-black/70">One question at a time · about a minute</p>
+      {/* Title: split on the same two-column grid as the other pages */}
+      <section className="w-full bg-white pt-[60px]">
+        <div className={`${GRID} w-full pb-8 pt-[clamp(40px,6vw,80px)]`}>
+          <div className={COL.left}>
+            <p className="kicker mb-5 font-semibold text-black">Get a quote</p>
+            <h1 className="text-[clamp(36px,4.4vw,64px)] text-black">Price your shipment</h1>
           </div>
+          <p className={`mt-6 max-w-[40ch] self-end text-[16px] leading-[1.55] text-black/65 md:mt-0 ${COL.right}`}>
+            One question at a time — about a minute. We usually reply within one business day.
+          </p>
         </div>
       </section>
 
       <section className="w-full bg-white">
-        <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-10 px-6 pb-32 pt-8 lg:grid-cols-[1fr_340px] lg:gap-16 lg:px-10">
+        <div className={`${GRID} w-full pb-32 pt-8`}>
+        <div className={`grid grid-cols-1 gap-10 lg:grid-cols-[1fr_340px] lg:gap-16 ${COL.content}`}>
           {/* Wizard */}
           <div>
             {/* Progress */}
@@ -449,6 +444,7 @@ export default function QuotePage() {
               </dl>
             </div>
           </aside>
+        </div>
         </div>
       </section>
 

@@ -50,25 +50,19 @@ export default function Timeline() {
   return (
     <section className="w-full bg-white text-black">
       <div data-section className="mx-auto w-full max-w-[1280px] px-6 py-[clamp(72px,9vw,120px)] lg:px-10">
-        {/* Meta rule */}
-        <div data-slide="down" className="flex items-baseline justify-between gap-6 border-b border-black pb-4 text-[11px] uppercase tracking-[0.16em]">
-          <span className="text-black">How it works</span>
-          <span className="hidden text-black/50 sm:block">
-            Colombo, LK &nbsp;→&nbsp; United States
-          </span>
-          <span className="tabular-nums text-black/50">06 steps</span>
-        </div>
+        {/* Title block — 12-column grid; the title starts on the middle card column */}
+        <div className="grid grid-cols-1 gap-y-6 md:grid-cols-12">
+          <p data-slide="left" className="kicker text-black md:col-span-6 lg:col-span-4">How it works</p>
 
-        {/* Title block */}
-        <div className="mt-[clamp(32px,4vw,56px)] grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-10">
-          <h2 data-headline className="text-[clamp(40px,5.6vw,88px)] leading-[0.92] tracking-[-0.02em] text-black md:col-span-8">
+          <div className="md:col-span-6 lg:col-span-8">
+          <h2 data-headline className="text-[clamp(40px,5.6vw,88px)] leading-[0.92] tracking-[-0.02em] text-black">
             Six steps,
             <br />
             one team
           </h2>
 
-          <div data-slide="up" data-slide-delay="0.14" className="flex flex-col justify-end gap-6 md:col-span-4">
-            <p className="max-w-[34ch] text-[15px] leading-[1.5] text-black/60">
+          <div data-slide="up" data-slide-delay="0.14" className="mt-8 flex flex-col items-start gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <p className="max-w-[44ch] text-[16px] leading-[1.5] text-black/65">
               From the first message to the buyer&apos;s door — one team owns every
               handover between Colombo and the United States.
             </p>
@@ -78,6 +72,7 @@ export default function Timeline() {
             >
               Start a quote <span aria-hidden="true">↗</span>
             </Link>
+          </div>
           </div>
         </div>
 
@@ -98,19 +93,12 @@ export default function Timeline() {
                   </span>
                 </div>
 
-                <div className="mt-12">
+                {/* title + description sit at the bottom of the card */}
+                <div className="mt-16">
+                  <div className="flex items-start justify-between gap-4">
                   <h3 className="text-[clamp(18px,1.7vw,22px)] text-black transition-colors duration-300 group-hover:text-white">
                     {s.title}
                   </h3>
-                  <p className="mt-3 max-w-[36ch] text-[14px] leading-[1.5] text-black/60 transition-colors duration-300 group-hover:text-white/70">
-                    {s.body}
-                  </p>
-                </div>
-
-                <div className="mt-8 flex items-center justify-between border-t border-black/15 pt-4 transition-colors duration-300 group-hover:border-white/25">
-                  <span className="text-[10px] uppercase tracking-[0.18em] text-black/40 transition-colors duration-300 group-hover:text-white/50">
-                    Step {s.n} / 06
-                  </span>
                   <svg
                     viewBox="0 0 24 24"
                     fill="none"
@@ -123,6 +111,10 @@ export default function Timeline() {
                   >
                     <path d="M7 17 17 7M9 7h8v8" />
                   </svg>
+                  </div>
+                  <p className="mt-3 max-w-[36ch] text-[14px] leading-[1.5] text-black/60 transition-colors duration-300 group-hover:text-white/70">
+                    {s.body}
+                  </p>
                 </div>
               </Link>
             </li>

@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import SiteHeader from "../components/SiteHeader";
-import SectionHeader from "../components/SectionHeader";
-import PageHero from "../components/PageHero";
 import TransitMap from "../components/TransitMap";
 import Footer from "../components/sections/Footer";
-import CallToAction from "../components/sections/CallToAction";
-import { PinIcon } from "../components/Icons";
+import { SwissHero, Block, Cells, Band, CtaSplit } from "../components/Swiss";
 
 export const metadata: Metadata = {
   title: "Network — Colombo to the US, our own hubs | Cargo World Wide",
@@ -14,15 +10,13 @@ export const metadata: Metadata = {
     "Colombo is our hub, connecting India, Europe and the Far East to our own US warehouses in Los Angeles, Houston, New York and West Virginia. See lanes, transit times and offices.",
 };
 
-type Office = { city: string; country: string; role: string };
-
-const OFFICES: Office[] = [
-  { city: "Colombo", country: "Sri Lanka", role: "Head office & origin hub" },
-  { city: "Tuticorin", country: "India", role: "India origin gateway" },
-  { city: "Chennai", country: "India", role: "India origin gateway" },
-  { city: "Compton", country: "California, USA", role: "Los Angeles warehouse & fleet" },
-  { city: "Houston", country: "Texas, USA", role: "Warehouse & fleet" },
-  { city: "Mississauga", country: "Ontario, Canada", role: "Distribution office" },
+const OFFICES = [
+  { title: "Colombo", meta: "Sri Lanka", body: "Head office & origin hub" },
+  { title: "Tuticorin", meta: "India", body: "India origin gateway" },
+  { title: "Chennai", meta: "India", body: "India origin gateway" },
+  { title: "Compton", meta: "California, USA", body: "Los Angeles warehouse & fleet" },
+  { title: "Houston", meta: "Texas, USA", body: "Warehouse & fleet" },
+  { title: "Mississauga", meta: "Ontario, Canada", body: "Distribution office" },
 ];
 
 type Lane = {
@@ -69,169 +63,119 @@ const LANES: Lane[] = [
   },
 ];
 
+const COLS: [keyof Lane | "lane", string][] = [
+  ["lane", "Lane"],
+  ["transit", "Transit"],
+  ["sailings", "Sailings"],
+  ["carriers", "Carriers"],
+  ["support", "Our support"],
+];
+
 export default function NetworkPage() {
   return (
-    <main className="flex w-full flex-col bg-[#ffffff]">
+    <main className="flex w-full flex-col bg-white">
       <SiteHeader />
 
-      <PageHero
+      <SwissHero
         image="/figma/img/bento-4.jpg"
-        title={
-          <>
-            one hub in colombo,
-            <br />
-            our own doors in the US
-          </>
-        }
+        alt="Containers stacked at the Colombo port"
+        eyebrow="Network"
+        title="One hub in Colombo, our own doors in the US"
         description="We don't hand your cargo to a stranger at the US port. It arrives at a warehouse we own and leaves on a truck we drive."
       />
 
-      {/* Transit map */}
-      <section className="w-full bg-[#ffffff]">
-        <div data-section className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(48px,6vw,96px)] pt-[clamp(48px,6vw,104px)]">
-          <SectionHeader
-            eyebrow="Our global network"
-            title="the transit map"
-            subtitle="Every lane runs direct from Colombo to one of our own US warehouses — no hand-offs on the way."
-          />
-
+      <Block
+        eyebrow="Our global network"
+        title="The transit map"
+        lead="Every lane runs direct from Colombo to one of our own US warehouses — no hand-offs on the way."
+      />
+      <Band>
+        <div>
           <TransitMap />
-
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2" data-reveal>
-            <span className="inline-flex items-center gap-2 font-dm text-[12px] font-medium uppercase tracking-[0.1em] text-[#8e9194]">
-              <span className="inline-block h-4 w-4 rounded-[4px] border-2 border-[#1e3a8a] bg-black" />
+          <ul className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 text-[13px] text-black/65">
+            <li className="inline-flex items-center gap-2.5">
+              <span className="inline-block size-3.5 bg-[#1e3a8a]" />
               Colombo origin hub
-            </span>
-            <span className="inline-flex items-center gap-2 font-dm text-[12px] font-medium uppercase tracking-[0.1em] text-[#8e9194]">
-              <span className="inline-block h-3 w-6 rounded-full bg-[#1e3a8a]" />
+            </li>
+            <li className="inline-flex items-center gap-2.5">
+              <span className="inline-block h-[3px] w-6 bg-[#1e3a8a]" />
               Sea lane
-            </span>
-            <span className="inline-flex items-center gap-2 font-dm text-[12px] font-medium uppercase tracking-[0.1em] text-[#8e9194]">
-              <span className="inline-block h-3.5 w-3.5 rounded-full border-2 border-[#1e3a8a] bg-[#ffffff]" />
+            </li>
+            <li className="inline-flex items-center gap-2.5">
+              <span className="inline-block size-3.5 border-2 border-[#1e3a8a] bg-white" />
               Port / transit point
-            </span>
-          </div>
+            </li>
+          </ul>
         </div>
-      </section>
+      </Band>
 
-      {/* Lane specs */}
-      <section className="w-full bg-[#ffffff]">
-        <div data-section className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(48px,6vw,96px)] pt-[clamp(48px,6vw,104px)]">
-          <SectionHeader
-            eyebrow="Core lanes"
-            title="lane specifications"
-            subtitle="Real transit times and sailing frequencies — all as searchable text, never buried in an image."
-          />
-
-          {/* Table on desktop */}
-          <div data-reveal className="mt-10 hidden overflow-hidden border border-[#d8d8d8] bg-[#ffffff] md:block">
-            <table className="w-full border-collapse text-left">
-              <thead>
-                <tr className="bg-[#1e3a8a] font-dm text-[12px] uppercase tracking-[0.1em] text-white/80">
-                  <th className="px-6 py-4 font-medium">Lane</th>
-                  <th className="px-6 py-4 font-medium">Transit</th>
-                  <th className="px-6 py-4 font-medium">Sailings</th>
-                  <th className="px-6 py-4 font-medium">Carriers</th>
-                  <th className="px-6 py-4 font-medium">Our support</th>
-                </tr>
-              </thead>
-              <tbody className="font-cal text-[15px] text-[#4b514d]">
-                {LANES.map((lane) => (
-                  <tr
-                    key={lane.to}
-                    className="border-t border-[#d8d8d8] transition-colors hover:bg-[#f1f1f1]"
-                  >
-                    <td className="px-6 py-4 font-medium text-[#1e3a8a]">
-                      {lane.from} → {lane.to}
-                    </td>
-                    <td className="px-6 py-4">{lane.transit}</td>
-                    <td className="px-6 py-4">{lane.sailings}</td>
-                    <td className="px-6 py-4">{lane.carriers}</td>
-                    <td className="px-6 py-4">{lane.support}</td>
-                  </tr>
+      <Block
+        eyebrow="Core lanes"
+        title="Lane specifications"
+        lead="Real transit times and sailing frequencies — searchable text, never buried in an image."
+        tone="grey"
+      />
+      <Band tone="grey">
+        <div>
+          {/* Table on desktop: rows separated by tone, not rules */}
+          <table className="hidden w-full text-left md:table">
+            <thead>
+              <tr className="kicker text-black/70">
+                {COLS.map(([k, label], i) => (
+                  <th key={k} className={`pb-5 pr-6 font-medium ${i === 0 ? "pl-4" : ""}`}>
+                    {label}
+                  </th>
                 ))}
-              </tbody>
-            </table>
-          </div>
+              </tr>
+            </thead>
+            <tbody className="text-[15px] text-black/75">
+              {LANES.map((lane, i) => (
+                <tr key={lane.to + lane.from} className={i % 2 === 0 ? "bg-white" : ""}>
+                  <td className="px-4 py-5 font-medium text-black">
+                    {lane.from} → {lane.to}
+                  </td>
+                  <td className="py-5 pr-6 font-medium text-black tabular-nums">{lane.transit}</td>
+                  <td className="py-5 pr-6">{lane.sailings}</td>
+                  <td className="py-5 pr-6">{lane.carriers}</td>
+                  <td className="py-5 pr-6">{lane.support}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
-          {/* Cards on mobile */}
-          <div data-stagger className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:hidden">
+          {/* Stacked rows on mobile */}
+          <div className="grid grid-cols-1 gap-3 md:hidden">
             {LANES.map((lane) => (
-              <div
-                key={lane.to}
-                className="border border-[#d8d8d8] bg-[#ffffff] p-6"
-              >
-                <p className="font-cal text-[18px] font-medium text-[#1e3a8a]">
+              <div key={lane.to + lane.from} className="bg-white p-6">
+                <p className="text-[18px] font-medium text-black">
                   {lane.from} → {lane.to}
                 </p>
-                <dl className="mt-4 space-y-2 font-cal text-[14px] text-[#4b514d]">
-                  <div className="flex justify-between gap-4">
-                    <dt className="text-[#8e9194]">Transit</dt>
-                    <dd className="text-right font-medium text-[#1e3a8a]">
-                      {lane.transit}
-                    </dd>
-                  </div>
-                  <div className="flex justify-between gap-4">
-                    <dt className="text-[#8e9194]">Sailings</dt>
-                    <dd className="text-right">{lane.sailings}</dd>
-                  </div>
-                  <div className="flex justify-between gap-4">
-                    <dt className="text-[#8e9194]">Carriers</dt>
-                    <dd className="text-right">{lane.carriers}</dd>
-                  </div>
-                  <div className="flex justify-between gap-4">
-                    <dt className="text-[#8e9194]">Support</dt>
-                    <dd className="text-right">{lane.support}</dd>
-                  </div>
+                <dl className="mt-4 grid grid-cols-[96px_1fr] gap-x-4 gap-y-2 text-[14px] text-black/75">
+                  <dt className="text-black/50">Transit</dt>
+                  <dd className="font-medium text-black">{lane.transit}</dd>
+                  <dt className="text-black/50">Sailings</dt>
+                  <dd>{lane.sailings}</dd>
+                  <dt className="text-black/50">Carriers</dt>
+                  <dd>{lane.carriers}</dd>
+                  <dt className="text-black/50">Support</dt>
+                  <dd>{lane.support}</dd>
                 </dl>
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </Band>
 
-      {/* Offices */}
-      <section className="w-full bg-[#ffffff]">
-        <div data-section className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
-          <SectionHeader
-            eyebrow="On the ground"
-            title="offices & warehouses"
-            subtitle="Local knowledge at origin, our own people and trucks at destination."
-          />
-          <div data-stagger className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {OFFICES.map((o) => (
-              <div
-                key={o.city}
-                className="group bg-[#f1f1f1] p-6 transition-all duration-300 hover:-translate-y-1"
-              >
-                <span className="flex size-11 items-center justify-center rounded-full bg-[#ffffff] text-[#1e3a8a] shadow-sm transition-colors duration-300 group-hover:bg-black">
-                  <PinIcon className="h-5 w-5" />
-                </span>
-                <p className="mt-4 font-cal text-[20px] font-medium text-[#1e3a8a]">
-                  {o.city}
-                </p>
-                <p className="font-dm text-[12px] font-medium uppercase tracking-[0.12em] text-[#8e9194]">
-                  {o.country}
-                </p>
-                <p className="mt-2 font-cal text-[14px] leading-[1.45] text-[#8e9194]">
-                  {o.role}
-                </p>
-              </div>
-            ))}
-          </div>
+      <Block
+        eyebrow="On the ground"
+        title="Offices & warehouses"
+        lead="Local knowledge at origin, our own people and trucks at destination."
+      />
+      <Band>
+        <Cells items={OFFICES} columns={3} />
+      </Band>
 
-          <div className="mt-10 text-center">
-            <Link
-              href="/quote"
-              className="inline-flex items-center justify-center bg-[#ffe500] px-7 py-3.5 font-cal text-[16px] text-black transition-transform hover:scale-[1.03]"
-            >
-              Quote a lane
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <CallToAction />
+      <CtaSplit title="Quote a lane" label="Quote a lane" image="/figma/img/services/service-3.webp" alt="Fleet of freight trucks on the road" />
       <Footer />
     </main>
   );

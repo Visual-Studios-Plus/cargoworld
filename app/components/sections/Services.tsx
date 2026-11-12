@@ -131,19 +131,19 @@ export default function Services() {
         <div data-services-header className="will-change-transform">
           <SectionHeader
             eyebrow="Services"
-            index="07"
             title="Every link in the chain, under one roof."
             subtitle="Ocean and air freight, customs, warehousing and trucking — booked, moved and delivered by one team."
           />
         </div>
 
         <div className="relative mt-10">
+          <div className="mb-5 flex justify-end gap-2">
           <button
             type="button"
             onClick={() => scrollTrack(-1)}
             disabled={!canPrev}
             aria-label="Previous services"
-            className="absolute -left-3 top-[38%] z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center border border-neutral-200 bg-[#ffffff] text-[#1e3a8a] transition-all duration-300 hover:border-[#1e3a8a] hover:bg-[#1e3a8a] hover:text-white disabled:cursor-not-allowed disabled:opacity-35 md:-left-5 md:h-11 md:w-11"
+            className="flex h-11 w-11 items-center justify-center border border-black/30 bg-[#ffffff] text-[#1e3a8a] transition-all duration-300 hover:border-[#1e3a8a] hover:bg-[#1e3a8a] hover:text-white disabled:cursor-not-allowed disabled:opacity-35"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-[18px] w-[18px]">
               <path d="M19 12H5M11 5l-7 7 7 7" />
@@ -155,12 +155,13 @@ export default function Services() {
             onClick={() => scrollTrack(1)}
             disabled={!canNext}
             aria-label="Next services"
-            className="absolute -right-3 top-[38%] z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center border border-neutral-200 bg-[#ffffff] text-[#1e3a8a] transition-all duration-300 hover:border-[#1e3a8a] hover:bg-[#1e3a8a] hover:text-white disabled:cursor-not-allowed disabled:opacity-35 md:-right-5 md:h-11 md:w-11"
+            className="flex h-11 w-11 items-center justify-center border border-black/30 bg-[#ffffff] text-[#1e3a8a] transition-all duration-300 hover:border-[#1e3a8a] hover:bg-[#1e3a8a] hover:text-white disabled:cursor-not-allowed disabled:opacity-35"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-[18px] w-[18px]">
               <path d="M5 12h14M13 5l7 7-7 7" />
             </svg>
           </button>
+          </div>
 
           <div
             ref={trackRef}
@@ -186,14 +187,14 @@ export default function Services() {
                   />
                 </div>
 
-                <div className="mt-5 flex items-center justify-between gap-4 border-t border-black pt-4">
+                <div className="mt-5 flex items-center justify-between gap-4">
                   <h3 className="text-[20px] font-medium leading-[1.2] text-black">
                     {title}
                   </h3>
 
                   <span
                     aria-hidden="true"
-                    className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-black text-black transition-colors duration-300 group-hover:bg-[#ffe500] group-hover:border-[#ffe500]"
+                    className="flex h-10 w-10 flex-shrink-0 items-center justify-center border border-black text-black transition-colors duration-300 group-hover:bg-[#ffe500] group-hover:border-[#ffe500]"
                   >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                       <path d="M7 17 17 7M9 7h8v8" />

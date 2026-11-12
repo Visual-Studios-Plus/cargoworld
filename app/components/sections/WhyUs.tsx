@@ -38,7 +38,7 @@ function TextCell({
     <Link
       href={href}
       data-bento-card
-      className={`group flex min-h-[280px] flex-col justify-between bg-white p-5 transition-colors hover:bg-[#f6f6f4] ${CELL}`}
+      className={`group flex min-h-[280px] flex-col justify-between bg-white p-6 transition-colors hover:bg-[#f6f6f4] lg:p-8 ${CELL}`}
     >
       <div>
         <h3 className="text-[22px] text-black">{title}</h3>
@@ -114,19 +114,21 @@ export default function WhyUs() {
   return (
     <section ref={sectionRef} className="w-full bg-white">
       <div className="mx-auto w-full max-w-[1280px] px-6 py-[clamp(72px,9vw,110px)] lg:px-10">
-        <div className="flex items-start justify-between gap-6 pb-6">
-          <p data-slide="left" className="kicker max-w-[22ch] text-black">We move it all, door to door</p>
+        {/* Same label column + main column grid as every other section */}
+        <div className="grid grid-cols-[1fr_auto] items-start gap-6 pb-8 md:grid-cols-[280px_1fr] md:gap-10">
+          <p data-slide="left" className="kicker min-w-0 max-w-[22ch] text-black">We move it all, door to door</p>
           <Link
             href="/ship"
             data-slide="right"
-            className="kicker border border-black px-3 py-1.5 text-black transition-colors hover:bg-[#ffe500] hover:border-[#ffe500]"
+            className="kicker shrink-0 justify-self-end whitespace-nowrap border border-black px-3 py-1.5 text-black transition-colors hover:border-[#ffe500] hover:bg-[#ffe500]"
           >
             All services ↗
           </Link>
         </div>
 
-        {/* Ruled cell grid — cells share 1px hairlines */}
-        <div className="grid grid-cols-1 border-l border-t border-black/20 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Ruled cell grid (shared hairlines). The first cells each absorb one 24px
+            gutter, so cell edges land on the same columns as Services and the footer. */}
+        <div className="grid grid-cols-1 border-l border-t border-black/20 sm:grid-cols-[calc((100%-24px)/2+24px)_calc((100%-24px)/2)] lg:grid-cols-[repeat(3,calc((100%-72px)/4+24px))_calc((100%-72px)/4)]">
           <ImageCell src="/figma/img/bento-1.jpg" alt="Cargo World Wide container truck" />
           <TextCell
             title="Our own trucks"
@@ -138,7 +140,7 @@ export default function WhyUs() {
           {/* Statement cell */}
           <div
             data-bento-card
-            className={`flex min-h-[280px] flex-col justify-between bg-white p-5 sm:col-span-2 ${CELL}`}
+            className={`flex min-h-[280px] flex-col justify-between bg-white p-6 sm:col-span-2 lg:p-8 ${CELL}`}
           >
             <p className="kicker text-black/60">What we do</p>
             <div>
@@ -171,7 +173,7 @@ export default function WhyUs() {
 
           {/* Figures row */}
           {FIGURES.map((f) => (
-            <div key={f.label} data-bento-card className={`bg-white p-5 ${CELL}`}>
+            <div key={f.label} data-bento-card className={`bg-white p-6 lg:p-8 ${CELL}`}>
               <p className="kicker text-black/60">{f.label}</p>
               <p className="mt-6 font-[family-name:var(--font-display)] text-[clamp(40px,4.4vw,64px)] font-semibold uppercase leading-[0.9] text-black">
                 {f.value}

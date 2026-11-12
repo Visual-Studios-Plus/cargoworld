@@ -26,9 +26,12 @@ function Copy() {
         Door to door.
       </h1>
 
+      {/* Scroll-out moves this wrapper; the intro animates the children inside.
+          Keeping them on separate elements stops the two fighting. */}
+      <div data-hero-lower className="flex w-full flex-col items-center">
       <p
         data-hero-desc
-        className="mt-6 max-w-[52ch] text-[clamp(13px,1.05vw,16px)] leading-[1.45] text-white/85"
+        className="mt-6 max-w-[52ch] text-[clamp(15px,1.9vw,18px)] leading-[1.5] text-white [text-shadow:0_1px_12px_rgba(0,0,0,0.85),0_0_2px_rgba(0,0,0,0.6)]"
       >
         Direct from Colombo to our own warehouses in Los Angeles, Houston, New York and West
         Virginia — then to your door on our own fleet.
@@ -66,6 +69,7 @@ function Copy() {
         >
           Get a quote
         </a>
+      </div>
       </div>
     </div>
   );
@@ -115,7 +119,9 @@ export default function Hero() {
           const q = gsap.utils.selector(root);
           const photo = q("[data-hero-photo]");
           const desc = q("[data-hero-desc]");
-          const actions = q("[data-hero-actions] > *");
+          // animate the row as one unit — the quote button has its own CSS transform
+          // transition (hover scale) that would fight a tween on the button itself
+          const actions = q("[data-hero-actions]");
 
           const split = SplitText.create(q("[data-hero-title]")[0], {
             type: "lines,words",
@@ -133,21 +139,35 @@ export default function Hero() {
           gsap.set(actions, { autoAlpha: 0, y: 40 });
           ready();
 
-          const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+          // Built paused: it plays once the logo loader has lifted away.
+          const tl = gsap.timeline({ paused: true, defaults: { ease: "expo.out" } });
+          const playIntro = () => {
+            if (!tl.isActive() && tl.progress() === 0) tl.play();
+          };
+          if (window.__preloaderDone || !document.querySelector("[data-preloader]")) {
+            playIntro();
+          } else {
+            window.addEventListener("preloader:done", playIntro, { once: true });
+            cleanups.push(() => window.removeEventListener("preloader:done", playIntro));
+            const safety = window.setTimeout(playIntro, 5000); // never wait forever
+            cleanups.push(() => window.clearTimeout(safety));
+          }
 
           // 1 — the photo fades up in place
           tl.to(photo, { autoAlpha: 1, duration: 1.2, ease: "power2.out" }, 0.1)
             .add(open, 1.2)
             // 2 — only after the image settles does the headline flip up
             .to(split.words, { yPercent: 0, rotationX: 0, duration: 1.2, stagger: 0.07 }, 1.7)
-            .to(desc, { autoAlpha: 1, y: 0, duration: 1 }, 2.3)
-            .to(actions, { autoAlpha: 1, y: 0, duration: 1, stagger: 0.1, clearProps: "transform" }, 2.45);
+            .to(desc, { autoAlpha: 1, y: 0, duration: 0.9 }, 2.1)
+            .to(actions, { autoAlpha: 1, y: 0, duration: 0.8, ease: "power3.out", clearProps: "transform" }, 2.2);
           // Scrolling before the intro ends lands it instantly.
           const onEarlyScroll = () => {
             if (window.scrollY > 40 && tl.progress() < 1) tl.progress(1);
           };
           window.addEventListener("scroll", onEarlyScroll, { passive: true });
           cleanups.push(() => window.removeEventListener("scroll", onEarlyScroll));
+          // Page restored mid-scroll (refresh / back): no scroll event fires, so land it now.
+          onEarlyScroll();
 
           // Idle — the photo stays still; only the quote button responds.
           if (window.matchMedia("(pointer: fine)").matches) {
@@ -188,8 +208,7 @@ export default function Hero() {
                 { yPercent: -80, autoAlpha: 0, stagger: 0.08, duration: 0.5 },
                 0
               )
-              .fromTo(desc, { y: 0, autoAlpha: 1 }, { y: -60, autoAlpha: 0, duration: 0.45 }, 0.12)
-              .fromTo(q("[data-hero-actions]"), { y: 0, autoAlpha: 1 }, { y: -60, autoAlpha: 0, duration: 0.45 }, 0.2);
+              .fromTo(q("[data-hero-lower]"), { y: 0, autoAlpha: 1 }, { y: -60, autoAlpha: 0, duration: 0.5 }, 0.12);
 
             gsap.fromTo(
               next,

@@ -1,11 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import SiteHeader from "../components/SiteHeader";
-import SectionHeader from "../components/SectionHeader";
-import PageHero from "../components/PageHero";
 import Footer from "../components/sections/Footer";
+import { SwissHero, CtaSplit, GRID, COL } from "../components/Swiss";
 import {
   CheckIcon,
   DocIcon,
@@ -100,49 +98,48 @@ export default function TrackPage() {
     : "Hi Cargo World Wide, I'd like to track my shipment.";
 
   return (
-    <main className="flex w-full flex-col bg-[#ffffff]">
+    <main className="flex w-full flex-col bg-white">
       <SiteHeader />
 
-      <PageHero
+      <SwissHero
         image="/figma/img/bento-1.jpg"
-        title={<>know exactly where your cargo is</>}
-        description="Enter a B/L or container number and watch your shipment move through all six stages, from Colombo to the buyer's door."
+        alt="Containers being moved at the port"
+        eyebrow="Track"
+        title="Know exactly where your cargo is"
+        description="Enter a B/L or container number and follow your shipment through all six stages, from Colombo to the buyer's door."
       >
         <form
           onSubmit={(e) => {
             e.preventDefault();
             startTracking(reference);
           }}
-          className="flex w-full max-w-[560px] items-center gap-2"
+          className="flex w-full max-w-[560px] flex-col gap-3 sm:flex-row"
         >
           <label htmlFor="ref" className="sr-only">
             B/L or container number
           </label>
-          <div className="flex h-[62px] flex-1 items-center bg-white/10 pl-6 pr-2 backdrop-blur-md">
-            <input
-              id="ref"
-              value={reference}
-              onChange={(e) => setReference(e.target.value)}
-              placeholder="B/L or container no. (e.g. OWWU 162037)"
-              className="min-w-0 flex-1 bg-transparent font-dm text-[13px] font-medium text-white placeholder:text-white/70 focus:outline-none"
-            />
-          </div>
+          <input
+            id="ref"
+            value={reference}
+            onChange={(e) => setReference(e.target.value)}
+            placeholder="B/L or container no."
+            className="h-[56px] min-w-0 flex-1 border border-white/40 bg-transparent px-5 text-[15px] text-white placeholder:text-white/60 focus:border-white focus:outline-none"
+          />
           <button
             type="submit"
-            className="flex h-[62px] shrink-0 items-center justify-center bg-[#ffe500] px-8 font-cal text-[18px] text-black transition-transform hover:scale-[1.03]"
+            className="h-[56px] shrink-0 bg-[#ffe500] px-8 text-[16px] font-medium text-black transition-colors hover:bg-white"
           >
             Track
           </button>
         </form>
-
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+        <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 text-[14px]">
           <button
             type="button"
             onClick={() => {
               setReference("OWWU 162037");
               startTracking("OWWU 162037");
             }}
-            className="font-dm text-[13px] font-medium text-[#ffe500]/80 underline-offset-4 transition-colors hover:text-black hover:underline"
+            className="text-white underline underline-offset-4 transition-colors hover:text-[#ffe500]"
           >
             Try sample: OWWU 162037
           </button>
@@ -150,216 +147,132 @@ export default function TrackPage() {
             href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(waText)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-[#25D366] px-4 py-2 font-cal text-[14px] text-white transition-transform hover:scale-[1.03]"
+            className="inline-flex items-center gap-2 text-white underline underline-offset-4 transition-colors hover:text-[#ffe500]"
           >
             <WhatsAppIcon className="h-4 w-4" />
             Track on WhatsApp
           </a>
         </div>
-      </PageHero>
+      </SwissHero>
 
-      {/* Milestones */}
-      <section className="w-full bg-[#ffffff]">
-        <div data-section className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(40px,5vw,80px)] pt-[clamp(48px,6vw,96px)]">
-          {tracked && (
-            <div className="mb-10 flex flex-wrap items-center justify-between gap-3 bg-[#f1f1f1] px-6 py-4">
-              <div>
-                <p className="font-dm text-[11px] font-medium uppercase tracking-[0.15em] text-[#8e9194]">
-                  Tracking reference
-                </p>
-                <p className="font-cal text-[20px] font-medium text-[#1e3a8a]">
-                  {tracked}
-                </p>
-              </div>
-              <span className="rounded-full bg-[#1e3a8a] px-4 py-1.5 font-cal text-[13px] text-[#ffe500]">
-                Stage {activeStage + 1} of {STAGES.length} · {current?.label}
-              </span>
-            </div>
-          )}
+      {/* Journey: heading + live status left, stages right */}
+      <section className="w-full bg-white">
+        <div className={`${GRID} w-full py-[clamp(64px,9vw,128px)]`}>
+          <div className={COL.left}>
+            <p className="kicker mb-5 font-semibold text-black">Your shipment journey</p>
+            <h2 className="max-w-[16ch] text-[clamp(32px,3.6vw,56px)] text-black">The six-stage journey</h2>
+            <p className="mt-6 max-w-[40ch] text-[16px] leading-[1.55] text-black/65">
+              Every shipment moves through the same clear path. Enter a reference above to watch it light up stage
+              by stage.
+            </p>
 
-          <SectionHeader
-            eyebrow="Your shipment journey"
-            title="the six-stage journey"
-            subtitle="Every shipment moves through the same clear path. Enter a reference above to watch it light up stage by stage."
-          />
-
-          <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center" data-reveal>
-            {/* From -> To arc */}
-            <div className="bg-[#f1f1f1] p-8">
-              <svg viewBox="0 0 400 180" className="w-full" aria-hidden="true">
-                <path
-                  d="M46 150 Q200 -10 354 150"
-                  fill="none"
-                  stroke="#1e3a8a"
-                  strokeWidth="2.5"
-                  strokeDasharray="1 11"
-                  strokeLinecap="round"
-                />
-                {/* apex interchange node */}
-                <circle cx="200" cy="40" r="24" fill="#1e3a8a" />
-                <circle cx="200" cy="40" r="30" fill="none" stroke="#ffe500" strokeWidth="2.5" />
-                <g
-                  transform="translate(182 22)"
-                  stroke="#ffe500"
-                  strokeWidth="1.6"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M3 24l1.6-8h27l3.3 8" opacity="0.5" />
-                  <path d="M9 16V7h8l6 9" />
-                  <path d="M1 28c2.3 0 2.3 1.6 4.6 1.6S8 28 10.3 28s2.3 1.6 4.6 1.6S17.3 28 19.6 28s2.3 1.6 4.6 1.6S26.6 28 29 28s2.3 1.6 4.6 1.6" />
-                </g>
-                {/* endpoints */}
-                <circle cx="46" cy="150" r="8" fill="#fff" stroke="#1e3a8a" strokeWidth="3" />
-                <circle cx="354" cy="150" r="8" fill="#1e3a8a" />
-              </svg>
-              <div className="mt-2 flex items-center justify-between">
-                <div className="text-left">
-                  <p className="font-dm text-[11px] font-medium uppercase tracking-[0.14em] text-[#8e9194]">
-                    From
-                  </p>
-                  <p className="font-cal text-[18px] font-medium text-[#1e3a8a]">
-                    Colombo
-                  </p>
+            {tracked && (
+              <dl className="mt-10 grid max-w-[420px] grid-cols-2 bg-[#1e3a8a] text-white">
+                <div className="p-5">
+                  <dt className="kicker text-white/80">Reference</dt>
+                  <dd className="mt-2 text-[18px] font-medium">{tracked}</dd>
                 </div>
-                <div className="text-right">
-                  <p className="font-dm text-[11px] font-medium uppercase tracking-[0.14em] text-[#8e9194]">
-                    To
-                  </p>
-                  <p className="font-cal text-[18px] font-medium text-[#1e3a8a]">
-                    Buyer&apos;s door
-                  </p>
+                <div className="p-5">
+                  <dt className="kicker text-white/80">
+                    Stage {activeStage + 1} / {STAGES.length}
+                  </dt>
+                  <dd className="mt-2 text-[18px] font-medium text-[#ffe500]">{current?.label}</dd>
                 </div>
-              </div>
-            </div>
-
-            {/* Numbered vertical timeline */}
-            <div className="border border-[#d8d8d8] bg-[#ffffff] p-6 sm:p-8">
-              <div className="mb-5 flex items-center justify-between">
-                <p className="font-cal text-[18px] font-medium text-[#1e3a8a]">
-                  {tracked ? `Shipment ${tracked}` : "Shipment journey"}
-                </p>
-                {tracked && (
-                  <span className="rounded-full bg-[#ffe500] px-3 py-1 font-dm text-[11px] font-medium uppercase tracking-[0.1em] text-black">
-                    In transit
-                  </span>
-                )}
-              </div>
-
-              <ol>
-                {STAGES.map((stage, i) => {
-                  const done = tracked ? i < activeStage : false;
-                  const activeNow = tracked ? i === activeStage : false;
-                  const last = i === STAGES.length - 1;
-                  return (
-                    <li key={stage.label} className="relative flex gap-4 pb-6 last:pb-0">
-                      {!last && (
-                        <span
-                          className={`absolute left-[19px] top-10 bottom-0 w-[2px] transition-colors duration-500 ${
-                            done ? "bg-black" : "bg-[#d8d8d8]"
-                          }`}
-                        />
-                      )}
-                      <span
-                        className={`relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border-2 font-cal text-[15px] font-medium transition-all duration-500 ${
-                          done
-                            ? "border-black bg-black text-white"
-                            : activeNow
-                            ? "border-black bg-black text-white shadow-[0_0_0_5px_rgba(255,251,150,0.35)]"
-                            : "border-[#d8d8d8] bg-[#ffffff] text-[#d8d8d8]"
-                        }`}
-                      >
-                        {done ? <CheckIcon className="h-5 w-5" /> : i + 1}
-                      </span>
-
-                      <div
-                        className={`flex-1 rounded-full px-4 py-2.5 transition-colors duration-500 ${
-                          activeNow ? "bg-[#f1f1f1]" : ""
-                        }`}
-                      >
-                        <p
-                          className={`font-cal text-[16px] font-medium leading-tight ${
-                            done || activeNow ? "text-[#1e3a8a]" : "text-[#d8d8d8]"
-                          }`}
-                        >
-                          {stage.label}
-                        </p>
-                        <p className="mt-1 font-cal text-[13.5px] leading-[1.45] text-[#8e9194]">
-                          {stage.caption}
-                        </p>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ol>
-            </div>
+              </dl>
+            )}
           </div>
+
+          <ol className={`mt-12 md:mt-0 ${COL.right}`}>
+            {STAGES.map((stage, i) => {
+              const done = tracked ? i < activeStage : false;
+              const activeNow = tracked ? i === activeStage : false;
+              const lit = done || activeNow;
+              return (
+                <li key={stage.label} className="grid grid-cols-[44px_1fr] gap-5 pb-8 last:pb-0">
+                  <span
+                    className={`flex size-11 items-center justify-center text-[14px] font-medium tabular-nums transition-colors duration-500 ${
+                      activeNow
+                        ? "bg-[#ffe500] text-black"
+                        : done
+                          ? "bg-[#1e3a8a] text-white"
+                          : "bg-[#f4f5f7] text-black/45"
+                    }`}
+                  >
+                    {done ? <CheckIcon className="h-5 w-5" /> : String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div className="pt-1.5">
+                    <h3
+                      className={`text-[clamp(18px,1.6vw,22px)] transition-colors duration-500 ${
+                        lit || !tracked ? "text-black" : "text-black/40"
+                      }`}
+                    >
+                      {stage.label}
+                    </h3>
+                    <p className="mt-1 text-[14px] leading-[1.5] text-black/65">{stage.caption}</p>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
         </div>
       </section>
 
       {/* Documentation checklist */}
-      <section className="w-full bg-[#ffffff]">
-        <div data-section className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
-          <SectionHeader
-            eyebrow="Documentation"
-            title="paperwork at every stage"
-            subtitle="The right documents keep cargo moving. Here is what each stage needs."
-          />
-
-          <div data-stagger className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {STAGES.map((stage, i) => (
-              <div
-                key={stage.label}
-                className={`border bg-[#ffffff] p-6 transition-all duration-300 ${
-                  tracked && i === activeStage
-                    ? "border-black ring-2 ring-black/40"
-                    : "border-[#d8d8d8]"
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="flex size-9 items-center justify-center rounded-full bg-[#1e3a8a] font-cal text-[14px] text-[#ffe500]">
-                    {i + 1}
-                  </span>
-                  <h3 className="font-cal text-[18px] font-medium text-[#1e3a8a]">
-                    {stage.label}
-                  </h3>
-                </div>
+      <section className="w-full bg-[#f4f5f7]">
+        <div className={`${GRID} w-full pt-[clamp(64px,9vw,128px)]`}>
+          <div className={COL.left}>
+            <p className="kicker mb-5 font-semibold text-black">Documentation</p>
+            <h2 className="max-w-[16ch] text-[clamp(32px,3.6vw,56px)] text-black">Paperwork at every stage</h2>
+          </div>
+          <p className={`mt-8 max-w-[40ch] text-[clamp(18px,1.6vw,24px)] leading-[1.4] text-black md:mt-0 ${COL.right}`}>
+            The right documents keep cargo moving. Here is what each stage needs.
+          </p>
+        </div>
+        <div className={GRID}>
+        <ol className={`grid grid-cols-1 gap-x-10 gap-y-14 py-[clamp(56px,7vw,96px)] sm:grid-cols-2 lg:grid-cols-3 ${COL.content}`}>
+          {STAGES.map((stage, i) => {
+            const activeNow = tracked && i === activeStage;
+            return (
+              <li key={stage.label}>
+                <span
+                  className={`inline-block text-[13px] tabular-nums ${
+                    activeNow ? "bg-[#ffe500] px-1.5 text-black" : "text-black/40"
+                  }`}
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="mt-5 text-[clamp(20px,1.8vw,26px)] text-black">{stage.label}</h3>
                 <ul className="mt-4 space-y-2.5">
                   {stage.docs.map((doc) => (
-                    <li
-                      key={doc}
-                      className="flex items-center gap-2.5 font-cal text-[14px] text-[#4b514d]"
-                    >
-                      <DocIcon className="h-4 w-4 shrink-0 text-[#1e3a8a]/60" />
+                    <li key={doc} className="flex items-center gap-2.5 text-[15px] text-black/75">
+                      <DocIcon className="h-4 w-4 shrink-0 text-black/50" />
                       {doc}
                     </li>
                   ))}
                 </ul>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href="/quote"
-              className="bg-[#ffe500] px-7 py-3.5 font-cal text-[16px] text-black transition-transform hover:scale-[1.03]"
-            >
-              Get a quote
-            </Link>
-            <a
-              href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(waText)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-[#1e3a8a]/15 bg-[#ffffff] px-7 py-3.5 font-cal text-[16px] text-[#1e3a8a] transition-colors hover:bg-[#f1f1f1]"
-            >
-              <WhatsAppIcon className="h-5 w-5 text-[#25D366]" />
-              Chat with support
-            </a>
-          </div>
+              </li>
+            );
+          })}
+        </ol>
         </div>
       </section>
 
+      <CtaSplit
+        title="Need a hand?"
+        body="Our team can update you on any shipment, or quote your next one."
+        image="/figma/img/services/service-5.webp"
+        alt="Specialists reviewing shipment documents"
+      >
+        <a
+          href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(waText)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex h-[56px] w-full items-center justify-center gap-2 border border-[#1e3a8a] px-8 text-[16px] text-black transition-colors hover:bg-[#1e3a8a] hover:text-white sm:w-auto"
+        >
+          <WhatsAppIcon className="h-5 w-5" />
+          Chat with support
+        </a>
+      </CtaSplit>
       <Footer />
     </main>
   );
