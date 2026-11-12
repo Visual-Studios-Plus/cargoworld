@@ -26,9 +26,13 @@ export default function SiteHeader() {
     if (!isHome) return;
     const hero = document.querySelector("[data-hero-section]");
     if (!hero) return;
+    // The hero is sticky, so track the section that slides over it instead.
+    const cover = document.querySelector("[data-hero-next]");
 
     const update = () => {
-      const next = hero.getBoundingClientRect().bottom <= 60;
+      const covered = cover ? cover.getBoundingClientRect().top <= 60 : hero.getBoundingClientRect().bottom <= 60;
+      // While the intro plays on white, the nav needs its solid (dark-on-white) look.
+      const next = covered || !hero.classList.contains("is-open");
       setScrolledPastHero((prev) => (prev === next ? prev : next));
     };
 
@@ -44,8 +48,11 @@ export default function SiteHeader() {
     const raf = requestAnimationFrame(update);
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
+    const mo = new MutationObserver(onScroll);
+    mo.observe(hero, { attributes: true, attributeFilter: ["class"] });
 
     return () => {
+      mo.disconnect();
       cancelAnimationFrame(raf);
       if (frame) cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
