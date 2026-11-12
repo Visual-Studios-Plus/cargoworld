@@ -84,13 +84,13 @@ export default function ShipPage() {
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/quote"
-            className="flex h-[58px] items-center justify-center rounded-full bg-[#fffb96] px-7 font-cal text-[18px] text-black transition-transform hover:scale-[1.03]"
+            className="flex h-[58px] items-center justify-center bg-[#fffb96] px-7 font-cal text-[18px] text-black transition-transform hover:scale-[1.03]"
           >
             Get a quote
           </Link>
           <Link
             href="/track"
-            className="flex h-[58px] items-center justify-center rounded-full bg-white/10 px-7 font-cal text-[18px] text-white backdrop-blur-md transition-colors hover:bg-white/20"
+            className="flex h-[58px] items-center justify-center bg-white/10 px-7 font-cal text-[18px] text-white backdrop-blur-md transition-colors hover:bg-white/20"
           >
             Track a shipment
           </Link>
@@ -111,7 +111,7 @@ export default function ShipPage() {
                 key={title}
                 href="/quote"
                 aria-label={`Get a quote for ${title}`}
-                className="group relative h-[340px] overflow-hidden rounded-lg border border-neutral-200/80 bg-[#dbe8f3] transition-all duration-300"
+                className="group relative h-[340px] overflow-hidden border border-neutral-200/80 bg-[#dbe8f3] transition-all duration-300"
               >
                 <Image
                   src={image}

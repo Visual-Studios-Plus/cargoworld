@@ -39,13 +39,13 @@ export default function Footer() {
       <div className="mx-auto w-full max-w-[1280px] px-6 pt-[clamp(56px,7vw,96px)] lg:px-10">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <span className="inline-flex rounded-2xl bg-black px-3 py-2">
+            <span className="inline-flex">
               <Image
                 src="/figma/img/logo.png"
                 alt="Cargo World Wide"
                 width={97}
                 height={40}
-                className="h-[28px] w-auto object-contain"
+                className="h-[28px] w-auto object-contain invert"
               />
             </span>
             <address className="mt-8 space-y-1 text-[15px] not-italic leading-[1.43] text-black">
@@ -83,14 +83,6 @@ export default function Footer() {
             </div>
           ))}
         </div>
-
-        {/* Wordmark at architectural scale */}
-        <p
-          aria-hidden="true"
-          className="mt-[clamp(56px,7vw,96px)] select-none font-[family-name:var(--font-display)] text-[clamp(56px,13.5vw,208px)] font-semibold uppercase leading-[0.85] text-[#4b514d]"
-        >
-          Cargo World Wide
-        </p>
 
         <div className="mt-8 flex flex-col gap-2 border-t border-[#d8d8d8] py-6 text-[14px] text-[#8e9194] sm:flex-row sm:justify-between">
           <p>© 2026 Cargo Worldwide Sri Lanka. All rights reserved.</p>

@@ -9,8 +9,8 @@ type Props = {
 };
 
 /**
- * Sub-page hero — Custo gallery split: anodized-graphite band, left-aligned
- * display type, and the photograph contained in an 8px card on the right.
+ * Sub-page hero — full-bleed grayscale photograph with a dim overlay,
+ * left-aligned display type on top.
  */
 export default function PageHero({
   image,
@@ -20,11 +20,22 @@ export default function PageHero({
   children,
 }: Props) {
   return (
-    <section className="w-full bg-[#4b514d] pt-[60px]">
-      <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 items-end gap-10 px-6 py-[clamp(56px,8vw,110px)] lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:px-10">
+    <section className="relative w-full overflow-hidden pt-[60px]">
+      <Image
+        src={image}
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        aria-hidden="true"
+        className="object-cover object-center grayscale brightness-90"
+      />
+      <div className="absolute inset-0 bg-black/45" />
+
+      <div className="relative z-10 mx-auto grid min-h-[clamp(360px,40vw,520px)] w-full max-w-[1280px] grid-cols-1 items-end gap-10 px-6 py-[clamp(56px,8vw,110px)] lg:px-10">
         <div className="flex flex-col items-start">
           {eyebrow && (
-            <p className="mb-6 text-[15px] leading-[1.43] text-[#d8d8d8]">
+            <p className="mb-6 text-[15px] leading-[1.43] text-white/80">
               {eyebrow}
             </p>
           )}
@@ -32,7 +43,7 @@ export default function PageHero({
             {title}
           </h1>
           {description && (
-            <p className="mt-6 max-w-[52ch] text-[clamp(16px,1.3vw,19px)] leading-[1.42] text-[#d8d8d8]">
+            <p className="mt-6 max-w-[52ch] text-[clamp(16px,1.3vw,19px)] leading-[1.42] text-white/80">
               {description}
             </p>
           )}
@@ -41,18 +52,6 @@ export default function PageHero({
               {children}
             </div>
           )}
-        </div>
-
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-[#ffffff]">
-          <Image
-            src={image}
-            alt=""
-            fill
-            priority
-            sizes="(max-width: 1024px) 100vw, 560px"
-            aria-hidden="true"
-            className="object-cover"
-          />
         </div>
       </div>
     </section>

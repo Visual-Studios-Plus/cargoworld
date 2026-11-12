@@ -87,7 +87,7 @@ export default function IndustriesPage() {
                 key={title}
                 href="/quote"
                 aria-label={`Request a quote for ${title}`}
-                className="group relative flex h-[380px] flex-col justify-end overflow-hidden rounded-lg border border-neutral-200/80 bg-[#dbe8f3] transition-all duration-300"
+                className="group relative flex h-[380px] flex-col justify-end overflow-hidden border border-neutral-200/80 bg-[#dbe8f3] transition-all duration-300"
               >
                 <Image
                   src={image}

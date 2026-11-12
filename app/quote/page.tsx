@@ -33,7 +33,7 @@ const PAPERWORK = ["Commercial Invoice", "Packing List", "Certificate of Origin"
 
 function Field({ children }: { children: React.ReactNode }) {
   return (
-    <span className="relative mx-1 inline-flex items-center rounded-full bg-[#f1f1f1] ring-1 ring-inset ring-[#000000]/10 transition-colors focus-within:ring-2 focus-within:ring-black">
+    <span className="relative mx-1 inline-flex items-center bg-[#ffffff] ring-1 ring-inset ring-[#000000]/15 transition-colors focus-within:ring-2 focus-within:ring-black">
       {children}
     </span>
   );
@@ -86,7 +86,7 @@ export default function QuotePage() {
         title={<>tell us your shipment in one sentence</>}
         description="No long forms. Fill in the blanks, pick your services, and send it straight to our team."
       >
-        <span className="rounded-full bg-[#fffb96] px-4 py-1.5 font-dm text-[12px] font-medium uppercase tracking-[0.12em] text-black">
+        <span className="bg-[#fffb96] px-4 py-1.5 font-dm text-[12px] font-medium uppercase tracking-[0.12em] text-black">
           Reference {ref}
         </span>
       </PageHero>
@@ -96,7 +96,7 @@ export default function QuotePage() {
           {/* Builder */}
           <div>
             {/* Sentence */}
-            <div className="rounded-lg border border-[#d8d8d8] bg-[#ffffff] p-7 sm:p-9">
+            <div className="border border-[#d8d8d8] bg-[#ffffff] p-7 sm:p-9">
               <p className="font-syne text-[clamp(20px,2.1vw,30px)] font-medium leading-[1.9] tracking-[-0.01em] text-[#000000]">
                 I&apos;m shipping a
                 <Field>
@@ -180,7 +180,7 @@ export default function QuotePage() {
               <h2 className="font-cal text-[22px] font-medium text-[#000000]">
                 Add services
               </h2>
-              <p className="mt-1 font-cal text-[14px] text-[#8e9194]">
+              <p className="mt-1 font-cal text-[14px] text-black/60">
                 Select everything you need — tap to toggle.
               </p>
               <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -193,14 +193,14 @@ export default function QuotePage() {
                       role="checkbox"
                       aria-checked={checked}
                       onClick={() => toggleAddon(a)}
-                      className={`flex items-center gap-3 rounded-full border px-4 py-3.5 text-left font-cal text-[15px] transition-all duration-300 ${
+                      className={`flex items-center gap-3 border px-4 py-3.5 text-left font-cal text-[15px] transition-all duration-300 ${
                         checked
-                          ? "border-black bg-[#f1f1f1] text-[#000000]"
-                          : "border-[#d8d8d8] bg-[#ffffff] text-[#4b514d] hover:border-[#000000]/25"
+                          ? "border-black bg-[#fffb96] text-[#000000]"
+                          : "border-[#d8d8d8] bg-[#ffffff] text-[#000000]/70 hover:border-[#000000]/25"
                       }`}
                     >
                       <span
-                        className={`flex size-6 shrink-0 items-center justify-center rounded-md border transition-colors ${
+                        className={`flex size-6 shrink-0 items-center justify-center border transition-colors ${
                           checked
                             ? "border-black bg-black text-white"
                             : "border-[#cbd3de] bg-[#ffffff] text-transparent"
@@ -218,12 +218,12 @@ export default function QuotePage() {
 
           {/* Live preview */}
           <aside className="lg:sticky lg:top-[88px] lg:self-start">
-            <div className="overflow-hidden rounded-lg border border-[#d8d8d8] bg-[#f1f1f1]">
+            <div className="overflow-hidden border border-[#d8d8d8] bg-[#ffffff]">
               <div className="flex items-center justify-between bg-[#000000] px-6 py-4">
                 <p className="font-cal text-[16px] font-medium text-white">
                   Your quote
                 </p>
-                <span className="rounded-full bg-[#fffb96] px-3 py-1 font-dm text-[12px] font-medium text-black">
+                <span className="bg-[#fffb96] px-3 py-1 font-dm text-[12px] font-medium text-black">
                   {ref}
                 </span>
               </div>
@@ -231,25 +231,25 @@ export default function QuotePage() {
               <div className="px-6 py-6">
                 <dl className="space-y-3 font-cal text-[14.5px]">
                   <div className="flex justify-between gap-4">
-                    <dt className="text-[#8e9194]">Load</dt>
+                    <dt className="text-black/60">Load</dt>
                     <dd className="text-right font-medium text-[#000000]">
                       {load}
                     </dd>
                   </div>
                   <div className="flex justify-between gap-4">
-                    <dt className="text-[#8e9194]">Cargo</dt>
+                    <dt className="text-black/60">Cargo</dt>
                     <dd className="text-right font-medium text-[#000000]">
                       {cargoText}
                     </dd>
                   </div>
                   <div className="flex justify-between gap-4">
-                    <dt className="text-[#8e9194]">Lane</dt>
+                    <dt className="text-black/60">Lane</dt>
                     <dd className="text-right font-medium text-[#000000]">
                       Colombo → {destination}
                     </dd>
                   </div>
                   <div className="flex justify-between gap-4">
-                    <dt className="text-[#8e9194]">Ready by</dt>
+                    <dt className="text-black/60">Ready by</dt>
                     <dd className="text-right font-medium text-[#000000]">
                       {readyBy || "—"}
                     </dd>
@@ -257,14 +257,14 @@ export default function QuotePage() {
                 </dl>
 
                 {/* Transit estimate */}
-                <div className="mt-5 rounded-full bg-[#ffffff] p-4">
-                  <p className="font-dm text-[11px] font-medium uppercase tracking-[0.12em] text-[#8e9194]">
+                <div className="mt-5 border border-[#d8d8d8] bg-[#ffffff] p-4">
+                  <p className="font-dm text-[11px] font-medium uppercase tracking-[0.12em] text-black/60">
                     Estimated transit
                   </p>
                   <p className="mt-1 font-syne text-[26px] font-medium text-[#000000]">
                     {transit}
                   </p>
-                  <p className="font-cal text-[12px] text-[#8e9194]">
+                  <p className="font-cal text-[12px] text-black/60">
                     Weekly sailings via MSC, Maersk, ONE · our own warehouse &amp;
                     trucks at {destination}.
                   </p>
@@ -272,7 +272,7 @@ export default function QuotePage() {
 
                 {/* Services */}
                 <div className="mt-5">
-                  <p className="font-dm text-[11px] font-medium uppercase tracking-[0.12em] text-[#8e9194]">
+                  <p className="font-dm text-[11px] font-medium uppercase tracking-[0.12em] text-black/60">
                     Services
                   </p>
                   <div className="mt-2 flex flex-wrap gap-2">
@@ -280,13 +280,13 @@ export default function QuotePage() {
                       addons.map((a) => (
                         <span
                           key={a}
-                          className="rounded-full bg-[#000000] px-3 py-1 font-cal text-[12px] text-[#fffb96]"
+                          className="bg-[#000000] px-3 py-1 font-cal text-[12px] text-[#fffb96]"
                         >
                           {a}
                         </span>
                       ))
                     ) : (
-                      <span className="font-cal text-[13px] text-[#d8d8d8]">
+                      <span className="font-cal text-[13px] text-black/40">
                         None selected yet
                       </span>
                     )}
@@ -295,14 +295,14 @@ export default function QuotePage() {
 
                 {/* Paperwork */}
                 <div className="mt-5">
-                  <p className="font-dm text-[11px] font-medium uppercase tracking-[0.12em] text-[#8e9194]">
+                  <p className="font-dm text-[11px] font-medium uppercase tracking-[0.12em] text-black/60">
                     Required paperwork
                   </p>
                   <ul className="mt-2 space-y-2">
                     {PAPERWORK.map((d) => (
                       <li
                         key={d}
-                        className="flex items-center gap-2.5 font-cal text-[13.5px] text-[#4b514d]"
+                        className="flex items-center gap-2.5 font-cal text-[13.5px] text-[#000000]/70"
                       >
                         <DocIcon className="h-4 w-4 shrink-0 text-[#000000]/60" />
                         {d}
@@ -316,14 +316,14 @@ export default function QuotePage() {
                   href={waHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#fffb96] px-6 py-4 font-cal text-[17px] text-black transition-transform hover:scale-[1.02]"
+                  className="mt-6 flex w-full items-center justify-center gap-2 bg-[#fffb96] px-6 py-4 font-cal text-[17px] text-black transition-transform hover:scale-[1.02]"
                 >
                   <WhatsAppIcon className="h-5 w-5" />
                   Send on WhatsApp
                 </a>
                 <a
                   href={mailHref}
-                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-full border border-[#000000]/15 px-6 py-3.5 font-cal text-[15px] text-[#000000] transition-colors hover:bg-[#ffffff]"
+                  className="mt-3 flex w-full items-center justify-center gap-2 border border-[#000000]/15 px-6 py-3.5 font-cal text-[15px] text-[#000000] transition-colors hover:bg-[#ffffff]"
                 >
                   Email the sales team
                 </a>

@@ -124,7 +124,7 @@ export default function NetworkPage() {
           />
 
           {/* Table on desktop */}
-          <div className="mt-10 hidden overflow-hidden rounded-lg border border-[#d8d8d8] bg-[#ffffff] md:block">
+          <div className="mt-10 hidden overflow-hidden border border-[#d8d8d8] bg-[#ffffff] md:block">
             <table className="w-full border-collapse text-left">
               <thead>
                 <tr className="bg-[#000000] font-dm text-[12px] uppercase tracking-[0.1em] text-white/80">
@@ -159,7 +159,7 @@ export default function NetworkPage() {
             {LANES.map((lane) => (
               <div
                 key={lane.to}
-                className="rounded-lg border border-[#d8d8d8] bg-[#ffffff] p-6"
+                className="border border-[#d8d8d8] bg-[#ffffff] p-6"
               >
                 <p className="font-cal text-[18px] font-medium text-[#000000]">
                   {lane.from} → {lane.to}
@@ -202,7 +202,7 @@ export default function NetworkPage() {
             {OFFICES.map((o) => (
               <div
                 key={o.city}
-                className="group rounded-lg bg-[#f1f1f1] p-6 transition-all duration-300 hover:-translate-y-1"
+                className="group bg-[#f1f1f1] p-6 transition-all duration-300 hover:-translate-y-1"
               >
                 <span className="flex size-11 items-center justify-center rounded-full bg-[#ffffff] text-[#000000] shadow-sm transition-colors duration-300 group-hover:bg-black">
                   <PinIcon className="h-5 w-5" />
@@ -223,7 +223,7 @@ export default function NetworkPage() {
           <div className="mt-10 text-center">
             <Link
               href="/quote"
-              className="inline-flex items-center justify-center rounded-full bg-[#fffb96] px-7 py-3.5 font-cal text-[16px] text-black transition-transform hover:scale-[1.03]"
+              className="inline-flex items-center justify-center bg-[#fffb96] px-7 py-3.5 font-cal text-[16px] text-black transition-transform hover:scale-[1.03]"
             >
               Quote a lane
             </Link>

@@ -15,24 +15,52 @@ export const NAV_LINKS = [
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const isHome = pathname === "/";
+  const [scrolledPastHero, setScrolledPastHero] = useState(false);
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    if (!isHome) return;
+    const hero = document.querySelector("[data-hero-section]");
+    if (!hero) return;
+
+    const update = () => {
+      setScrolledPastHero(hero.getBoundingClientRect().bottom <= 60);
+    };
+
+    const raf = requestAnimationFrame(update);
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [isHome]);
+
+  const onHero = isHome && !scrolledPastHero;
+
   return (
-    <header className="fixed inset-x-0 top-0 z-[1000] border-b border-[#d8d8d8] bg-white">
+    <header
+      className={`fixed inset-x-0 top-0 z-[1000] border-b transition-colors duration-300 ${
+        onHero ? "border-transparent bg-transparent" : "border-[#d8d8d8] bg-white"
+      }`}
+    >
       <div className="mx-auto flex h-[60px] w-full max-w-[1440px] items-center justify-between gap-4 px-6 lg:px-10">
-        {/* Logo plate — the only inverted surface in the header */}
+        {/* Logo plate — inverts to black on the white bar, stays white over the hero */}
         <Link href="/" aria-label="Cargo World Wide — home" className="shrink-0">
-          <span className="flex items-center rounded-2xl bg-black px-3 py-2">
+          <span className="flex items-center">
             <Image
               src="/figma/img/logo.png"
               alt="Cargo World Wide"
               width={97}
               height={40}
               priority
-              className="h-[26px] w-auto object-contain"
+              className={`h-[26px] w-auto object-contain ${onHero ? "mix-blend-screen" : "invert"}`}
             />
           </span>
         </Link>
@@ -47,8 +75,12 @@ export default function SiteHeader() {
                 href={href}
                 className={`text-[11px] font-medium uppercase tracking-[0.1em] transition-colors ${
                   active
-                    ? "text-black underline decoration-black decoration-1 underline-offset-[6px]"
-                    : "text-[#8e9194] hover:text-black"
+                    ? onHero
+                      ? "text-white underline decoration-white decoration-1 underline-offset-[6px]"
+                      : "text-black underline decoration-black decoration-1 underline-offset-[6px]"
+                    : onHero
+                      ? "text-white hover:text-[#fffb96]"
+                      : "text-[#8e9194] hover:text-black"
                 }`}
               >
                 {label}
@@ -61,13 +93,17 @@ export default function SiteHeader() {
         <div className="flex items-center gap-2.5">
           <Link
             href="/track"
-            className="hidden rounded-full border border-black bg-white px-4 py-2 text-[11px] font-medium uppercase tracking-[0.1em] text-black transition-colors hover:bg-[#f1f1f1] sm:inline-block"
+            className={`hidden border px-4 py-2 text-[11px] font-medium uppercase tracking-[0.1em] transition-colors sm:inline-block ${
+              onHero
+                ? "border-white text-white hover:border-[#fffb96] hover:bg-[#fffb96] hover:text-black"
+                : "border-black bg-white text-black hover:bg-[#f1f1f1]"
+            }`}
           >
             Track
           </Link>
           <Link
             href="/quote"
-            className="hidden rounded-full bg-[#fffb96] px-4 py-2 text-[11px] font-medium uppercase tracking-[0.1em] text-black transition-transform hover:scale-[1.03] sm:inline-block"
+            className="hidden bg-[#fffb96] px-4 py-2 text-[11px] font-medium uppercase tracking-[0.1em] text-black transition-transform hover:scale-[1.03] sm:inline-block"
           >
             Get a quote
           </Link>
@@ -77,7 +113,11 @@ export default function SiteHeader() {
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="flex size-9 items-center justify-center rounded-full border border-black text-black transition-colors hover:bg-[#f1f1f1] lg:hidden"
+            className={`flex size-9 items-center justify-center border transition-colors lg:hidden ${
+              onHero
+                ? "border-white text-white hover:border-[#fffb96] hover:text-[#fffb96]"
+                : "border-black text-black hover:bg-[#f1f1f1]"
+            }`}
           >
             <svg
               viewBox="0 0 24 24"
@@ -110,7 +150,7 @@ export default function SiteHeader() {
             <li className="pt-4">
               <Link
                 href="/quote"
-                className="block rounded-full bg-[#fffb96] px-4 py-3 text-center text-[12px] font-medium uppercase tracking-[0.1em] text-black"
+                className="block bg-[#fffb96] px-4 py-3 text-center text-[12px] font-medium uppercase tracking-[0.1em] text-black"
               >
                 Get a quote
               </Link>

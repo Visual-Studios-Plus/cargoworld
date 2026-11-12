@@ -118,7 +118,7 @@ export default function TrackPage() {
           <label htmlFor="ref" className="sr-only">
             B/L or container number
           </label>
-          <div className="flex h-[62px] flex-1 items-center rounded-full bg-white/10 pl-6 pr-2 backdrop-blur-md">
+          <div className="flex h-[62px] flex-1 items-center bg-white/10 pl-6 pr-2 backdrop-blur-md">
             <input
               id="ref"
               value={reference}
@@ -129,7 +129,7 @@ export default function TrackPage() {
           </div>
           <button
             type="submit"
-            className="flex h-[62px] shrink-0 items-center justify-center rounded-full bg-[#fffb96] px-8 font-cal text-[18px] text-black transition-transform hover:scale-[1.03]"
+            className="flex h-[62px] shrink-0 items-center justify-center bg-[#fffb96] px-8 font-cal text-[18px] text-black transition-transform hover:scale-[1.03]"
           >
             Track
           </button>
@@ -150,7 +150,7 @@ export default function TrackPage() {
             href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(waText)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2 font-cal text-[14px] text-white transition-transform hover:scale-[1.03]"
+            className="inline-flex items-center gap-2 bg-[#25D366] px-4 py-2 font-cal text-[14px] text-white transition-transform hover:scale-[1.03]"
           >
             <WhatsAppIcon className="h-4 w-4" />
             Track on WhatsApp
@@ -162,7 +162,7 @@ export default function TrackPage() {
       <section className="w-full bg-[#ffffff]">
         <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(40px,5vw,80px)] pt-[clamp(48px,6vw,96px)]">
           {tracked && (
-            <div className="mb-10 flex flex-wrap items-center justify-between gap-3 rounded-lg bg-[#f1f1f1] px-6 py-4">
+            <div className="mb-10 flex flex-wrap items-center justify-between gap-3 bg-[#f1f1f1] px-6 py-4">
               <div>
                 <p className="font-dm text-[11px] font-medium uppercase tracking-[0.15em] text-[#8e9194]">
                   Tracking reference
@@ -185,7 +185,7 @@ export default function TrackPage() {
 
           <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
             {/* From -> To arc */}
-            <div className="rounded-lg bg-[#f1f1f1] p-8">
+            <div className="bg-[#f1f1f1] p-8">
               <svg viewBox="0 0 400 180" className="w-full" aria-hidden="true">
                 <path
                   d="M46 150 Q200 -10 354 150"
@@ -235,7 +235,7 @@ export default function TrackPage() {
             </div>
 
             {/* Numbered vertical timeline */}
-            <div className="rounded-lg border border-[#d8d8d8] bg-[#ffffff] p-6 sm:p-8">
+            <div className="border border-[#d8d8d8] bg-[#ffffff] p-6 sm:p-8">
               <div className="mb-5 flex items-center justify-between">
                 <p className="font-cal text-[18px] font-medium text-[#000000]">
                   {tracked ? `Shipment ${tracked}` : "Shipment journey"}
@@ -311,7 +311,7 @@ export default function TrackPage() {
             {STAGES.map((stage, i) => (
               <div
                 key={stage.label}
-                className={`rounded-lg border bg-[#ffffff] p-6 transition-all duration-300 ${
+                className={`border bg-[#ffffff] p-6 transition-all duration-300 ${
                   tracked && i === activeStage
                     ? "border-black ring-2 ring-black/40"
                     : "border-[#d8d8d8]"
@@ -343,7 +343,7 @@ export default function TrackPage() {
           <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/quote"
-              className="rounded-full bg-[#fffb96] px-7 py-3.5 font-cal text-[16px] text-black transition-transform hover:scale-[1.03]"
+              className="bg-[#fffb96] px-7 py-3.5 font-cal text-[16px] text-black transition-transform hover:scale-[1.03]"
             >
               Get a quote
             </Link>
@@ -351,7 +351,7 @@ export default function TrackPage() {
               href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(waText)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-[#000000]/15 bg-[#ffffff] px-7 py-3.5 font-cal text-[16px] text-[#000000] transition-colors hover:bg-[#f1f1f1]"
+              className="inline-flex items-center gap-2 border border-[#000000]/15 bg-[#ffffff] px-7 py-3.5 font-cal text-[16px] text-[#000000] transition-colors hover:bg-[#f1f1f1]"
             >
               <WhatsAppIcon className="h-5 w-5 text-[#25D366]" />
               Chat with support

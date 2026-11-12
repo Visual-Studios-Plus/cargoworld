@@ -120,23 +120,20 @@ export default function Hero() {
         {/* Hero content — smaller and centered in the frame */}
         <div
           data-hero-content
-          className="relative z-10 flex min-h-[640px] w-full flex-col items-center justify-center px-6 pb-20 pt-32 text-center will-change-transform md:absolute md:inset-0 md:min-h-0 md:px-10 md:pb-[6%] md:pt-[60px]"
+          className="relative z-10 flex min-h-[640px] w-full flex-col items-center justify-center px-6 pb-20 pt-32 text-center will-change-transform md:absolute md:inset-0 md:min-h-0 md:px-10 md:pb-[13%] md:pt-[60px]"
         >
-          <p className="mb-6 text-[13px] uppercase tracking-[0.14em] text-white/75">
-            Freight forwarding since 2008
-          </p>
           <h1
             data-hero-title
-            className="max-w-[16ch] text-[clamp(56px,8.4vw,144px)] text-white"
+            className="whitespace-nowrap text-[clamp(32px,7vw,112px)] text-white"
           >
-            Sri Lanka to the US,
+            Sri Lanka to the US.
             <br />
-            door to door
+            Door to door.
           </h1>
 
           <p
             data-hero-desc
-            className="mt-6 max-w-[56ch] text-[clamp(15px,1.25vw,19px)] leading-[1.45] text-white/85"
+            className="mt-6 max-w-[52ch] text-[clamp(13px,1.05vw,16px)] leading-[1.45] text-white/85"
           >
             Direct from Colombo to our own warehouses in Los Angeles, Houston,
             New York and West Virginia — then to your door on our own fleet.
@@ -147,7 +144,7 @@ export default function Hero() {
             className="mt-10 flex w-full max-w-[540px] flex-col items-stretch gap-3 sm:flex-row sm:items-center"
           >
             <form
-              className="flex h-[56px] w-full items-center rounded-full border border-white/35 bg-black/25 pl-6 pr-1.5 backdrop-blur-md transition-colors focus-within:border-white sm:flex-1"
+              className="flex h-[56px] w-full items-center border border-white/35 bg-black/25 pl-6 pr-1.5 backdrop-blur-md transition-colors focus-within:border-white sm:flex-1"
               action="/track"
               id="track"
             >
@@ -161,7 +158,7 @@ export default function Hero() {
               <button
                 type="submit"
                 aria-label="Track shipment"
-                className="flex size-11 shrink-0 items-center justify-center rounded-full bg-white transition-transform hover:scale-[1.05]"
+                className="flex size-11 shrink-0 items-center justify-center bg-white transition-transform hover:scale-[1.05]"
               >
                 <Image
                   src="/figma/svg/search.svg"
@@ -175,7 +172,7 @@ export default function Hero() {
 
             <a
               href="/quote"
-              className="flex h-[56px] w-full shrink-0 items-center justify-center rounded-full bg-[#fffb96] px-8 text-[16px] font-medium text-black transition-transform hover:scale-[1.03] sm:w-auto"
+              className="flex h-[56px] w-full shrink-0 items-center justify-center bg-[#fffb96] px-8 text-[16px] font-medium text-black transition-transform hover:scale-[1.03] sm:w-auto"
             >
               Get a quote
             </a>

@@ -77,7 +77,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
+          <div className="relative aspect-[4/3] overflow-hidden">
             <Image
               src="/figma/img/bento-4.jpg"
               alt="Cargo World Wide containers at golden hour"
@@ -90,7 +90,7 @@ export default function AboutPage() {
       </section>
 
       {/* Stats */}
-      <section className="w-full bg-[#4b514d]">
+      <section className="w-full bg-[#ffffff]">
         <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 py-[clamp(44px,5vw,80px)]">
           <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
             {STATS.map((s) => (
@@ -98,7 +98,7 @@ export default function AboutPage() {
                 <p className="font-syne text-[clamp(34px,4vw,56px)] font-medium leading-none text-black">
                   {s.value}
                 </p>
-                <p className="mt-2 font-cal text-[14px] text-white/70">
+                <p className="mt-2 font-cal text-[14px] text-black/60">
                   {s.label}
                 </p>
               </div>
@@ -119,7 +119,7 @@ export default function AboutPage() {
             {PILLARS.map((p, i) => (
               <div
                 key={p.title}
-                className="rounded-lg bg-[#f1f1f1] p-7 transition-all duration-300 hover:-translate-y-1"
+                className="bg-[#f1f1f1] p-7 transition-all duration-300 hover:-translate-y-1"
               >
                 <span className="flex size-10 items-center justify-center rounded-full bg-[#000000] font-cal text-[16px] text-[#fffb96]">
                   {i + 1}
@@ -137,7 +137,7 @@ export default function AboutPage() {
           <div className="mt-10 text-center">
             <Link
               href="/quote"
-              className="inline-block rounded-full bg-[#fffb96] px-7 py-3.5 font-cal text-[16px] text-black transition-transform hover:scale-[1.03]"
+              className="inline-block bg-[#fffb96] px-7 py-3.5 font-cal text-[16px] text-black transition-transform hover:scale-[1.03]"
             >
               Work with us
             </Link>

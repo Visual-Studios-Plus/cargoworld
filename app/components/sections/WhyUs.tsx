@@ -117,7 +117,7 @@ export default function WhyUs() {
           <p className="kicker max-w-[22ch] text-black">We move it all, door to door</p>
           <Link
             href="/ship"
-            className="kicker rounded-full border border-black px-3 py-1.5 text-black transition-colors hover:bg-[#fffb96] hover:border-[#fffb96]"
+            className="kicker border border-black px-3 py-1.5 text-black transition-colors hover:bg-[#fffb96] hover:border-[#fffb96]"
           >
             All services ↗
           </Link>
