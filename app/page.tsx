@@ -12,12 +12,15 @@ export default function Home() {
     <main className="flex w-full flex-col bg-[#ffffff]">
       <SiteHeader />
       <Hero />
+      {/* Slides over the sticky hero */}
+      <div data-hero-next className="relative z-10 flex w-full flex-col bg-[#ffffff]">
       <WhyUs />
       <Timeline />
       <Services />
       <CoreCarriers />
       <CallToAction />
       <Footer />
+      </div>
     </main>
   );
 }
