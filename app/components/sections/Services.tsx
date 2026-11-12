@@ -84,52 +84,14 @@ export default function Services() {
     track.scrollBy({ left: direction * step, behavior: "smooth" });
   };
 
-  useEffect(() => {
-    const root = sectionRef.current;
-    if (!root) return;
-
-    let disposed = false;
-    let mm: ReturnType<typeof import("gsap").gsap.matchMedia> | undefined;
-
-    (async () => {
-      const { gsap } = await import("gsap");
-      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-      gsap.registerPlugin(ScrollTrigger);
-
-      if (disposed) return;
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-      mm = gsap.matchMedia();
-
-      mm.add("(min-width: 0px)", () => {
-        gsap.fromTo(
-          root.querySelectorAll("[data-service-card]"),
-          { autoAlpha: 0, y: 45, scale: 0.97, willChange: "transform, opacity" },
-          {
-            autoAlpha: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.75,
-            stagger: 0.08,
-            ease: "power2.out",
-            clearProps: "opacity,visibility,transform,will-change",
-            scrollTrigger: { trigger: root, start: "top 80%", once: true },
-          }
-        );
-      });
-    })();
-
-    return () => {
-      disposed = true;
-      mm?.revert();
-    };
-  }, []);
+  // Entrance motion is handled by <GridReveal /> (data-grid-reveal below).
 
   return (
-    <section ref={sectionRef} id="services" className="w-full overflow-hidden bg-[#ffffff]">
+    <section ref={sectionRef} id="services" data-grid-reveal className="w-full overflow-hidden bg-[#ffffff]">
       <div className="mx-auto w-full max-w-[1280px] px-6 py-[clamp(72px,9vw,110px)] lg:px-10">
-        <div data-services-header className="will-change-transform">
+        <div data-services-header>
           <SectionHeader
+            motion="grid"
             eyebrow="Services"
             title="Every link in the chain, under one roof."
             subtitle="Ocean and air freight, customs, warehousing and trucking — booked, moved and delivered by one team."
@@ -173,6 +135,7 @@ export default function Services() {
               <Link
                 key={title}
                 data-service-card
+                data-reveal-cell
                 href="/quote"
                 aria-label={`Get a quote for ${title}`}
                 className="group block w-full shrink-0 snap-start sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-72px)/4)]"

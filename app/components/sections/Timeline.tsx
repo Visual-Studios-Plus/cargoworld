@@ -48,20 +48,20 @@ const STEPS = [
 /** Swiss process index — a ruled modular grid from first message to final mile. */
 export default function Timeline() {
   return (
-    <section className="w-full bg-white text-black">
-      <div data-section className="mx-auto w-full max-w-[1280px] px-6 py-[clamp(72px,9vw,120px)] lg:px-10">
+    <section data-grid-reveal className="w-full bg-white text-black">
+      <div className="mx-auto w-full max-w-[1280px] px-6 py-[clamp(72px,9vw,120px)] lg:px-10">
         {/* Title block — 12-column grid; the title starts on the middle card column */}
         <div className="grid grid-cols-1 gap-y-6 md:grid-cols-12">
-          <p data-slide="left" className="kicker text-black md:col-span-6 lg:col-span-4">How it works</p>
+          <p data-reveal-meta className="kicker text-black md:col-span-6 lg:col-span-4">How it works</p>
 
           <div className="md:col-span-6 lg:col-span-8">
-          <h2 data-headline className="text-[clamp(40px,5.6vw,88px)] leading-[0.92] tracking-[-0.02em] text-black">
+          <h2 data-reveal-head className="text-[clamp(40px,5.6vw,88px)] leading-[0.92] tracking-[-0.02em] text-black">
             Six steps,
             <br />
             one team
           </h2>
 
-          <div data-slide="up" data-slide-delay="0.14" className="mt-8 flex flex-col items-start gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div data-reveal-meta className="mt-8 flex flex-col items-start gap-6 lg:flex-row lg:items-end lg:justify-between">
             <p className="max-w-[44ch] text-[16px] leading-[1.5] text-black/65">
               From the first message to the buyer&apos;s door — one team owns every
               handover between Colombo and the United States.
@@ -77,9 +77,9 @@ export default function Timeline() {
         </div>
 
         {/* Step grid */}
-        <ol data-stagger className="mt-[clamp(48px,6vw,88px)] grid grid-cols-1 border-l border-t border-black sm:grid-cols-2 lg:grid-cols-3">
+        <ol className="mt-[clamp(48px,6vw,88px)] grid grid-cols-1 border-l border-t border-black sm:grid-cols-2 lg:grid-cols-3">
           {STEPS.map((s) => (
-            <li key={s.n} className="border-b border-r border-black">
+            <li key={s.n} data-reveal-cell className="border-b border-r border-black">
               <Link
                 href={s.href}
                 className="group flex h-full min-h-[280px] flex-col justify-between bg-white p-6 transition-colors duration-300 hover:bg-black lg:p-8"

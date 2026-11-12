@@ -124,17 +124,14 @@ export default function Hero() {
           const actions = q("[data-hero-actions]");
 
           const split = SplitText.create(q("[data-hero-title]")[0], {
-            type: "lines,words",
+            type: "lines",
             mask: "lines",
           });
 
-          gsap.set(photo, { autoAlpha: 0 });
-          gsap.set(split.words, {
-            yPercent: 100,
-            rotationX: -90,
-            transformOrigin: "50% 100% -40px",
-            transformPerspective: 800,
-          });
+          // The photo opens like a letterbox: a thin band of it widens to full
+          // height. Only the mask changes — the image itself never moves.
+          gsap.set(photo, { autoAlpha: 0, clipPath: "inset(49.5% 0% 49.5% 0%)" });
+          gsap.set(split.lines, { yPercent: 105 });
           gsap.set(desc, { autoAlpha: 0, y: 24 });
           gsap.set(actions, { autoAlpha: 0, y: 40 });
           ready();
@@ -153,13 +150,16 @@ export default function Hero() {
             cleanups.push(() => window.clearTimeout(safety));
           }
 
-          // 1 — the photo fades up in place
-          tl.to(photo, { autoAlpha: 1, duration: 1.2, ease: "power2.out" }, 0.1)
-            .add(open, 1.2)
-            // 2 — only after the image settles does the headline flip up
-            .to(split.words, { yPercent: 0, rotationX: 0, duration: 1.2, stagger: 0.07 }, 1.7)
-            .to(desc, { autoAlpha: 1, y: 0, duration: 0.9 }, 2.1)
-            .to(actions, { autoAlpha: 1, y: 0, duration: 0.8, ease: "power3.out", clearProps: "transform" }, 2.2);
+          // 1 — a thin horizon of the photo appears…
+          tl.to(photo, { autoAlpha: 1, duration: 0.35, ease: "power1.out" }, 0.1)
+            // 2 — …and the letterbox opens to full height (the image stays still)
+            .to(photo, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.5, ease: "expo.inOut", clearProps: "clipPath" }, 0.45)
+            .add(open, 1.3)
+            // 3 — the headline is set line by line as the frame settles
+            .to(split.lines, { yPercent: 0, duration: 1.1, ease: "power4.out", stagger: 0.13 }, 1.35)
+            // 4 — supporting copy and actions
+            .to(desc, { autoAlpha: 1, y: 0, duration: 0.9 }, 1.85)
+            .to(actions, { autoAlpha: 1, y: 0, duration: 0.8, ease: "power3.out", clearProps: "transform" }, 1.95);
           // Scrolling before the intro ends lands it instantly.
           const onEarlyScroll = () => {
             if (window.scrollY > 40 && tl.progress() < 1) tl.progress(1);
@@ -201,8 +201,7 @@ export default function Hero() {
                 defaults: { ease: "none", immediateRender: false },
                 scrollTrigger: { trigger: next, start: "top bottom", end: "top top", scrub: 0.6 },
               })
-              .fromTo(q("[data-hero-dim]"), { opacity: 0 }, { opacity: 0.7 }, 0)
-              .fromTo(
+              .fromTo(q("[data-hero-dim]"), { opacity: 0 }, { opacity: 0.7 }, 0)              .fromTo(
                 split.lines,
                 { yPercent: 0, autoAlpha: 1 },
                 { yPercent: -80, autoAlpha: 0, stagger: 0.08, duration: 0.5 },
