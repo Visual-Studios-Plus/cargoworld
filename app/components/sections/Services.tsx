@@ -104,7 +104,7 @@ export default function Services() {
       mm.add("(min-width: 0px)", () => {
         gsap.fromTo(
           root.querySelectorAll("[data-service-card]"),
-          { autoAlpha: 0, y: 45, scale: 0.97 },
+          { autoAlpha: 0, y: 45, scale: 0.97, willChange: "transform, opacity" },
           {
             autoAlpha: 1,
             y: 0,
@@ -112,7 +112,7 @@ export default function Services() {
             duration: 0.75,
             stagger: 0.08,
             ease: "power2.out",
-            clearProps: "opacity,visibility,transform",
+            clearProps: "opacity,visibility,transform,will-change",
             scrollTrigger: { trigger: root, start: "top 80%", once: true },
           }
         );

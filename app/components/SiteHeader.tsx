@@ -28,17 +28,28 @@ export default function SiteHeader() {
     if (!hero) return;
 
     const update = () => {
-      setScrolledPastHero(hero.getBoundingClientRect().bottom <= 60);
+      const next = hero.getBoundingClientRect().bottom <= 60;
+      setScrolledPastHero((prev) => (prev === next ? prev : next));
+    };
+
+    let frame = 0;
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        update();
+      });
     };
 
     const raf = requestAnimationFrame(update);
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
 
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
     };
   }, [isHome]);
 
@@ -60,7 +71,7 @@ export default function SiteHeader() {
               width={97}
               height={40}
               priority
-              className={`h-[26px] w-auto object-contain ${onHero ? "mix-blend-screen" : "invert"}`}
+              className={`h-[26px] w-auto object-contain ${onHero ? "" : "invert"}`}
             />
           </span>
         </Link>

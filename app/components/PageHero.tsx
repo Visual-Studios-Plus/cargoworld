@@ -29,7 +29,7 @@ export default function PageHero({
         sizes="100vw"
         aria-hidden="true"
         data-hero-media
-        className="object-cover object-center grayscale brightness-90"
+        className="object-cover object-center grayscale"
       />
       <div className="absolute inset-0 bg-[#000000]/45" />
 

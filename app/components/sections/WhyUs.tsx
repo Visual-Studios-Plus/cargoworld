@@ -91,13 +91,14 @@ export default function WhyUs() {
       mm.add("(min-width: 0px)", () => {
         gsap.fromTo(
           root.querySelectorAll("[data-bento-card]"),
-          { opacity: 0, y: 24 },
+          { opacity: 0, y: 24, willChange: "transform, opacity" },
           {
             opacity: 1,
             y: 0,
             duration: 0.7,
             stagger: 0.06,
             ease: "power2.out",
+            clearProps: "opacity,transform,will-change",
             scrollTrigger: { trigger: root, start: "top 80%", toggleActions: "play none none reverse" },
           }
         );

@@ -50,6 +50,8 @@ export default function SiteMotion() {
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
       const { SplitText } = await import("gsap/SplitText");
       gsap.registerPlugin(ScrollTrigger, SplitText);
+      gsap.config({ force3D: true, nullTargetWarn: false });
+      ScrollTrigger.config({ ignoreMobileResize: true });
 
       // Split headings only once the webfont is in place, otherwise the line
       // breaks would be measured against the fallback face.
@@ -141,6 +143,9 @@ export default function SiteMotion() {
                 duration: 1,
                 stagger: 0.085,
                 ease: "power4.out",
+                force3D: true,
+                willChange: "transform",
+                clearProps: "transform,will-change",
                 scrollTrigger: { trigger: el, start: "top 88%", once: true },
               }),
           });
@@ -158,7 +163,11 @@ export default function SiteMotion() {
 
           const dir = (el.dataset.slide || "up").toLowerCase();
           const distance = 56;
-          const from: gsap.TweenVars = { autoAlpha: 0 };
+          const from: gsap.TweenVars = {
+            autoAlpha: 0,
+            force3D: true,
+            willChange: "transform, opacity",
+          };
 
           if (dir === "left") from.x = -distance;
           else if (dir === "right") from.x = distance;
@@ -172,7 +181,7 @@ export default function SiteMotion() {
             duration: 0.95,
             delay: Number(el.dataset.slideDelay) || 0,
             ease: "power3.out",
-            clearProps: "opacity,visibility,transform",
+            clearProps: "opacity,visibility,transform,will-change",
             scrollTrigger: { trigger: el, start: "top 90%", once: true },
           });
         });
@@ -273,11 +282,12 @@ export default function SiteMotion() {
               clipPath: "inset(0 0 0% 0)",
               duration: 1.05,
               ease: "power4.out",
-              clearProps: "clipPath",
+              willChange: "clip-path",
+              clearProps: "clipPath,will-change",
             }
           ).fromTo(
             media,
-            { scale: 1.14 },
+            { scale: 1.14, force3D: true },
             {
               scale: 1,
               duration: 1.4,
@@ -294,10 +304,11 @@ export default function SiteMotion() {
 
           gsap.fromTo(
             el,
-            { yPercent: -amount },
+            { yPercent: -amount, force3D: true },
             {
               yPercent: amount,
               ease: "none",
+              willChange: "transform",
               scrollTrigger: {
                 trigger: el.parentElement ?? el,
                 start: "top bottom",
@@ -312,13 +323,21 @@ export default function SiteMotion() {
         gsap.utils.toArray<HTMLElement>("[data-hero-media]").forEach((el) => {
           gsap.fromTo(
             el,
-            { scale: 1.08 },
-            { scale: 1, duration: 1.6, ease: "power3.out", clearProps: "transform" }
+            { scale: 1.08, force3D: true, willChange: "transform" },
+            {
+              scale: 1,
+              duration: 1.6,
+              ease: "power3.out",
+              clearProps: "transform,will-change",
+            }
           );
         });
       });
 
       ScrollTrigger.refresh();
+      if (document.readyState !== "complete") {
+        window.addEventListener("load", () => ScrollTrigger.refresh(), { once: true });
+      }
     })();
 
     return () => {

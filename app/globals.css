@@ -99,6 +99,22 @@ h3 {
   height: auto;
 }
 
+/*
+ * Mobile hero: the source photo is a tall portrait (922x2048) that the desktop
+ * frame uses rotated to fill a landscape crop. In the narrow layout that same
+ * scale leaves the photo over-zoomed, so on small screens we drop the rotation
+ * and let the portrait fill the tall frame directly.
+ */
+@media (max-width: 767px) {
+  .hero-photo {
+    width: 100% !important;
+    height: 100% !important;
+    transform: translate(-50%, -50%) !important;
+    object-fit: contain !important;
+    object-position: center !important;
+  }
+}
+
 
 /* Carousel track: native scroll-snap with a hidden scrollbar. */
 .services-track {

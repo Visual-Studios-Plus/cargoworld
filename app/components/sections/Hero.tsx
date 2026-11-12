@@ -32,26 +32,48 @@ export default function Hero() {
 
         tl.fromTo(
           root.querySelector("[data-hero-bg]"),
-          { scale: 1.1, opacity: 0 },
-          { scale: 1, opacity: 1, duration: 1.4, ease: "power2.out" },
+          { scale: 1.1, opacity: 0, force3D: true },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 1.4,
+            ease: "power2.out",
+            clearProps: "opacity,transform",
+          },
           0
         )
           .fromTo(
             root.querySelector("[data-hero-title]"),
-            { opacity: 0, y: 40, letterSpacing: "-0.05em" },
-            { opacity: 1, y: 0, letterSpacing: "-0.02em", duration: 1.1 },
+            { opacity: 0, y: 40, force3D: true, willChange: "transform, opacity" },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1.1,
+              clearProps: "opacity,transform,will-change",
+            },
             0.35
           )
           .fromTo(
             root.querySelector("[data-hero-desc]"),
-            { opacity: 0, y: 24 },
-            { opacity: 1, y: 0, duration: 0.9 },
+            { opacity: 0, y: 24, force3D: true, willChange: "transform, opacity" },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.9,
+              clearProps: "opacity,transform,will-change",
+            },
             0.55
           )
           .fromTo(
             root.querySelector("[data-hero-actions]"),
-            { opacity: 0, y: 24, scale: 0.98 },
-            { opacity: 1, y: 0, scale: 1, duration: 0.8 },
+            { opacity: 0, y: 24, scale: 0.98, force3D: true, willChange: "transform, opacity" },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.8,
+              clearProps: "opacity,transform,will-change",
+            },
             0.7
           );
 
@@ -100,7 +122,7 @@ export default function Hero() {
           <img
             src="/figma/img/hero.jpg"
             alt="Container port at sunset"
-            className="absolute left-1/2 top-1/2 object-cover grayscale"
+            className="hero-photo absolute left-1/2 top-1/2 object-cover grayscale"
             style={{
               width: "64.68%",
               height: "154.7%",
@@ -109,11 +131,11 @@ export default function Hero() {
           />
           <div className="pointer-events-none absolute inset-0 bg-[#000000]/15" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-[18%] bg-gradient-to-l from-[#000000]/25 to-transparent" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[16%] bg-gradient-to-t from-[#ffffff] via-[#ffffff]/40 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-[16%] bg-gradient-to-t from-[#ffffff] via-[#ffffff]/40 to-transparent md:block" />
           {/* Dynamic transition veil connecting hero dark void into what-we-do bone canvas */}
           <div
             data-hero-fade
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-[28%] bg-gradient-to-t from-[#ffffff] via-[#ffffff]/70 to-transparent opacity-0 will-change-[opacity]"
+            className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-[28%] bg-gradient-to-t from-[#ffffff] via-[#ffffff]/70 to-transparent opacity-0 will-change-[opacity] md:block"
           />
         </div>
 
@@ -144,7 +166,7 @@ export default function Hero() {
             className="mt-10 flex w-full max-w-[540px] flex-col items-stretch gap-3 sm:flex-row sm:items-center"
           >
             <form
-              className="flex h-[56px] w-full items-center border border-white/35 bg-[#000000]/25 pl-6 pr-1.5 backdrop-blur-md transition-colors focus-within:border-white sm:flex-1"
+              className="flex h-[56px] w-full items-center border border-white/35 bg-[#000000]/40 pl-6 pr-1.5 transition-colors focus-within:border-white sm:flex-1"
               action="/track"
               id="track"
             >
