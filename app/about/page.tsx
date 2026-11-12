@@ -59,7 +59,7 @@ export default function AboutPage() {
             <p data-micro className="font-dm text-[11px] font-medium uppercase tracking-[0.18em] text-[#8e9194]">
               Who we are
             </p>
-            <h2 data-headline className="mt-3 font-cal text-[clamp(30px,3vw,46px)] leading-[1.1] tracking-[-0.03em] text-[#102a6b]">
+            <h2 data-headline className="mt-3 font-cal text-[clamp(30px,3vw,46px)] leading-[1.1] tracking-[-0.03em] text-[#1e3a8a]">
               a forwarder that owns the last mile
             </h2>
             <div data-slide="up" data-slide-delay="0.16" className="mt-5 space-y-4 font-cal text-[15.5px] leading-[1.6] text-[#8e9194]">
@@ -121,10 +121,10 @@ export default function AboutPage() {
                 key={p.title}
                 className="bg-[#f1f1f1] p-7 transition-all duration-300 hover:-translate-y-1"
               >
-                <span className="flex size-10 items-center justify-center rounded-full bg-[#102a6b] font-cal text-[16px] text-[#ffe500]">
+                <span className="flex size-10 items-center justify-center rounded-full bg-[#1e3a8a] font-cal text-[16px] text-[#ffe500]">
                   {i + 1}
                 </span>
-                <h3 className="mt-5 font-cal text-[21px] font-medium text-[#102a6b]">
+                <h3 className="mt-5 font-cal text-[21px] font-medium text-[#1e3a8a]">
                   {p.title}
                 </h3>
                 <p className="mt-2.5 font-cal text-[14.5px] leading-[1.55] text-[#8e9194]">

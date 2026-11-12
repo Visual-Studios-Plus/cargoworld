@@ -1,4 +1,4 @@
-const LINE = "#102a6b";
+const LINE = "#1e3a8a";
 const ACCENT = "#ffe500";
 
 type Route = { id: string; d: string; dur: string; begin: string };

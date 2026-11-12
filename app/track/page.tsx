@@ -167,11 +167,11 @@ export default function TrackPage() {
                 <p className="font-dm text-[11px] font-medium uppercase tracking-[0.15em] text-[#8e9194]">
                   Tracking reference
                 </p>
-                <p className="font-cal text-[20px] font-medium text-[#102a6b]">
+                <p className="font-cal text-[20px] font-medium text-[#1e3a8a]">
                   {tracked}
                 </p>
               </div>
-              <span className="rounded-full bg-[#102a6b] px-4 py-1.5 font-cal text-[13px] text-[#ffe500]">
+              <span className="rounded-full bg-[#1e3a8a] px-4 py-1.5 font-cal text-[13px] text-[#ffe500]">
                 Stage {activeStage + 1} of {STAGES.length} · {current?.label}
               </span>
             </div>
@@ -190,13 +190,13 @@ export default function TrackPage() {
                 <path
                   d="M46 150 Q200 -10 354 150"
                   fill="none"
-                  stroke="#102a6b"
+                  stroke="#1e3a8a"
                   strokeWidth="2.5"
                   strokeDasharray="1 11"
                   strokeLinecap="round"
                 />
                 {/* apex interchange node */}
-                <circle cx="200" cy="40" r="24" fill="#102a6b" />
+                <circle cx="200" cy="40" r="24" fill="#1e3a8a" />
                 <circle cx="200" cy="40" r="30" fill="none" stroke="#ffe500" strokeWidth="2.5" />
                 <g
                   transform="translate(182 22)"
@@ -211,15 +211,15 @@ export default function TrackPage() {
                   <path d="M1 28c2.3 0 2.3 1.6 4.6 1.6S8 28 10.3 28s2.3 1.6 4.6 1.6S17.3 28 19.6 28s2.3 1.6 4.6 1.6S26.6 28 29 28s2.3 1.6 4.6 1.6" />
                 </g>
                 {/* endpoints */}
-                <circle cx="46" cy="150" r="8" fill="#fff" stroke="#102a6b" strokeWidth="3" />
-                <circle cx="354" cy="150" r="8" fill="#102a6b" />
+                <circle cx="46" cy="150" r="8" fill="#fff" stroke="#1e3a8a" strokeWidth="3" />
+                <circle cx="354" cy="150" r="8" fill="#1e3a8a" />
               </svg>
               <div className="mt-2 flex items-center justify-between">
                 <div className="text-left">
                   <p className="font-dm text-[11px] font-medium uppercase tracking-[0.14em] text-[#8e9194]">
                     From
                   </p>
-                  <p className="font-cal text-[18px] font-medium text-[#102a6b]">
+                  <p className="font-cal text-[18px] font-medium text-[#1e3a8a]">
                     Colombo
                   </p>
                 </div>
@@ -227,7 +227,7 @@ export default function TrackPage() {
                   <p className="font-dm text-[11px] font-medium uppercase tracking-[0.14em] text-[#8e9194]">
                     To
                   </p>
-                  <p className="font-cal text-[18px] font-medium text-[#102a6b]">
+                  <p className="font-cal text-[18px] font-medium text-[#1e3a8a]">
                     Buyer&apos;s door
                   </p>
                 </div>
@@ -237,7 +237,7 @@ export default function TrackPage() {
             {/* Numbered vertical timeline */}
             <div className="border border-[#d8d8d8] bg-[#ffffff] p-6 sm:p-8">
               <div className="mb-5 flex items-center justify-between">
-                <p className="font-cal text-[18px] font-medium text-[#102a6b]">
+                <p className="font-cal text-[18px] font-medium text-[#1e3a8a]">
                   {tracked ? `Shipment ${tracked}` : "Shipment journey"}
                 </p>
                 {tracked && (
@@ -280,7 +280,7 @@ export default function TrackPage() {
                       >
                         <p
                           className={`font-cal text-[16px] font-medium leading-tight ${
-                            done || activeNow ? "text-[#102a6b]" : "text-[#d8d8d8]"
+                            done || activeNow ? "text-[#1e3a8a]" : "text-[#d8d8d8]"
                           }`}
                         >
                           {stage.label}
@@ -318,10 +318,10 @@ export default function TrackPage() {
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <span className="flex size-9 items-center justify-center rounded-full bg-[#102a6b] font-cal text-[14px] text-[#ffe500]">
+                  <span className="flex size-9 items-center justify-center rounded-full bg-[#1e3a8a] font-cal text-[14px] text-[#ffe500]">
                     {i + 1}
                   </span>
-                  <h3 className="font-cal text-[18px] font-medium text-[#102a6b]">
+                  <h3 className="font-cal text-[18px] font-medium text-[#1e3a8a]">
                     {stage.label}
                   </h3>
                 </div>
@@ -331,7 +331,7 @@ export default function TrackPage() {
                       key={doc}
                       className="flex items-center gap-2.5 font-cal text-[14px] text-[#4b514d]"
                     >
-                      <DocIcon className="h-4 w-4 shrink-0 text-[#102a6b]/60" />
+                      <DocIcon className="h-4 w-4 shrink-0 text-[#1e3a8a]/60" />
                       {doc}
                     </li>
                   ))}
@@ -351,7 +351,7 @@ export default function TrackPage() {
               href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(waText)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-[#102a6b]/15 bg-[#ffffff] px-7 py-3.5 font-cal text-[16px] text-[#102a6b] transition-colors hover:bg-[#f1f1f1]"
+              className="inline-flex items-center gap-2 border border-[#1e3a8a]/15 bg-[#ffffff] px-7 py-3.5 font-cal text-[16px] text-[#1e3a8a] transition-colors hover:bg-[#f1f1f1]"
             >
               <WhatsAppIcon className="h-5 w-5 text-[#25D366]" />
               Chat with support

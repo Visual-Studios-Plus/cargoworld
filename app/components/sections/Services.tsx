@@ -143,7 +143,7 @@ export default function Services() {
             onClick={() => scrollTrack(-1)}
             disabled={!canPrev}
             aria-label="Previous services"
-            className="absolute -left-3 top-[38%] z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center border border-neutral-200 bg-[#ffffff] text-neutral-900 transition-all duration-300 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white disabled:cursor-not-allowed disabled:opacity-35 md:-left-5 md:h-11 md:w-11"
+            className="absolute -left-3 top-[38%] z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center border border-neutral-200 bg-[#ffffff] text-[#1e3a8a] transition-all duration-300 hover:border-[#1e3a8a] hover:bg-[#1e3a8a] hover:text-white disabled:cursor-not-allowed disabled:opacity-35 md:-left-5 md:h-11 md:w-11"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-[18px] w-[18px]">
               <path d="M19 12H5M11 5l-7 7 7 7" />
@@ -155,7 +155,7 @@ export default function Services() {
             onClick={() => scrollTrack(1)}
             disabled={!canNext}
             aria-label="Next services"
-            className="absolute -right-3 top-[38%] z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center border border-neutral-200 bg-[#ffffff] text-neutral-900 transition-all duration-300 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white disabled:cursor-not-allowed disabled:opacity-35 md:-right-5 md:h-11 md:w-11"
+            className="absolute -right-3 top-[38%] z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center border border-neutral-200 bg-[#ffffff] text-[#1e3a8a] transition-all duration-300 hover:border-[#1e3a8a] hover:bg-[#1e3a8a] hover:text-white disabled:cursor-not-allowed disabled:opacity-35 md:-right-5 md:h-11 md:w-11"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-[18px] w-[18px]">
               <path d="M5 12h14M13 5l7 7-7 7" />
