@@ -6,14 +6,12 @@ import Services from "./components/sections/Services";
 import CoreCarriers from "./components/sections/CoreCarriers";
 import CallToAction from "./components/sections/CallToAction";
 import Footer from "./components/sections/Footer";
-import SectionHandoffs from "./components/SectionHandoffs";
 
 export default function Home() {
   return (
     <main className="flex w-full flex-col bg-[#ffffff]">
       <SiteHeader />
       <Hero />
-      <SectionHandoffs />
       {/* Slides over the sticky hero */}
       <div data-hero-next className="relative z-10 flex w-full flex-col bg-[#ffffff]">
       {/* Corrugated container-wall band that leads the section in */}
