@@ -33,7 +33,7 @@ const PAPERWORK = ["Commercial Invoice", "Packing List", "Certificate of Origin"
 
 function Field({ children }: { children: React.ReactNode }) {
   return (
-    <span className="relative mx-1 inline-flex items-center bg-[#ffffff] ring-1 ring-inset ring-[#000000]/15 transition-colors focus-within:ring-2 focus-within:ring-black">
+    <span className="relative mx-1 inline-flex items-center bg-[#ffffff] ring-1 ring-inset ring-[#102a6b]/15 transition-colors focus-within:ring-2 focus-within:ring-black">
       {children}
     </span>
   );
@@ -86,32 +86,32 @@ export default function QuotePage() {
         title={<>tell us your shipment in one sentence</>}
         description="No long forms. Fill in the blanks, pick your services, and send it straight to our team."
       >
-        <span className="bg-[#fffb96] px-4 py-1.5 font-dm text-[12px] font-medium uppercase tracking-[0.12em] text-black">
+        <span className="bg-[#ffe500] px-4 py-1.5 font-dm text-[12px] font-medium uppercase tracking-[0.12em] text-black">
           Reference {ref}
         </span>
       </PageHero>
 
       <section className="w-full bg-[#ffffff]">
-        <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-8 px-6 lg:px-10 pb-[clamp(56px,7vw,112px)] pt-[clamp(40px,5vw,80px)] lg:grid-cols-[1.4fr_1fr]">
+        <div data-section className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-8 px-6 lg:px-10 pb-[clamp(56px,7vw,112px)] pt-[clamp(40px,5vw,80px)] lg:grid-cols-[1.4fr_1fr]">
           {/* Builder */}
-          <div>
+          <div data-reveal>
             {/* Sentence */}
             <div className="border border-[#d8d8d8] bg-[#ffffff] p-7 sm:p-9">
-              <p className="font-syne text-[clamp(20px,2.1vw,30px)] font-medium leading-[1.9] tracking-[-0.01em] text-[#000000]">
+              <p className="font-syne text-[clamp(20px,2.1vw,30px)] font-medium leading-[1.9] tracking-[-0.01em] text-[#102a6b]">
                 I&apos;m shipping a
                 <Field>
                   <select
                     aria-label="Load type"
                     value={load}
                     onChange={(e) => setLoad(e.target.value)}
-                    className="cursor-pointer appearance-none bg-transparent px-3 py-1.5 pr-8 font-syne text-[#000000] focus:outline-none"
+                    className="cursor-pointer appearance-none bg-transparent px-3 py-1.5 pr-8 font-syne text-[#102a6b] focus:outline-none"
                   >
                     {LOADS.map((l) => (
                       <option key={l}>{l}</option>
                     ))}
                   </select>
                   <svg
-                    className="pointer-events-none absolute right-2.5 h-4 w-4 text-[#000000]/50"
+                    className="pointer-events-none absolute right-2.5 h-4 w-4 text-[#102a6b]/50"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -129,12 +129,12 @@ export default function QuotePage() {
                     onChange={(e) => setCargo(e.target.value)}
                     placeholder="cargo type"
                     size={Math.max(cargo.length || 10, 8)}
-                    className="bg-transparent px-3 py-1.5 font-syne text-[#000000] placeholder:text-[#000000]/40 focus:outline-none"
+                    className="bg-transparent px-3 py-1.5 font-syne text-[#102a6b] placeholder:text-[#102a6b]/40 focus:outline-none"
                   />
                 </Field>
                 from
                 <Field>
-                  <span className="px-3 py-1.5 font-syne text-[#000000]">
+                  <span className="px-3 py-1.5 font-syne text-[#102a6b]">
                     Colombo
                   </span>
                 </Field>
@@ -144,14 +144,14 @@ export default function QuotePage() {
                     aria-label="Destination"
                     value={destination}
                     onChange={(e) => setDestination(e.target.value)}
-                    className="cursor-pointer appearance-none bg-transparent px-3 py-1.5 pr-8 font-syne text-[#000000] focus:outline-none"
+                    className="cursor-pointer appearance-none bg-transparent px-3 py-1.5 pr-8 font-syne text-[#102a6b] focus:outline-none"
                   >
                     {DESTINATIONS.map((d) => (
                       <option key={d}>{d}</option>
                     ))}
                   </select>
                   <svg
-                    className="pointer-events-none absolute right-2.5 h-4 w-4 text-[#000000]/50"
+                    className="pointer-events-none absolute right-2.5 h-4 w-4 text-[#102a6b]/50"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -168,7 +168,7 @@ export default function QuotePage() {
                     aria-label="Ready by date"
                     value={readyBy}
                     onChange={(e) => setReadyBy(e.target.value)}
-                    className="cursor-pointer bg-transparent px-3 py-1.5 font-syne text-[#000000] focus:outline-none"
+                    className="cursor-pointer bg-transparent px-3 py-1.5 font-syne text-[#102a6b] focus:outline-none"
                   />
                 </Field>
                 .
@@ -177,13 +177,13 @@ export default function QuotePage() {
 
             {/* Add-ons */}
             <div className="mt-8">
-              <h2 className="font-cal text-[22px] font-medium text-[#000000]">
+              <h2 className="font-cal text-[22px] font-medium text-[#102a6b]">
                 Add services
               </h2>
               <p className="mt-1 font-cal text-[14px] text-black/60">
                 Select everything you need — tap to toggle.
               </p>
-              <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2" data-stagger>
                 {ADDONS.map((a) => {
                   const checked = addons.includes(a);
                   return (
@@ -195,8 +195,8 @@ export default function QuotePage() {
                       onClick={() => toggleAddon(a)}
                       className={`flex items-center gap-3 border px-4 py-3.5 text-left font-cal text-[15px] transition-all duration-300 ${
                         checked
-                          ? "border-black bg-[#fffb96] text-[#000000]"
-                          : "border-[#d8d8d8] bg-[#ffffff] text-[#000000]/70 hover:border-[#000000]/25"
+                          ? "border-black bg-[#ffe500] text-[#102a6b]"
+                          : "border-[#d8d8d8] bg-[#ffffff] text-[#102a6b]/70 hover:border-[#102a6b]/25"
                       }`}
                     >
                       <span
@@ -217,13 +217,13 @@ export default function QuotePage() {
           </div>
 
           {/* Live preview */}
-          <aside className="lg:sticky lg:top-[88px] lg:self-start">
+          <aside className="lg:sticky lg:top-[88px] lg:self-start" data-reveal>
             <div className="overflow-hidden border border-[#d8d8d8] bg-[#ffffff]">
-              <div className="flex items-center justify-between bg-[#000000] px-6 py-4">
+              <div className="flex items-center justify-between bg-[#102a6b] px-6 py-4">
                 <p className="font-cal text-[16px] font-medium text-white">
                   Your quote
                 </p>
-                <span className="bg-[#fffb96] px-3 py-1 font-dm text-[12px] font-medium text-black">
+                <span className="bg-[#ffe500] px-3 py-1 font-dm text-[12px] font-medium text-black">
                   {ref}
                 </span>
               </div>
@@ -232,25 +232,25 @@ export default function QuotePage() {
                 <dl className="space-y-3 font-cal text-[14.5px]">
                   <div className="flex justify-between gap-4">
                     <dt className="text-black/60">Load</dt>
-                    <dd className="text-right font-medium text-[#000000]">
+                    <dd className="text-right font-medium text-[#102a6b]">
                       {load}
                     </dd>
                   </div>
                   <div className="flex justify-between gap-4">
                     <dt className="text-black/60">Cargo</dt>
-                    <dd className="text-right font-medium text-[#000000]">
+                    <dd className="text-right font-medium text-[#102a6b]">
                       {cargoText}
                     </dd>
                   </div>
                   <div className="flex justify-between gap-4">
                     <dt className="text-black/60">Lane</dt>
-                    <dd className="text-right font-medium text-[#000000]">
+                    <dd className="text-right font-medium text-[#102a6b]">
                       Colombo → {destination}
                     </dd>
                   </div>
                   <div className="flex justify-between gap-4">
                     <dt className="text-black/60">Ready by</dt>
-                    <dd className="text-right font-medium text-[#000000]">
+                    <dd className="text-right font-medium text-[#102a6b]">
                       {readyBy || "—"}
                     </dd>
                   </div>
@@ -261,7 +261,7 @@ export default function QuotePage() {
                   <p className="font-dm text-[11px] font-medium uppercase tracking-[0.12em] text-black/60">
                     Estimated transit
                   </p>
-                  <p className="mt-1 font-syne text-[26px] font-medium text-[#000000]">
+                  <p className="mt-1 font-syne text-[26px] font-medium text-[#102a6b]">
                     {transit}
                   </p>
                   <p className="font-cal text-[12px] text-black/60">
@@ -280,7 +280,7 @@ export default function QuotePage() {
                       addons.map((a) => (
                         <span
                           key={a}
-                          className="bg-[#000000] px-3 py-1 font-cal text-[12px] text-[#fffb96]"
+                          className="bg-[#102a6b] px-3 py-1 font-cal text-[12px] text-[#ffe500]"
                         >
                           {a}
                         </span>
@@ -302,9 +302,9 @@ export default function QuotePage() {
                     {PAPERWORK.map((d) => (
                       <li
                         key={d}
-                        className="flex items-center gap-2.5 font-cal text-[13.5px] text-[#000000]/70"
+                        className="flex items-center gap-2.5 font-cal text-[13.5px] text-[#102a6b]/70"
                       >
-                        <DocIcon className="h-4 w-4 shrink-0 text-[#000000]/60" />
+                        <DocIcon className="h-4 w-4 shrink-0 text-[#102a6b]/60" />
                         {d}
                       </li>
                     ))}
@@ -316,14 +316,14 @@ export default function QuotePage() {
                   href={waHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 flex w-full items-center justify-center gap-2 bg-[#fffb96] px-6 py-4 font-cal text-[17px] text-black transition-transform hover:scale-[1.02]"
+                  className="mt-6 flex w-full items-center justify-center gap-2 bg-[#ffe500] px-6 py-4 font-cal text-[17px] text-black transition-transform hover:scale-[1.02]"
                 >
                   <WhatsAppIcon className="h-5 w-5" />
                   Send on WhatsApp
                 </a>
                 <a
                   href={mailHref}
-                  className="mt-3 flex w-full items-center justify-center gap-2 border border-[#000000]/15 px-6 py-3.5 font-cal text-[15px] text-[#000000] transition-colors hover:bg-[#ffffff]"
+                  className="mt-3 flex w-full items-center justify-center gap-2 border border-[#102a6b]/15 px-6 py-3.5 font-cal text-[15px] text-[#102a6b] transition-colors hover:bg-[#ffffff]"
                 >
                   Email the sales team
                 </a>

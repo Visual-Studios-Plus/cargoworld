@@ -79,7 +79,7 @@ export default function SiteHeader() {
                       ? "text-white underline decoration-white decoration-1 underline-offset-[6px]"
                       : "text-black underline decoration-black decoration-1 underline-offset-[6px]"
                     : onHero
-                      ? "text-white hover:text-[#fffb96]"
+                      ? "text-white hover:text-[#ffe500]"
                       : "text-[#8e9194] hover:text-black"
                 }`}
               >
@@ -95,7 +95,7 @@ export default function SiteHeader() {
             href="/track"
             className={`hidden border px-4 py-2 text-[11px] font-medium uppercase tracking-[0.1em] transition-colors sm:inline-block ${
               onHero
-                ? "border-white text-white hover:border-[#fffb96] hover:bg-[#fffb96] hover:text-black"
+                ? "border-white text-white hover:border-[#ffe500] hover:bg-[#ffe500] hover:text-black"
                 : "border-black bg-white text-black hover:bg-[#f1f1f1]"
             }`}
           >
@@ -103,7 +103,7 @@ export default function SiteHeader() {
           </Link>
           <Link
             href="/quote"
-            className="hidden bg-[#fffb96] px-4 py-2 text-[11px] font-medium uppercase tracking-[0.1em] text-black transition-transform hover:scale-[1.03] sm:inline-block"
+            className="hidden bg-[#ffe500] px-4 py-2 text-[11px] font-medium uppercase tracking-[0.1em] text-black transition-transform hover:scale-[1.03] sm:inline-block"
           >
             Get a quote
           </Link>
@@ -115,7 +115,7 @@ export default function SiteHeader() {
             onClick={() => setOpen((v) => !v)}
             className={`flex size-9 items-center justify-center border transition-colors lg:hidden ${
               onHero
-                ? "border-white text-white hover:border-[#fffb96] hover:text-[#fffb96]"
+                ? "border-white text-white hover:border-[#ffe500] hover:text-[#ffe500]"
                 : "border-black text-black hover:bg-[#f1f1f1]"
             }`}
           >
@@ -150,7 +150,7 @@ export default function SiteHeader() {
             <li className="pt-4">
               <Link
                 href="/quote"
-                className="block bg-[#fffb96] px-4 py-3 text-center text-[12px] font-medium uppercase tracking-[0.1em] text-black"
+                className="block bg-[#ffe500] px-4 py-3 text-center text-[12px] font-medium uppercase tracking-[0.1em] text-black"
               >
                 Get a quote
               </Link>

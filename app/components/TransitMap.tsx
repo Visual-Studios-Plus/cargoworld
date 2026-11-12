@@ -1,5 +1,5 @@
-const LINE = "#000000";
-const ACCENT = "#ffdd00";
+const LINE = "#102a6b";
+const ACCENT = "#ffe500";
 
 type Route = { id: string; d: string; dur: string; begin: string };
 
@@ -106,7 +106,7 @@ const CSS = `
 
 export default function TransitMap() {
   return (
-    <div className="mt-10 overflow-x-auto rounded-lg border border-[#d8d8d8] bg-[#ffffff] p-4 sm:p-8">
+    <div data-reveal className="mt-10 overflow-x-auto border border-[#d8d8d8] bg-[#ffffff] p-4 sm:p-8">
       <style>{CSS}</style>
       <svg
         viewBox="-110 0 980 460"

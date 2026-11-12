@@ -102,51 +102,20 @@ export default function Services() {
       mm = gsap.matchMedia();
 
       mm.add("(min-width: 0px)", () => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: root,
-            start: "top 84%",
-            toggleActions: "play none none reverse",
-          },
-        });
-
-        // Stagger the eyebrow, heading and description so the section eases in
-        // from the closing timeline instead of appearing in one block.
-        tl.fromTo(
-          root.querySelector("[data-services-eyebrow]"),
-          { opacity: 0, y: 24 },
-          { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }
-        )
-          .fromTo(
-            root.querySelector("[data-services-title]"),
-            { opacity: 0, y: 48 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.9,
-              ease: "power3.out",
-            },
-            "-=0.5"
-          )
-          .fromTo(
-            root.querySelector("[data-services-desc]"),
-            { opacity: 0, y: 28 },
-            { opacity: 1, y: 0, duration: 0.75, ease: "power2.out" },
-            "-=0.6"
-          )
-          .fromTo(
-            root.querySelectorAll("[data-service-card]"),
-            { opacity: 0, y: 45, scale: 0.97 },
-            {
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              duration: 0.75,
-              stagger: 0.08,
-              ease: "power2.out",
-            },
-            "-=0.45"
-          );
+        gsap.fromTo(
+          root.querySelectorAll("[data-service-card]"),
+          { autoAlpha: 0, y: 45, scale: 0.97 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.75,
+            stagger: 0.08,
+            ease: "power2.out",
+            clearProps: "opacity,visibility,transform",
+            scrollTrigger: { trigger: root, start: "top 80%", once: true },
+          }
+        );
       });
     })();
 
@@ -224,7 +193,7 @@ export default function Services() {
 
                   <span
                     aria-hidden="true"
-                    className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-black text-black transition-colors duration-300 group-hover:bg-[#fffb96] group-hover:border-[#fffb96]"
+                    className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-black text-black transition-colors duration-300 group-hover:bg-[#ffe500] group-hover:border-[#ffe500]"
                   >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                       <path d="M7 17 17 7M9 7h8v8" />

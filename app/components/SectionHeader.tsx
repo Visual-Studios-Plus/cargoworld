@@ -28,18 +28,23 @@ export default function SectionHeader({
     <div
       className={`grid grid-cols-1 gap-4 border-t ${rule} pt-6 md:grid-cols-[280px_1fr] md:gap-10 ${className}`}
     >
-      <p className={`kicker ${ink}`}>
+      <p data-slide="left" className={`kicker ${ink}`}>
         {eyebrow}
         {index && <span className={`ml-2 ${muted}`}>({index})</span>}
       </p>
       <div>
         <h2
+          data-headline
           className={`max-w-[22ch] text-[clamp(30px,3.6vw,57px)] font-medium leading-[1.05] tracking-[-0.015em] ${ink}`}
         >
           {title}
         </h2>
         {subtitle && (
-          <p className={`mt-5 max-w-[60ch] text-[clamp(16px,1.3vw,19px)] leading-[1.42] ${muted}`}>
+          <p
+            data-slide="up"
+            data-slide-delay="0.16"
+            className={`mt-5 max-w-[60ch] text-[clamp(16px,1.3vw,19px)] leading-[1.42] ${muted}`}
+          >
             {subtitle}
           </p>
         )}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
+import SiteMotion from "./components/SiteMotion";
 
 // Swiss corporate typography: Inter for text, a DIN-like condensed face for
 // uppercase display headings.
@@ -28,7 +29,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${inter.variable} ${display.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-[#ffffff]">{children}</body>
+      <body className="flex min-h-full flex-col bg-[#ffffff]">
+        <SiteMotion />
+        {children}
+      </body>
     </html>
   );
 }

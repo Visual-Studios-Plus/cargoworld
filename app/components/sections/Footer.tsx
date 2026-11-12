@@ -37,7 +37,7 @@ export default function Footer() {
   return (
     <footer className="w-full border-t border-[#a7aaad] bg-white">
       <div className="mx-auto w-full max-w-[1280px] px-6 pt-[clamp(56px,7vw,96px)] lg:px-10">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div data-stagger className="grid grid-cols-1 gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <span className="inline-flex">
               <Image
@@ -84,7 +84,7 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="mt-8 flex flex-col gap-2 border-t border-[#d8d8d8] py-6 text-[14px] text-[#8e9194] sm:flex-row sm:justify-between">
+        <div data-reveal className="mt-8 flex flex-col gap-2 border-t border-[#d8d8d8] py-6 text-[14px] text-[#8e9194] sm:flex-row sm:justify-between">
           <p>© 2026 Cargo Worldwide Sri Lanka. All rights reserved.</p>
           <p>Colombo · Los Angeles · Houston · Mississauga · Chennai · Tuticorin</p>
         </div>

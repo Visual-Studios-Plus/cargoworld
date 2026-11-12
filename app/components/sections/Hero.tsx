@@ -91,7 +91,7 @@ export default function Hero() {
     <section
       ref={heroRef}
       data-hero-section
-      className="relative w-full overflow-hidden bg-black"
+      className="relative w-full overflow-hidden bg-[#000000]"
     >
       <div className="relative mx-auto w-full max-w-[1728px] md:aspect-[1728/1117]">
         {/* Background artwork */}
@@ -100,15 +100,15 @@ export default function Hero() {
           <img
             src="/figma/img/hero.jpg"
             alt="Container port at sunset"
-            className="absolute left-1/2 top-1/2 object-cover"
+            className="absolute left-1/2 top-1/2 object-cover grayscale"
             style={{
               width: "64.68%",
               height: "154.7%",
               transform: "translate(-50%, -50%) rotate(-90deg)",
             }}
           />
-          <div className="pointer-events-none absolute inset-0 bg-black/15" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-[18%] bg-gradient-to-l from-black/25 to-transparent" />
+          <div className="pointer-events-none absolute inset-0 bg-[#000000]/15" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-[18%] bg-gradient-to-l from-[#000000]/25 to-transparent" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[16%] bg-gradient-to-t from-[#ffffff] via-[#ffffff]/40 to-transparent" />
           {/* Dynamic transition veil connecting hero dark void into what-we-do bone canvas */}
           <div
@@ -144,7 +144,7 @@ export default function Hero() {
             className="mt-10 flex w-full max-w-[540px] flex-col items-stretch gap-3 sm:flex-row sm:items-center"
           >
             <form
-              className="flex h-[56px] w-full items-center border border-white/35 bg-black/25 pl-6 pr-1.5 backdrop-blur-md transition-colors focus-within:border-white sm:flex-1"
+              className="flex h-[56px] w-full items-center border border-white/35 bg-[#000000]/25 pl-6 pr-1.5 backdrop-blur-md transition-colors focus-within:border-white sm:flex-1"
               action="/track"
               id="track"
             >
@@ -158,7 +158,7 @@ export default function Hero() {
               <button
                 type="submit"
                 aria-label="Track shipment"
-                className="flex size-11 shrink-0 items-center justify-center bg-white transition-transform hover:scale-[1.05]"
+                className="flex size-11 shrink-0 items-center justify-center bg-[#ffe500] transition-transform hover:scale-[1.05]"
               >
                 <Image
                   src="/figma/svg/search.svg"
@@ -172,7 +172,7 @@ export default function Hero() {
 
             <a
               href="/quote"
-              className="flex h-[56px] w-full shrink-0 items-center justify-center bg-[#fffb96] px-8 text-[16px] font-medium text-black transition-transform hover:scale-[1.03] sm:w-auto"
+              className="flex h-[56px] w-full shrink-0 items-center justify-center bg-[#ffe500] px-8 text-[16px] font-medium text-black transition-transform hover:scale-[1.03] sm:w-auto"
             >
               Get a quote
             </a>

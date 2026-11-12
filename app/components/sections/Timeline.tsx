@@ -49,9 +49,9 @@ const STEPS = [
 export default function Timeline() {
   return (
     <section className="w-full bg-white text-black">
-      <div className="mx-auto w-full max-w-[1280px] px-6 py-[clamp(72px,9vw,120px)] lg:px-10">
+      <div data-section className="mx-auto w-full max-w-[1280px] px-6 py-[clamp(72px,9vw,120px)] lg:px-10">
         {/* Meta rule */}
-        <div className="flex items-baseline justify-between gap-6 border-b border-black pb-4 text-[11px] uppercase tracking-[0.16em]">
+        <div data-slide="down" className="flex items-baseline justify-between gap-6 border-b border-black pb-4 text-[11px] uppercase tracking-[0.16em]">
           <span className="text-black">How it works</span>
           <span className="hidden text-black/50 sm:block">
             Colombo, LK &nbsp;→&nbsp; United States
@@ -61,20 +61,20 @@ export default function Timeline() {
 
         {/* Title block */}
         <div className="mt-[clamp(32px,4vw,56px)] grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-10">
-          <h2 className="text-[clamp(40px,5.6vw,88px)] leading-[0.92] tracking-[-0.02em] text-black md:col-span-8">
+          <h2 data-headline className="text-[clamp(40px,5.6vw,88px)] leading-[0.92] tracking-[-0.02em] text-black md:col-span-8">
             Six steps,
             <br />
             one team
           </h2>
 
-          <div className="flex flex-col justify-end gap-6 md:col-span-4">
+          <div data-slide="up" data-slide-delay="0.14" className="flex flex-col justify-end gap-6 md:col-span-4">
             <p className="max-w-[34ch] text-[15px] leading-[1.5] text-black/60">
               From the first message to the buyer&apos;s door — one team owns every
               handover between Colombo and the United States.
             </p>
             <Link
               href="/quote"
-              className="kicker inline-flex w-fit items-center gap-2 border border-black px-4 py-2.5 text-black transition-colors hover:border-[#fffb96] hover:bg-[#fffb96]"
+              className="kicker inline-flex w-fit items-center gap-2 border border-black px-4 py-2.5 text-black transition-colors hover:border-[#ffe500] hover:bg-[#ffe500]"
             >
               Start a quote <span aria-hidden="true">↗</span>
             </Link>
@@ -82,7 +82,7 @@ export default function Timeline() {
         </div>
 
         {/* Step grid */}
-        <ol className="mt-[clamp(48px,6vw,88px)] grid grid-cols-1 border-l border-t border-black sm:grid-cols-2 lg:grid-cols-3">
+        <ol data-stagger className="mt-[clamp(48px,6vw,88px)] grid grid-cols-1 border-l border-t border-black sm:grid-cols-2 lg:grid-cols-3">
           {STEPS.map((s) => (
             <li key={s.n} className="border-b border-r border-black">
               <Link
@@ -90,7 +90,7 @@ export default function Timeline() {
                 className="group flex h-full min-h-[280px] flex-col justify-between bg-white p-6 transition-colors duration-300 hover:bg-black lg:p-8"
               >
                 <div className="flex items-start justify-between gap-4">
-                  <span className="font-[family-name:var(--font-display)] text-[clamp(48px,4.6vw,72px)] font-semibold leading-[0.8] tracking-[-0.03em] tabular-nums text-black transition-colors duration-300 group-hover:text-[#fffb96]">
+                  <span className="font-[family-name:var(--font-display)] text-[clamp(48px,4.6vw,72px)] font-semibold leading-[0.8] tracking-[-0.03em] tabular-nums text-black transition-colors duration-300 group-hover:text-[#ffe500]">
                     {s.n}
                   </span>
                   <span className="pt-1 text-[10px] uppercase tracking-[0.18em] text-black/40 transition-colors duration-300 group-hover:text-white/50">
@@ -119,7 +119,7 @@ export default function Timeline() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     aria-hidden="true"
-                    className="h-5 w-5 text-black transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#fffb96]"
+                    className="h-5 w-5 text-black transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#ffe500]"
                   >
                     <path d="M7 17 17 7M9 7h8v8" />
                   </svg>

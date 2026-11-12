@@ -129,7 +129,7 @@ export default function TrackPage() {
           </div>
           <button
             type="submit"
-            className="flex h-[62px] shrink-0 items-center justify-center bg-[#fffb96] px-8 font-cal text-[18px] text-black transition-transform hover:scale-[1.03]"
+            className="flex h-[62px] shrink-0 items-center justify-center bg-[#ffe500] px-8 font-cal text-[18px] text-black transition-transform hover:scale-[1.03]"
           >
             Track
           </button>
@@ -142,7 +142,7 @@ export default function TrackPage() {
               setReference("OWWU 162037");
               startTracking("OWWU 162037");
             }}
-            className="font-dm text-[13px] font-medium text-[#fff8cf]/80 underline-offset-4 transition-colors hover:text-black hover:underline"
+            className="font-dm text-[13px] font-medium text-[#ffe500]/80 underline-offset-4 transition-colors hover:text-black hover:underline"
           >
             Try sample: OWWU 162037
           </button>
@@ -160,18 +160,18 @@ export default function TrackPage() {
 
       {/* Milestones */}
       <section className="w-full bg-[#ffffff]">
-        <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(40px,5vw,80px)] pt-[clamp(48px,6vw,96px)]">
+        <div data-section className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(40px,5vw,80px)] pt-[clamp(48px,6vw,96px)]">
           {tracked && (
             <div className="mb-10 flex flex-wrap items-center justify-between gap-3 bg-[#f1f1f1] px-6 py-4">
               <div>
                 <p className="font-dm text-[11px] font-medium uppercase tracking-[0.15em] text-[#8e9194]">
                   Tracking reference
                 </p>
-                <p className="font-cal text-[20px] font-medium text-[#000000]">
+                <p className="font-cal text-[20px] font-medium text-[#102a6b]">
                   {tracked}
                 </p>
               </div>
-              <span className="rounded-full bg-[#000000] px-4 py-1.5 font-cal text-[13px] text-[#fffb96]">
+              <span className="rounded-full bg-[#102a6b] px-4 py-1.5 font-cal text-[13px] text-[#ffe500]">
                 Stage {activeStage + 1} of {STAGES.length} · {current?.label}
               </span>
             </div>
@@ -183,24 +183,24 @@ export default function TrackPage() {
             subtitle="Every shipment moves through the same clear path. Enter a reference above to watch it light up stage by stage."
           />
 
-          <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+          <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center" data-reveal>
             {/* From -> To arc */}
             <div className="bg-[#f1f1f1] p-8">
               <svg viewBox="0 0 400 180" className="w-full" aria-hidden="true">
                 <path
                   d="M46 150 Q200 -10 354 150"
                   fill="none"
-                  stroke="#000000"
+                  stroke="#102a6b"
                   strokeWidth="2.5"
                   strokeDasharray="1 11"
                   strokeLinecap="round"
                 />
                 {/* apex interchange node */}
-                <circle cx="200" cy="40" r="24" fill="#000000" />
-                <circle cx="200" cy="40" r="30" fill="none" stroke="#fffb96" strokeWidth="2.5" />
+                <circle cx="200" cy="40" r="24" fill="#102a6b" />
+                <circle cx="200" cy="40" r="30" fill="none" stroke="#ffe500" strokeWidth="2.5" />
                 <g
                   transform="translate(182 22)"
-                  stroke="#fffb96"
+                  stroke="#ffe500"
                   strokeWidth="1.6"
                   fill="none"
                   strokeLinecap="round"
@@ -211,15 +211,15 @@ export default function TrackPage() {
                   <path d="M1 28c2.3 0 2.3 1.6 4.6 1.6S8 28 10.3 28s2.3 1.6 4.6 1.6S17.3 28 19.6 28s2.3 1.6 4.6 1.6S26.6 28 29 28s2.3 1.6 4.6 1.6" />
                 </g>
                 {/* endpoints */}
-                <circle cx="46" cy="150" r="8" fill="#fff" stroke="#000000" strokeWidth="3" />
-                <circle cx="354" cy="150" r="8" fill="#000000" />
+                <circle cx="46" cy="150" r="8" fill="#fff" stroke="#102a6b" strokeWidth="3" />
+                <circle cx="354" cy="150" r="8" fill="#102a6b" />
               </svg>
               <div className="mt-2 flex items-center justify-between">
                 <div className="text-left">
                   <p className="font-dm text-[11px] font-medium uppercase tracking-[0.14em] text-[#8e9194]">
                     From
                   </p>
-                  <p className="font-cal text-[18px] font-medium text-[#000000]">
+                  <p className="font-cal text-[18px] font-medium text-[#102a6b]">
                     Colombo
                   </p>
                 </div>
@@ -227,7 +227,7 @@ export default function TrackPage() {
                   <p className="font-dm text-[11px] font-medium uppercase tracking-[0.14em] text-[#8e9194]">
                     To
                   </p>
-                  <p className="font-cal text-[18px] font-medium text-[#000000]">
+                  <p className="font-cal text-[18px] font-medium text-[#102a6b]">
                     Buyer&apos;s door
                   </p>
                 </div>
@@ -237,11 +237,11 @@ export default function TrackPage() {
             {/* Numbered vertical timeline */}
             <div className="border border-[#d8d8d8] bg-[#ffffff] p-6 sm:p-8">
               <div className="mb-5 flex items-center justify-between">
-                <p className="font-cal text-[18px] font-medium text-[#000000]">
+                <p className="font-cal text-[18px] font-medium text-[#102a6b]">
                   {tracked ? `Shipment ${tracked}` : "Shipment journey"}
                 </p>
                 {tracked && (
-                  <span className="rounded-full bg-[#fffb96] px-3 py-1 font-dm text-[11px] font-medium uppercase tracking-[0.1em] text-black">
+                  <span className="rounded-full bg-[#ffe500] px-3 py-1 font-dm text-[11px] font-medium uppercase tracking-[0.1em] text-black">
                     In transit
                   </span>
                 )}
@@ -280,7 +280,7 @@ export default function TrackPage() {
                       >
                         <p
                           className={`font-cal text-[16px] font-medium leading-tight ${
-                            done || activeNow ? "text-[#000000]" : "text-[#d8d8d8]"
+                            done || activeNow ? "text-[#102a6b]" : "text-[#d8d8d8]"
                           }`}
                         >
                           {stage.label}
@@ -300,14 +300,14 @@ export default function TrackPage() {
 
       {/* Documentation checklist */}
       <section className="w-full bg-[#ffffff]">
-        <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
+        <div data-section className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
           <SectionHeader
             eyebrow="Documentation"
             title="paperwork at every stage"
             subtitle="The right documents keep cargo moving. Here is what each stage needs."
           />
 
-          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div data-stagger className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {STAGES.map((stage, i) => (
               <div
                 key={stage.label}
@@ -318,10 +318,10 @@ export default function TrackPage() {
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <span className="flex size-9 items-center justify-center rounded-full bg-[#000000] font-cal text-[14px] text-[#fffb96]">
+                  <span className="flex size-9 items-center justify-center rounded-full bg-[#102a6b] font-cal text-[14px] text-[#ffe500]">
                     {i + 1}
                   </span>
-                  <h3 className="font-cal text-[18px] font-medium text-[#000000]">
+                  <h3 className="font-cal text-[18px] font-medium text-[#102a6b]">
                     {stage.label}
                   </h3>
                 </div>
@@ -331,7 +331,7 @@ export default function TrackPage() {
                       key={doc}
                       className="flex items-center gap-2.5 font-cal text-[14px] text-[#4b514d]"
                     >
-                      <DocIcon className="h-4 w-4 shrink-0 text-[#000000]/60" />
+                      <DocIcon className="h-4 w-4 shrink-0 text-[#102a6b]/60" />
                       {doc}
                     </li>
                   ))}
@@ -343,7 +343,7 @@ export default function TrackPage() {
           <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/quote"
-              className="bg-[#fffb96] px-7 py-3.5 font-cal text-[16px] text-black transition-transform hover:scale-[1.03]"
+              className="bg-[#ffe500] px-7 py-3.5 font-cal text-[16px] text-black transition-transform hover:scale-[1.03]"
             >
               Get a quote
             </Link>
@@ -351,7 +351,7 @@ export default function TrackPage() {
               href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(waText)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-[#000000]/15 bg-[#ffffff] px-7 py-3.5 font-cal text-[16px] text-[#000000] transition-colors hover:bg-[#f1f1f1]"
+              className="inline-flex items-center gap-2 border border-[#102a6b]/15 bg-[#ffffff] px-7 py-3.5 font-cal text-[16px] text-[#102a6b] transition-colors hover:bg-[#f1f1f1]"
             >
               <WhatsAppIcon className="h-5 w-5 text-[#25D366]" />
               Chat with support

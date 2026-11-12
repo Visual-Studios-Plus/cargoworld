@@ -3,11 +3,11 @@
 :root {
   /* Custo — gunmetal gallery, achromatic, with the brand yellow as the one accent */
   --background: #ffffff;
-  --foreground: #000000;
-  --accent: #fffb96;
-  --brand-blue: #000000;
-  --brand-gold: #fffb96;
-  --ink: #000000;
+  --foreground: #102a6b;
+  --accent: #ffe500;
+  --brand-blue: #102a6b;
+  --brand-gold: #ffe500;
+  --ink: #102a6b;
   --gunmetal: #ffffff;
   --graphite: #4b514d;
   --steel: #8e9194;
@@ -17,6 +17,7 @@
 }
 
 @theme inline {
+  --color-black: #102a6b;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
@@ -32,6 +33,12 @@ html,
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
@@ -69,8 +76,8 @@ h3 {
   align-items: center;
   height: 18px;
   padding: 0 6px;
-  background: #fffb96;
-  color: #000;
+  background: #ffe500;
+  color: #102a6b;
   font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;

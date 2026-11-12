@@ -38,7 +38,7 @@ function Track({
 
 export default function CoreCarriers() {
   return (
-    <section className="w-full overflow-hidden bg-[#ffffff] py-[clamp(72px,9vw,110px)]">
+    <section data-section className="w-full overflow-hidden bg-[#ffffff] py-[clamp(72px,9vw,110px)]">
       <style>{`
         @keyframes marq-left{from{transform:translateX(0)}to{transform:translateX(-50%)}}
         .marq-track{animation:marq-left linear infinite;will-change:transform}
@@ -55,12 +55,12 @@ export default function CoreCarriers() {
       <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10">
         <SectionHeader
           eyebrow="Core carriers"
-          title="Space on the world's leading ocean and air lines."
+          title="Space on the world's top ocean and air lines."
           subtitle="Long-standing allocations mean your cargo always has a sailing."
         />
       </div>
 
-      <div className="marq-mask mt-12 flex flex-col gap-10">
+      <div className="marq-mask mt-12 flex flex-col gap-10" data-reveal>
         <div className="marq-row">
           <Track items={OCEAN} className="marq-r1" />
         </div>

@@ -54,15 +54,15 @@ export default function AboutPage() {
 
       {/* Story + image */}
       <section className="w-full bg-[#ffffff]">
-        <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-10 px-6 lg:px-10 pb-[clamp(48px,6vw,88px)] pt-[clamp(48px,6vw,104px)] lg:grid-cols-2">
+        <div data-section className="mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-10 px-6 lg:px-10 pb-[clamp(48px,6vw,88px)] pt-[clamp(48px,6vw,104px)] lg:grid-cols-2">
           <div>
-            <p className="font-dm text-[11px] font-medium uppercase tracking-[0.18em] text-[#8e9194]">
+            <p data-micro className="font-dm text-[11px] font-medium uppercase tracking-[0.18em] text-[#8e9194]">
               Who we are
             </p>
-            <h2 className="mt-3 font-cal text-[clamp(30px,3vw,46px)] leading-[1.1] tracking-[-0.03em] text-[#000000]">
+            <h2 data-headline className="mt-3 font-cal text-[clamp(30px,3vw,46px)] leading-[1.1] tracking-[-0.03em] text-[#102a6b]">
               a forwarder that owns the last mile
             </h2>
-            <div className="mt-5 space-y-4 font-cal text-[15.5px] leading-[1.6] text-[#8e9194]">
+            <div data-slide="up" data-slide-delay="0.16" className="mt-5 space-y-4 font-cal text-[15.5px] leading-[1.6] text-[#8e9194]">
               <p>
                 Most forwarders wave goodbye to your cargo at the port of
                 discharge. We don&apos;t. The container arrives at a warehouse we
@@ -77,7 +77,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="relative aspect-[4/3] overflow-hidden">
+          <div data-image-reveal className="relative aspect-[4/3] overflow-hidden">
             <Image
               src="/figma/img/bento-4.jpg"
               alt="Cargo World Wide containers at golden hour"
@@ -91,8 +91,8 @@ export default function AboutPage() {
 
       {/* Stats */}
       <section className="w-full bg-[#ffffff]">
-        <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 py-[clamp(44px,5vw,80px)]">
-          <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
+        <div data-section className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 py-[clamp(44px,5vw,80px)]">
+          <div data-stagger className="grid grid-cols-2 gap-6 lg:grid-cols-4">
             {STATS.map((s) => (
               <div key={s.label} className="text-center">
                 <p className="font-syne text-[clamp(34px,4vw,56px)] font-medium leading-none text-black">
@@ -109,22 +109,22 @@ export default function AboutPage() {
 
       {/* Pillars */}
       <section className="w-full bg-[#ffffff]">
-        <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
+        <div data-section className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
           <SectionHeader
             eyebrow="How we work"
             title="two teams, one promise"
             subtitle="Dedicated people at both ends of the lane, accountable for the whole journey."
           />
-          <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
+          <div data-stagger className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
             {PILLARS.map((p, i) => (
               <div
                 key={p.title}
                 className="bg-[#f1f1f1] p-7 transition-all duration-300 hover:-translate-y-1"
               >
-                <span className="flex size-10 items-center justify-center rounded-full bg-[#000000] font-cal text-[16px] text-[#fffb96]">
+                <span className="flex size-10 items-center justify-center rounded-full bg-[#102a6b] font-cal text-[16px] text-[#ffe500]">
                   {i + 1}
                 </span>
-                <h3 className="mt-5 font-cal text-[21px] font-medium text-[#000000]">
+                <h3 className="mt-5 font-cal text-[21px] font-medium text-[#102a6b]">
                   {p.title}
                 </h3>
                 <p className="mt-2.5 font-cal text-[14.5px] leading-[1.55] text-[#8e9194]">
@@ -137,7 +137,7 @@ export default function AboutPage() {
           <div className="mt-10 text-center">
             <Link
               href="/quote"
-              className="inline-block bg-[#fffb96] px-7 py-3.5 font-cal text-[16px] text-black transition-transform hover:scale-[1.03]"
+              className="inline-block bg-[#ffe500] px-7 py-3.5 font-cal text-[16px] text-black transition-transform hover:scale-[1.03]"
             >
               Work with us
             </Link>

@@ -84,7 +84,7 @@ export default function ShipPage() {
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/quote"
-            className="flex h-[58px] items-center justify-center bg-[#fffb96] px-7 font-cal text-[18px] text-black transition-transform hover:scale-[1.03]"
+            className="flex h-[58px] items-center justify-center bg-[#ffe500] px-7 font-cal text-[18px] text-black transition-transform hover:scale-[1.03]"
           >
             Get a quote
           </Link>
@@ -98,14 +98,14 @@ export default function ShipPage() {
       </PageHero>
 
       <section className="w-full bg-[#ffffff]">
-        <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
+        <div data-section className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
           <SectionHeader
             eyebrow="Our services"
             title="everything you need to move cargo"
             subtitle="Seven connected services, searchable and transparent, each one a tap away from a quote."
           />
 
-          <div className="mt-10 grid grid-cols-1 gap-[50px] sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+          <div data-stagger className="mt-10 grid grid-cols-1 gap-[50px] sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
             {SERVICES.map(({ title, blurb, image, alt }) => (
               <Link
                 key={title}
@@ -124,7 +124,7 @@ export default function ShipPage() {
 
                 <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5">
                   <div>
-                    <h3 className="font-cal text-xl font-medium leading-tight tracking-tight text-white transition-colors duration-300 group-hover:text-[#ffdd00]">
+                    <h3 className="font-cal text-xl font-medium leading-tight tracking-tight text-white transition-colors duration-300 group-hover:text-[#ffe500]">
                       {title}
                     </h3>
                     <p className="mt-1.5 max-w-[240px] font-cal text-[13.5px] leading-[1.45] text-white/75">

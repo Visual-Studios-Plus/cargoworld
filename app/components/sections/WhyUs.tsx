@@ -56,7 +56,7 @@ function TextCell({
 
 function ImageCell({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
   return (
-    <div data-bento-card className={`relative min-h-[280px] overflow-hidden bg-[#4b514d] ${CELL} ${className}`}>
+    <div data-bento-card data-image-reveal className={`relative min-h-[280px] overflow-hidden bg-[#4b514d] ${CELL} ${className}`}>
       <Image src={src} alt={alt} fill sizes="(max-width: 768px) 100vw, 320px" className="object-cover" />
     </div>
   );
@@ -114,10 +114,11 @@ export default function WhyUs() {
     <section ref={sectionRef} className="w-full bg-white">
       <div className="mx-auto w-full max-w-[1280px] px-6 py-[clamp(72px,9vw,110px)] lg:px-10">
         <div className="flex items-start justify-between gap-6 pb-6">
-          <p className="kicker max-w-[22ch] text-black">We move it all, door to door</p>
+          <p data-slide="left" className="kicker max-w-[22ch] text-black">We move it all, door to door</p>
           <Link
             href="/ship"
-            className="kicker border border-black px-3 py-1.5 text-black transition-colors hover:bg-[#fffb96] hover:border-[#fffb96]"
+            data-slide="right"
+            className="kicker border border-black px-3 py-1.5 text-black transition-colors hover:bg-[#ffe500] hover:border-[#ffe500]"
           >
             All services ↗
           </Link>
@@ -140,7 +141,7 @@ export default function WhyUs() {
           >
             <p className="kicker text-black/60">What we do</p>
             <div>
-              <h2 className="max-w-[16ch] text-[clamp(36px,4.2vw,64px)] text-black">
+              <h2 data-headline className="max-w-[16ch] text-[clamp(36px,4.2vw,64px)] text-black">
                 One team from Colombo to your buyer&apos;s door
               </h2>
               <Link

@@ -28,27 +28,36 @@ export default function PageHero({
         priority
         sizes="100vw"
         aria-hidden="true"
+        data-hero-media
         className="object-cover object-center grayscale brightness-90"
       />
-      <div className="absolute inset-0 bg-black/45" />
+      <div className="absolute inset-0 bg-[#000000]/45" />
 
-      <div className="relative z-10 mx-auto grid min-h-[clamp(360px,40vw,520px)] w-full max-w-[1280px] grid-cols-1 items-end gap-10 px-6 py-[clamp(56px,8vw,110px)] lg:px-10">
+      <div data-section className="relative z-10 mx-auto grid min-h-[clamp(360px,40vw,520px)] w-full max-w-[1280px] grid-cols-1 items-end gap-10 px-6 py-[clamp(56px,8vw,110px)] lg:px-10">
         <div className="flex flex-col items-start">
           {eyebrow && (
-            <p className="mb-6 text-[15px] leading-[1.43] text-white/80">
+            <p data-micro className="mb-6 text-[15px] leading-[1.43] text-white/80">
               {eyebrow}
             </p>
           )}
-          <h1 className="text-[clamp(40px,5.2vw,72px)] font-medium leading-[1] tracking-[-0.02em] text-white">
+          <h1 data-headline className="text-[clamp(40px,5.2vw,72px)] font-medium leading-[1] tracking-[-0.02em] text-white">
             {title}
           </h1>
           {description && (
-            <p className="mt-6 max-w-[52ch] text-[clamp(16px,1.3vw,19px)] leading-[1.42] text-white/80">
+            <p
+              data-slide="up"
+              data-slide-delay="0.22"
+              className="mt-6 max-w-[52ch] text-[clamp(16px,1.3vw,19px)] leading-[1.42] text-white/80"
+            >
               {description}
             </p>
           )}
           {children && (
-            <div className="mt-10 flex w-full flex-col items-start [&>div]:justify-start">
+            <div
+              data-slide="up"
+              data-slide-delay="0.34"
+              className="mt-10 flex w-full flex-col items-start [&>div]:justify-start"
+            >
               {children}
             </div>
           )}

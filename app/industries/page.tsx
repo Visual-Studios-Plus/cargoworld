@@ -74,14 +74,14 @@ export default function IndustriesPage() {
       />
 
       <section className="w-full bg-[#ffffff]">
-        <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
+        <div data-section className="mx-auto w-full max-w-[1280px] px-6 lg:px-10 pb-[clamp(56px,7vw,112px)] pt-[clamp(48px,6vw,104px)]">
           <SectionHeader
             eyebrow="Industries we serve"
             title="sectors we move every day"
             subtitle="From garments on hangers to heavy-lift project cargo, we shape the service around the commodity."
           />
 
-          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div data-stagger className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
             {SECTORS.map(({ title, tag, blurb, image, alt }) => (
               <Link
                 key={title}
@@ -98,12 +98,12 @@ export default function IndustriesPage() {
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#061421]/95 via-[#061421]/40 to-transparent" />
 
-                <span className="absolute left-6 top-6 rounded-full bg-[#fffb96] px-3.5 py-1.5 font-dm text-[11px] font-medium uppercase tracking-[0.1em] text-black">
+                <span className="absolute left-6 top-6 rounded-full bg-[#ffe500] px-3.5 py-1.5 font-dm text-[11px] font-medium uppercase tracking-[0.1em] text-black">
                   {tag}
                 </span>
 
                 <div className="relative z-10 p-7">
-                  <h3 className="font-cal text-[26px] font-medium leading-tight tracking-tight text-white transition-colors duration-300 group-hover:text-[#ffdd00]">
+                  <h3 className="font-cal text-[26px] font-medium leading-tight tracking-tight text-white transition-colors duration-300 group-hover:text-[#ffe500]">
                     {title}
                   </h3>
                   <p className="mt-2.5 max-w-[360px] font-cal text-[14.5px] leading-[1.5] text-white/80">
