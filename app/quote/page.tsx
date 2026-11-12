@@ -4,26 +4,13 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import SiteHeader from "../components/SiteHeader";
 import Footer from "../components/sections/Footer";
 import { CheckIcon, WhatsAppIcon } from "../components/Icons";
+import { LOADS, DESTINATIONS } from "./options";
 
 const WHATSAPP = "94112307748";
 const SALES_EMAIL = "info.sl@cargoworldwideinc.com";
 const Y = "#ffe500";
 
-const LOADS = [
-  { v: "20 ft container", hint: "Up to ~28 m³" },
-  { v: "40 ft container", hint: "Up to ~58 m³" },
-  { v: "Pallet", hint: "One or a few pallets" },
-  { v: "Loose cargo", hint: "Boxes, cartons, LCL" },
-];
-
 const CARGO_SUGGESTIONS = ["Apparel", "Tea & spices", "FMCG", "Machinery", "Furniture"];
-
-const DESTINATIONS = [
-  { v: "Los Angeles", transit: "26–32 days" },
-  { v: "Houston", transit: "30–36 days" },
-  { v: "New York", transit: "32–38 days" },
-  { v: "West Virginia", transit: "34–40 days" },
-];
 
 // Phrased to complete "…ready by ___."
 const READY = ["next week", "the end of the month", "next month", "a flexible date"];
@@ -107,6 +94,15 @@ export default function QuotePage() {
 
   useEffect(() => {
     setRef(`Q-${Math.floor(1000 + Math.random() * 9000)}`);
+
+    // Prefill from the home page quick-quote (?load=…&destination=…).
+    const params = new URLSearchParams(window.location.search);
+    const load = LOADS.find((o) => o.v === params.get("load"))?.v ?? "";
+    const destination = DESTINATIONS.find((o) => o.v === params.get("destination"))?.v ?? "";
+    if (load || destination) {
+      setD((p) => ({ ...p, load: load || p.load, destination: destination || p.destination }));
+      if (load) setStep(1); // next unanswered question: what's inside
+    }
   }, []);
 
   const set = <K extends keyof Data>(k: K, v: Data[K]) => setD((p) => ({ ...p, [k]: v }));

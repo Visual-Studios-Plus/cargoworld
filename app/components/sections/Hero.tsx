@@ -142,73 +142,6 @@ export default function Hero() {
             .to(split.words, { yPercent: 0, rotationX: 0, duration: 1.2, stagger: 0.07 }, 1.7)
             .to(desc, { autoAlpha: 1, y: 0, duration: 1 }, 2.3)
             .to(actions, { autoAlpha: 1, y: 0, duration: 1, stagger: 0.1, clearProps: "transform" }, 2.45);
-
-          // 3 — a container is lowered on a cable from the "S" of "US."
-          const stage = q("[data-hero-stage]")[0] as HTMLElement;
-          const hang = q("[data-hero-hang]")[0] as HTMLElement;
-          const rope = q("[data-hero-hang-rope]")[0] as HTMLElement;
-          const box = q("[data-hero-hang-box]")[0] as HTMLElement;
-          const HOOK_X = 0.528; // where the cable meets the top of the image
-
-          const placeHanger = () => {
-            const st0 = stage.getBoundingClientRect();
-            const w = Math.min(Math.max(st0.width * 0.16, 150), 260);
-            const drop = Math.min(Math.max(st0.height * 0.025, 12), 28);
-            // open a gap under the headline so the container hangs in clear space
-            // (container bottom sits ~77% down the image)
-            (desc[0] as HTMLElement).style.marginTop = `${Math.round(drop + w * 0.8)}px`;
-
-            const word = (split.words as HTMLElement[]).find((w) => w.textContent?.includes("US"));
-            const text = word?.firstChild;
-            if (!word || !text || text.nodeType !== Node.TEXT_NODE) return false;
-            const idx = (text.textContent ?? "").indexOf("S");
-            if (idx < 0) return false;
-            const range = document.createRange();
-            range.setStart(text, idx);
-            range.setEnd(text, idx + 1);
-            const s = range.getBoundingClientRect();
-            const st = stage.getBoundingClientRect();
-            // the word may still be mid-flip; measure against its resting spot
-            const wordY = Number(gsap.getProperty(word, "y")) || 0;
-            const wordShift = (word.getBoundingClientRect().height * (Number(gsap.getProperty(word, "yPercent")) || 0)) / 100;
-
-            hang.style.left = `${s.left + s.width / 2 - st.left}px`;
-            hang.style.top = `${s.bottom - s.height * 0.12 - st.top - wordY - wordShift}px`;
-            rope.style.height = `${drop}px`;
-            box.style.width = `${w}px`;
-            box.style.left = `${-w * HOOK_X}px`;
-            box.style.top = `${drop - 2}px`;
-            return true;
-          };
-
-          placeHanger(); // reserve the gap before anything is revealed
-          gsap.set(hang, { autoAlpha: 0, transformOrigin: "0 0" });
-          gsap.set(rope, { scaleY: 0, transformOrigin: "50% 0%" });
-          tl.add(() => {
-            placeHanger();
-          }, 2.6)
-            .set(hang, { autoAlpha: 1 }, 2.6)
-            .fromTo(
-              box,
-              { y: () => -parseFloat(rope.style.height || "0"), scale: 0.15, transformOrigin: `${HOOK_X * 100}% 0%` },
-              { y: 0, scale: 1, duration: 1.6, ease: "power2.inOut" },
-              2.6
-            )
-            .to(rope, { scaleY: 1, duration: 1.6, ease: "power2.inOut" }, 2.6)
-            // settles with a pendulum swing from the letter
-            .to(hang, { rotation: 5, duration: 0.5, ease: "sine.out" }, 3.9)
-            .to(hang, { rotation: -3, duration: 0.7, ease: "sine.inOut" }, 4.4)
-            .to(hang, { rotation: 1.2, duration: 0.6, ease: "sine.inOut" }, 5.1)
-            .to(hang, { rotation: 0, duration: 0.6, ease: "sine.out" }, 5.7)
-            // then keeps gently swaying
-            .add(() => {
-              gsap.to(hang, { rotation: 1.2, duration: 2.6, ease: "sine.inOut", yoyo: true, repeat: -1 });
-            }, 6.3);
-
-          const onResizeHang = () => placeHanger();
-          window.addEventListener("resize", onResizeHang);
-          cleanups.push(() => window.removeEventListener("resize", onResizeHang));
-
           // Scrolling before the intro ends lands it instantly.
           const onEarlyScroll = () => {
             if (window.scrollY > 40 && tl.progress() < 1) tl.progress(1);
@@ -255,7 +188,6 @@ export default function Hero() {
                 { yPercent: -80, autoAlpha: 0, stagger: 0.08, duration: 0.5 },
                 0
               )
-              .fromTo(q("[data-hero-hang-inner]"), { y: 0, autoAlpha: 1 }, { y: -80, autoAlpha: 0, duration: 0.5 }, 0)
               .fromTo(desc, { y: 0, autoAlpha: 1 }, { y: -60, autoAlpha: 0, duration: 0.45 }, 0.12)
               .fromTo(q("[data-hero-actions]"), { y: 0, autoAlpha: 1 }, { y: -60, autoAlpha: 0, duration: 0.45 }, 0.2);
 
@@ -319,24 +251,8 @@ export default function Hero() {
           <div data-hero-dim className="pointer-events-none absolute inset-0 bg-[#000000] opacity-0" />
 
           <Copy />
-
-          {/* Container hanging from the "S" of "US." */}
-          <div data-hero-hang-inner aria-hidden className="pointer-events-none absolute inset-0">
-            <div data-hero-hang className="invisible absolute left-0 top-0">
-              <div
-                data-hero-hang-rope
-                className="absolute left-0 top-0 w-[2px] -translate-x-1/2 bg-[#d6dbe2]"
-              />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                data-hero-hang-box
-                src="/figma/img/hero-container.png"
-                alt=""
-                className="absolute max-w-none drop-shadow-[0_18px_24px_rgba(0,0,0,0.45)]"
-              />
-            </div>
-          </div>
-        </div>      </div>
+        </div>
+      </div>
     </section>
   );
 }
