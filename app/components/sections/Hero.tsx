@@ -2,9 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { Inter_Tight } from "next/font/google";
-
-const interTight = Inter_Tight({ subsets: ["latin"], weight: ["400", "500", "600"] });
 
 const FRONT_URL = "/figma/img/container-front.png";
 const BACK_URL = "/figma/img/container-back.png";
@@ -87,7 +84,6 @@ export default function Hero() {
   const frontRef = useRef<HTMLImageElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
-  const hintRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const root = heroRef.current;
@@ -267,7 +263,6 @@ export default function Hero() {
     const front = frontRef.current;
     const canvas = canvasRef.current;
     const cursor = cursorRef.current;
-    const hint = hintRef.current;
     if (!hero || !figure || !front || !canvas || !cursor) return;
 
     const ctx = canvas.getContext("2d");
@@ -286,7 +281,6 @@ export default function Hero() {
     let coarse = touchMQ.matches;
     const syncTouch = () => {
       coarse = touchMQ.matches;
-      if (hint) hint.textContent = coarse ? "Drag to inspect cargo" : "Move your cursor to inspect cargo";
     };
     syncTouch();
     touchMQ.addEventListener("change", syncTouch);
@@ -496,12 +490,6 @@ export default function Hero() {
           </div>
           <div data-hero-dim className="pointer-events-none absolute inset-0 z-[3] bg-[#0b1938] opacity-0" />
 
-          <p className={`brush-hint ${interTight.className}`}>
-            <i />
-            <span ref={hintRef}>Move your cursor to inspect cargo</span>
-          </p>
-          <span className={`brush-tag ${interTight.className}`}>Global Logistics · Fleet 27</span>
-
           <Copy />
         </div>
       </div>
@@ -524,14 +512,9 @@ export default function Hero() {
       .brush-hero [data-hero-copy] form, .brush-hero [data-hero-copy] a { pointer-events:auto; }
       .brush-cursor { position:fixed; left:0; top:0; z-index:30; pointer-events:none; width:14px; height:14px; margin:-7px 0 0 -7px; border-radius:50%; background:#ffd100; opacity:0; transition:opacity .25s, width .2s, height .2s; }
       .brush-cursor.on { opacity:1; }
-      .brush-hint { position:absolute; left:var(--gutter); bottom:var(--gutter); z-index:5; font-size:13px; color:var(--muted); display:flex; align-items:center; gap:8px; pointer-events:none; }
-      .brush-hint i { width:8px; height:8px; border-radius:50%; background:var(--accent); }
-      .brush-tag { position:absolute; right:var(--gutter); bottom:var(--gutter); z-index:5; font-size:12px; color:#fff; background:rgba(255,255,255,.12); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); padding:8px 12px; border-radius:999px; pointer-events:none; }
       @media (max-width:720px) {
         .brush-hero { cursor:auto; }
         .brush-figure { width:118vw; bottom:7svh; }
-        .brush-tag { display:none; }
-        .brush-hint { left:50%; transform:translateX(-50%); bottom:18px; background:rgba(11,25,56,.85); padding:8px 12px; border-radius:999px; color:#fff; white-space:nowrap; }
       }
       @media (hover:none) { .brush-cursor { display:none; } }
     `}</style>
