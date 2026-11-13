@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2560" height="1440" viewBox="0 0 2560 1440" font-family="Arial, Helvetica, sans-serif">
+  <!-- Hero image guide: 2560 x 1440 (16:9). Delete the guide layers before exporting. -->
+  <rect width="2560" height="1440" fill="#cfd8ea"/>
+
+  <!-- Nav bar zone: keep plain (white logo + links sit here) -->
+  <rect x="0" y="0" width="2560" height="107" fill="#1e3a8a" fill-opacity="0.25"/>
+  <text x="40" y="66" font-size="34" fill="#1e3a8a">NAV BAR (top 107px) - logo left, links centre, buttons right - keep plain</text>
+
+  <!-- Phone crop: what a tall phone screen shows (9:16, centred) -->
+  <rect x="875" y="0" width="810" height="1440" fill="none" stroke="#e11d48" stroke-width="6" stroke-dasharray="24 14"/>
+  <text x="895" y="1410" font-size="30" fill="#e11d48">PHONE CROP (810 x 1440, centred)</text>
+
+  <!-- Text zone: headline, description, tracking field, quote button -->
+  <rect x="512" y="360" width="1536" height="720" fill="#ffffff" fill-opacity="0.35" stroke="#ffffff" stroke-width="4"/>
+  <text x="1280" y="560" font-size="96" font-weight="bold" fill="#ffffff" text-anchor="middle">SRI LANKA TO THE US.</text>
+  <text x="1280" y="670" font-size="96" font-weight="bold" fill="#ffffff" text-anchor="middle">DOOR TO DOOR.</text>
+  <text x="1280" y="760" font-size="30" fill="#ffffff" text-anchor="middle">Description text</text>
+  <rect x="860" y="840" width="600" height="96" fill="#000000" fill-opacity="0.3" stroke="#ffffff" stroke-width="3"/>
+  <text x="900" y="900" font-size="30" fill="#ffffff">B/L or container number</text>
+  <rect x="1480" y="840" width="220" height="96" fill="#ffe500"/>
+  <text x="1590" y="900" font-size="30" fill="#000000" text-anchor="middle">Get a quote</text>
+  <text x="532" y="400" font-size="28" fill="#1e3a8a">TEXT ZONE (centre 60% x 50%) - keep busy detail out, white text sits here</text>
+
+  <!-- Subject zone: image is anchored to the bottom, top crops first -->
+  <rect x="0" y="1080" width="2560" height="360" fill="#16a34a" fill-opacity="0.18"/>
+  <text x="40" y="1130" font-size="30" fill="#166534">BEST PLACE FOR THE MAIN SUBJECT - image is anchored to the bottom, so the top crops first</text>
+</svg>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 /**
@@ -25,24 +25,16 @@ import { usePathname } from "next/navigation";
 export default function SiteMotion() {
   const pathname = usePathname();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     let disposed = false;
     let ctx: ReturnType<typeof import("gsap").gsap.context> | undefined;
     const splits: Array<{ revert: () => void }> = [];
 
-    // Hold split headings back until the webfont is measured so the visitor
-    // never sees the fallback type snap into place before the reveal.
-    const pendingHeadlines = Array.from(
-      document.querySelectorAll<HTMLElement>("[data-headline]")
-    );
-    pendingHeadlines.forEach((el) => {
-      el.style.visibility = "hidden";
-    });
-
+    // Headings are held back by CSS (html.motion-hold, set by an inline script
+    // in the layout) rather than inline styles, so the server HTML and the
+    // hydrating client always match. Dropping the class releases them.
     const revealPendingHeadlines = () => {
-      pendingHeadlines.forEach((el) => {
-        el.style.visibility = "";
-      });
+      document.documentElement.classList.remove("motion-hold");
     };
 
     (async () => {
@@ -62,6 +54,18 @@ export default function SiteMotion() {
           /* fonts API can reject in some browsers — carry on */
         }
       }
+
+      // Never touch the DOM until React has hydrated it: streamed page
+      // content can hydrate after this effect first runs, and editing it early
+      // causes hydration mismatches.
+      if (document.readyState !== "complete") {
+        await new Promise<void>((r) => window.addEventListener("load", () => r(), { once: true }));
+      }
+      await new Promise<void>((r) =>
+        "requestIdleCallback" in window
+          ? window.requestIdleCallback(() => r(), { timeout: 600 })
+          : globalThis.setTimeout(r, 1)
+      );
 
       if (disposed) return;
 
@@ -151,7 +155,6 @@ export default function SiteMotion() {
           });
 
           splits.push(split);
-          el.style.visibility = "";
         });
 
         /* ------------------------------------------------------------------
@@ -334,6 +337,8 @@ export default function SiteMotion() {
         });
       });
 
+      // Every heading is split (or skipped) by now: release any left on hold.
+      revealPendingHeadlines();
       ScrollTrigger.refresh();
       if (document.readyState !== "complete") {
         window.addEventListener("load", () => ScrollTrigger.refresh(), { once: true });

@@ -29,7 +29,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={`${inter.variable} ${display.variable} h-full antialiased`}
+      // The inline script below adds motion-hold before React hydrates.
+      suppressHydrationWarning
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "document.documentElement.classList.add('motion-hold');setTimeout(function(){document.documentElement.classList.remove('motion-hold')},5000)",
+          }}
+        />
+      </head>
       <body className="flex min-h-full flex-col bg-[#ffffff]">
         <Preloader />
         <SiteMotion />

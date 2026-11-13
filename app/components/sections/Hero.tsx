@@ -5,6 +5,7 @@ import Image from "next/image";
 
 const FRONT_URL = "/figma/img/container-front.png";
 const BACK_URL = "/figma/img/container-back.png";
+const FRONT_EXPOSURE = "brightness(0.42) contrast(1.05)";
 
 /**
  * Hero — "the port assembles".
@@ -23,7 +24,7 @@ function Copy() {
       data-hero-copy
       className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center md:px-10"
     >
-      <h1 data-hero-title className="whitespace-nowrap text-[clamp(32px,7vw,112px)] text-white">
+      <h1 data-hero-title className="whitespace-nowrap text-[clamp(32px,7vw,112px)] text-white [text-shadow:0_2px_30px_rgba(8,24,74,0.55)]">
         Sri Lanka to the US.
         <br />
         Door to door.
@@ -34,7 +35,7 @@ function Copy() {
       <div data-hero-lower className="flex w-full flex-col items-center">
       <p
         data-hero-desc
-        className="mt-6 max-w-[52ch] text-[clamp(15px,1.9vw,18px)] leading-[1.5] text-white [text-shadow:0_1px_12px_rgba(0,0,0,0.85),0_0_2px_rgba(0,0,0,0.6)]"
+        className="mt-6 max-w-[52ch] text-[clamp(15px,1.9vw,18px)] leading-[1.5] text-white [text-shadow:0_1px_16px_rgba(8,24,74,0.6)]"
       >
         Direct from Colombo to our own warehouses in Los Angeles, Houston, New York and West
         Virginia — then to your door on our own fleet.
@@ -45,7 +46,7 @@ function Copy() {
         className="mt-10 flex w-full max-w-[540px] flex-col items-stretch gap-3 sm:flex-row sm:items-center"
       >
         <form
-          className="flex h-[56px] w-full items-center border border-white/35 bg-[#000000]/50 pl-6 pr-1.5 transition-colors focus-within:border-white sm:flex-1"
+          className="flex h-[56px] w-full items-center border border-black/20 bg-white pl-6 pr-1.5 transition-colors focus-within:border-black sm:flex-1"
           action="/track"
           id="track"
         >
@@ -54,7 +55,7 @@ function Copy() {
             name="ref"
             aria-label="Tracking number"
             placeholder="B/L or container number"
-            className="min-w-0 flex-1 bg-transparent text-[15px] text-white placeholder:text-white/65 focus:outline-none"
+            className="min-w-0 flex-1 bg-transparent text-[15px] text-black placeholder:text-black/50 focus:outline-none"
           />
           <button
             type="submit"
@@ -311,7 +312,6 @@ export default function Hero() {
     let frontReady = false;
     const onFront = () => {
       frontReady = true;
-      figure.style.aspectRatio = `${front.naturalWidth} / ${front.naturalHeight}`;
       canvas.classList.add("ready");
       resize();
     };
@@ -333,7 +333,7 @@ export default function Hero() {
     let lastMove = -1e9;
 
     const addStamp = (x: number, y: number, now: number) => {
-      const base = Math.max(W, 260) * (coarse ? 0.15 : 0.12);
+      const base = Math.max(W, 260) * (coarse ? 0.12 : 0.09);
       const n = 3 + Math.floor(Math.random() * 3);
       const lobes: Lobe[] = [];
       for (let i = 0; i < n; i++) {
@@ -403,11 +403,15 @@ export default function Hero() {
       }
     };
 
-    // contain-fit, centred horizontally, anchored to the bottom
-    const drawContain = (c: CanvasRenderingContext2D, img: HTMLImageElement) => {
-      const k = Math.min(W / img.naturalWidth, H / img.naturalHeight);
+    // cover-fit: fills the hero, cropping any overflow
+    const drawCover = (c: CanvasRenderingContext2D, img: HTMLImageElement) => {
+      // Fill (cover) the hero. Anchored to the bottom so the containers keep
+      // their base; any overflow is cropped from the sky at the top.
+      const k = Math.max(W / img.naturalWidth, H / img.naturalHeight);
       const w = img.naturalWidth * k;
       const h = img.naturalHeight * k;
+      // Anchor to the bottom so the container stack is never cut off; any
+      // overflow is cropped from the sky at the top instead.
       c.drawImage(img, (W - w) / 2, H - h, w, h);
     };
 
@@ -432,7 +436,13 @@ export default function Hero() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.globalCompositeOperation = "source-over";
       ctx.clearRect(0, 0, W, H);
-      if (frontReady) drawContain(ctx, front);
+      if (frontReady) {
+        // Lower exposure on the front image only so the white headline reads;
+        // the back image revealed by the brush stays at full brightness.
+        ctx.filter = FRONT_EXPOSURE;
+        drawCover(ctx, front);
+        ctx.filter = "none";
+      }
 
       if (stamps.length) {
         // a. erase the front container inside the trail
@@ -448,7 +458,7 @@ export default function Hero() {
           bctx.drawImage(mask, 0, 0);
           bctx.globalCompositeOperation = "source-in";
           bctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-          drawContain(bctx, back);
+          drawCover(bctx, back);
           ctx.drawImage(buf, 0, 0);
         }
       }
@@ -476,7 +486,7 @@ export default function Hero() {
       ref={heroRef}
       data-hero-section
       aria-label="Hover to reveal the container interior"
-      className="hero-swiss brush-hero sticky top-0 z-0 w-full overflow-hidden bg-[#0b1938]"
+      className="hero-swiss brush-hero sticky top-0 z-0 w-full overflow-hidden bg-white"
     >
       <div data-hero-stage className="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
         <div data-hero-frame className="brush-frame absolute inset-0 overflow-hidden">
@@ -488,7 +498,7 @@ export default function Hero() {
               <canvas ref={canvasRef} aria-hidden="true" />
             </div>
           </div>
-          <div data-hero-dim className="pointer-events-none absolute inset-0 z-[3] bg-[#0b1938] opacity-0" />
+          <div data-hero-dim className="pointer-events-none absolute inset-0 z-[3] bg-white opacity-0" />
 
           <Copy />
         </div>
@@ -502,9 +512,9 @@ export default function Hero() {
       .brush-hero { --ghost:#1d3975; --accent:#ffd100; --muted:#9eb3dc; --gutter:clamp(16px,2.4vw,32px); touch-action:pan-y; cursor:none; }
       .brush-hero a, .brush-hero button { cursor:pointer; }
       .brush-hero input { cursor:text; }
-      .brush-frame { background: radial-gradient(60% 55% at 50% 45%, #1d3c7a 0%, rgba(29,60,122,0) 70%), linear-gradient(180deg, #0b1938 0%, #122859 100%); }
-      .brush-figure { position:absolute; left:50%; bottom:0; z-index:2; width:min(86vw,118svh); aspect-ratio:666/374; transform:translateX(-50%); pointer-events:none; }
-      .brush-figure img, .brush-figure canvas { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:center bottom; display:block; }
+      .brush-frame { background:#ffffff; }
+      .brush-figure { position:absolute; inset:0; z-index:2; width:100%; height:100%; pointer-events:none; }
+      .brush-figure img, .brush-figure canvas { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center bottom; display:block; }
       .brush-figure img { opacity:0; }
       .brush-figure canvas { opacity:0; transition:opacity .8s ease; }
       .brush-figure canvas.ready { opacity:1; }
@@ -514,7 +524,6 @@ export default function Hero() {
       .brush-cursor.on { opacity:1; }
       @media (max-width:720px) {
         .brush-hero { cursor:auto; }
-        .brush-figure { width:118vw; bottom:7svh; }
       }
       @media (hover:none) { .brush-cursor { display:none; } }
     `}</style>

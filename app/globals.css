@@ -125,3 +125,8 @@ h3 {
 .hero-swiss:not(.is-ready) [data-hero-copy] {
   visibility: hidden;
 }
+
+/* Headings wait for SiteMotion to split them (see app/layout.tsx). */
+html.motion-hold [data-headline]:not([data-animated]) {
+  visibility: hidden;
+}
