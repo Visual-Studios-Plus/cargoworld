@@ -82,6 +82,7 @@ function Blank({ value, placeholder, active }: { value: string; placeholder: str
       }`}
     >
       {value || placeholder}
+      {active && <span aria-hidden="true" className="qq-caret" />}
     </span>
   );
 }
@@ -164,7 +165,7 @@ export default function QuickQuote() {
     <section id="quick-quote" className="w-full bg-white">
       <div className="mx-auto flex min-h-[100svh] w-full max-w-[1280px] flex-col justify-center px-6 py-[clamp(48px,7vh,80px)] lg:px-10">
         {/* opener — 12-column grid shared with the other sections */}
-        <div className="grid grid-cols-1 gap-y-3 md:grid-cols-12 md:gap-x-6">
+        <div data-slide="up" className="grid grid-cols-1 gap-y-3 md:grid-cols-12 md:gap-x-6">
           <div className="flex items-baseline justify-between gap-4 md:col-span-6 md:block lg:col-span-3">
             <p className="kicker text-black">Get a quote</p>
             <p className="text-[11px] uppercase tracking-[0.16em] text-black/50 tabular-nums md:mt-2">
@@ -181,7 +182,7 @@ export default function QuickQuote() {
         </div>
 
         {/* progress */}
-        <div className="mt-6 h-[3px] w-full bg-black/10 md:ml-[calc(50%+12px)] lg:ml-[calc(25%+6px)] md:w-auto">
+        <div data-rule className="mt-6 h-[3px] w-full bg-black/10 md:ml-[calc(50%+12px)] lg:ml-[calc(25%+6px)] md:w-auto">
           <div
             className="h-full bg-black transition-[width] duration-500 ease-out"
             style={{ width: `${((step + 1) / STEPS.length) * 100}%` }}
@@ -190,7 +191,7 @@ export default function QuickQuote() {
 
         <div className="mt-8 grid grid-cols-1 gap-y-6 md:grid-cols-12 md:gap-x-6">
           {/* rail: live summary */}
-          <dl className="hidden self-start border border-black md:col-span-6 md:block lg:col-span-3">
+          <dl data-slide="left" className="hidden self-start border border-black md:col-span-6 md:block lg:col-span-3">
             <div className="flex items-center justify-between bg-black px-4 py-2.5">
               <span className="text-[11px] uppercase tracking-[0.16em] text-white">Your quote</span>
               <span className="bg-[#ffe500] px-2 py-0.5 text-[11px] text-black tabular-nums">{ref}</span>
@@ -204,7 +205,8 @@ export default function QuickQuote() {
           </dl>
 
           {/* the current question */}
-          <div key={step} className="min-h-[300px] md:col-span-6 lg:col-span-9" style={{ animation: "qq-in 360ms cubic-bezier(.32,.72,0,1)" }}>
+          <div data-slide="right" className="min-h-[300px] md:col-span-6 lg:col-span-9">
+          <div key={step} style={{ animation: "qq-in 360ms cubic-bezier(.32,.72,0,1)" }}>
             {/* One question at a time: load first… */}
             {step === 0 && (
               <div>
@@ -396,10 +398,11 @@ export default function QuickQuote() {
               </div>
             )}
           </div>
+          </div>
         </div>
 
         {/* nav */}
-        <div className="mt-6 flex items-center justify-between gap-3 md:ml-[calc(50%+12px)] lg:ml-[calc(25%+6px)]">
+        <div data-slide="up" data-slide-delay="0.2" className="mt-6 flex items-center justify-between gap-3 md:ml-[calc(50%+12px)] lg:ml-[calc(25%+6px)]">
           <button
             type="button"
             onClick={back}
@@ -423,7 +426,23 @@ export default function QuickQuote() {
 
       <style>{`
         @keyframes qq-in { from { opacity: 0; transform: translateX(24px) } to { opacity: 1; transform: none } }
-        @media (prefers-reduced-motion: reduce) { [style*="qq-in"] { animation: none !important } }
+
+        /* blinking insertion point on the blank being answered */
+        .qq-caret {
+          display: inline-block;
+          width: 2px;
+          height: 0.86em;
+          margin-left: 3px;
+          vertical-align: -0.06em;
+          background: #1e3a8a;
+          animation: qq-blink 1.05s steps(2, start) infinite;
+        }
+        @keyframes qq-blink { to { visibility: hidden } }
+
+        @media (prefers-reduced-motion: reduce) {
+          [style*="qq-in"] { animation: none !important }
+          .qq-caret { animation: none }
+        }
       `}</style>
     </section>
   );

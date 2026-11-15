@@ -3,6 +3,7 @@ import Hero from "./components/sections/Hero";
 import WhyUs from "./components/sections/WhyUs";
 import Timeline from "./components/sections/Timeline";
 import Services from "./components/sections/Services";
+import TransitNetwork from "./components/sections/TransitNetwork";
 import QuickQuote from "./components/sections/QuickQuote";
 import CoreCarriers from "./components/sections/CoreCarriers";
 import CallToAction from "./components/sections/CallToAction";
@@ -20,6 +21,7 @@ export default function Home() {
       <WhyUs />
       <Timeline />
       <Services />
+      <TransitNetwork />
       <QuickQuote />
       <CoreCarriers />
       <CallToAction />

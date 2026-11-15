@@ -3,8 +3,8 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 
-const FRONT_URL = "/figma/img/container-front.png";
-const BACK_URL = "/figma/img/container-back.png";
+const FRONT_URL = "/figma/img/container-front.webp";
+const BACK_URL = "/figma/img/container-back.webp";
 const FRONT_EXPOSURE = "brightness(0.42) contrast(1.05)";
 
 /**
@@ -277,6 +277,12 @@ export default function Hero() {
     let removeTicker: (() => void) | undefined;
     const offs: Array<() => void> = [];
 
+    // The canvas is only repainted when something actually changed and the
+    // hero is on screen — otherwise the ticker would re-draw two large images
+    // every frame while the page is merely scrolling past it.
+    let heroVisible = true;
+    let needsPaint = true;
+
     // live touch detection
     const touchMQ = window.matchMedia("(hover: none), (pointer: coarse)");
     let coarse = touchMQ.matches;
@@ -292,6 +298,7 @@ export default function Hero() {
     let backReady = false;
     back.onload = () => {
       backReady = true;
+      needsPaint = true;
     };
     back.src = BACK_URL;
 
@@ -300,18 +307,31 @@ export default function Hero() {
     let dpr = 1;
     const resize = () => {
       const r = figure.getBoundingClientRect();
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, 1.75);
       W = r.width;
       H = r.height;
       for (const c of [canvas, mask, buf]) {
         c.width = Math.round(W * dpr);
         c.height = Math.round(H * dpr);
       }
+      needsPaint = true;
     };
+
+    // Pause all painting once the hero has scrolled out of view.
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        heroVisible = entry.isIntersecting;
+        if (heroVisible) needsPaint = true;
+      },
+      { rootMargin: "100px" }
+    );
+    io.observe(hero);
+    offs.push(() => io.disconnect());
 
     let frontReady = false;
     const onFront = () => {
       frontReady = true;
+      needsPaint = true;
       canvas.classList.add("ready");
       resize();
     };
@@ -342,6 +362,7 @@ export default function Hero() {
         lobes.push({ dx: Math.cos(a) * d, dy: Math.sin(a) * d, r: base * (0.45 + Math.random() * 0.55) });
       }
       stamps.push({ x, y, t: now, lobes });
+      needsPaint = true;
     };
 
     const pointerTo = (clientX: number, clientY: number, now: number) => {
@@ -416,9 +437,17 @@ export default function Hero() {
     };
 
     const render = () => {
+      if (!heroVisible) return;
+
       const now = performance.now();
       if (coarse) autoWander(now);
+
+      const hadTrail = stamps.length > 0;
       stamps = stamps.filter((st) => now - st.t < LIFE);
+
+      // Nothing moving and nothing new: skip the whole two-image redraw.
+      if (!needsPaint && !hadTrail) return;
+      needsPaint = false;
 
       mctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       mctx.clearRect(0, 0, W, H);
@@ -494,7 +523,7 @@ export default function Hero() {
           <div data-hero-photo className="absolute inset-0">
             <div ref={figureRef} className="brush-figure">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img ref={frontRef} alt="Exterior view of shipping container" src={FRONT_URL} />
+              <img ref={frontRef} alt="Exterior view of shipping container" src={FRONT_URL} decoding="async" fetchPriority="high" />
               <canvas ref={canvasRef} aria-hidden="true" />
             </div>
           </div>
@@ -506,8 +535,8 @@ export default function Hero() {
     </section>
     <div ref={cursorRef} className="brush-cursor" />
 
-    <link rel="preload" as="image" href={FRONT_URL} />
-    <link rel="preload" as="image" href={BACK_URL} />
+    <link rel="preload" as="image" href={FRONT_URL} fetchPriority="high" />
+    <link rel="preload" as="image" href={BACK_URL} fetchPriority="high" />
     <style>{`
       .brush-hero { --ghost:#1d3975; --accent:#ffd100; --muted:#9eb3dc; --gutter:clamp(16px,2.4vw,32px); touch-action:pan-y; cursor:none; }
       .brush-hero a, .brush-hero button { cursor:pointer; }

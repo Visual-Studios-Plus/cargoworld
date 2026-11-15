@@ -42,7 +42,7 @@ export default function Footer() {
           <div className="md:col-span-12 lg:col-span-3">
             <span className="inline-flex">
               <Image
-                src="/figma/img/logo.png"
+                src="/figma/img/logo.webp"
                 alt="Cargo World Wide"
                 width={97}
                 height={40}

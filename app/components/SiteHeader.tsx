@@ -73,7 +73,7 @@ export default function SiteHeader() {
         <Link href="/" aria-label="Cargo World Wide — home" className="shrink-0">
           <span className="relative flex items-center">
             <Image
-              src="/figma/img/logo.png"
+              src="/figma/img/logo.webp"
               alt="Cargo World Wide"
               width={97}
               height={40}
@@ -85,8 +85,8 @@ export default function SiteHeader() {
               aria-hidden="true"
               className={`absolute inset-0 bg-[#1e3a8a] transition-opacity duration-300 ${onHero ? "opacity-0" : ""}`}
               style={{
-                WebkitMaskImage: "url(/figma/img/logo.png)",
-                maskImage: "url(/figma/img/logo.png)",
+                WebkitMaskImage: "url(/figma/img/logo.webp)",
+                maskImage: "url(/figma/img/logo.webp)",
                 WebkitMaskSize: "contain",
                 maskSize: "contain",
                 WebkitMaskRepeat: "no-repeat",

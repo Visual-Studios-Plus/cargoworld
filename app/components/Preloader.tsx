@@ -3,24 +3,48 @@
 import { useEffect, useState } from "react";
 
 /**
- * Page loader built from the GWW logo, redrawn as SVG.
+ * Page loader built on the GWW logo.
  *
- * The slanted frame draws itself, the big "C" sweeps round, "GWW" rises in,
- * and the three speed bars shoot in and keep pulsing while the page loads.
- * Once the page has loaded (and a short minimum has passed) the blue panel
- * lifts away and `preloader:done` is dispatched so the hero can start.
- *
- * It is rendered on the server so it covers the first paint. If scripts
- * never run, a CSS fallback hides it after a few seconds.
+ * The panel holds the screen while the page's images load in the background,
+ * then lifts away and fires `preloader:done` so the hero can start. Assets are
+ * preloaded through the HTTP cache, so nothing is downloaded twice; if the
+ * network stalls the loader releases at a cap and the remaining images keep
+ * streaming in behind the page.
  */
 
-const MIN_MS = 1700; // long enough for the logo to finish drawing
-const MAX_MS = 4500; // never hold the page longer than this
+const MIN_MS = 850; // let the logo settle before lifting
+const MAX_MS = 6000; // never hold the page longer than this
+const FAILSAFE_MS = 7500;
+
+// Fetch order: the first screen first, the long-tail logos last.
+const FIRST = [
+  "/figma/img/logo.webp",
+  "/figma/img/container-front.webp",
+  "/figma/img/container-back.webp",
+  "/figma/img/bento-1.jpg",
+  "/figma/img/bento-2.jpg",
+  "/figma/img/bento-3.jpg",
+  "/figma/img/bento-4.jpg",
+];
 
 declare global {
   interface Window {
     __preloaderDone?: boolean;
   }
+}
+
+function collectAssets() {
+  const urls = new Set<string>(FIRST);
+  document.querySelectorAll<HTMLImageElement>("img").forEach((img) => {
+    const src = img.currentSrc || img.src;
+    if (src) urls.add(src);
+  });
+
+  const rank = (u: string) => {
+    const i = FIRST.findIndex((p) => u.includes(p));
+    return i === -1 ? FIRST.length : i;
+  };
+  return Array.from(urls).sort((a, b) => rank(a) - rank(b));
 }
 
 export default function Preloader() {
@@ -33,15 +57,24 @@ export default function Preloader() {
     };
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setPhase("gone");
+      // The stylesheet hides the panel for reduced motion; just release the page.
       finish();
       return;
     }
 
     const started = performance.now();
+    let released = false;
     let leaveTimer = 0;
-    const leave = () => {
-      if (leaveTimer) return;
+    let capTimer = 0;
+
+    // Every page image, plus fonts and the window load event.
+    const assets = collectAssets();
+    const total = assets.length + 2;
+    let done = 0;
+
+    const release = () => {
+      if (released) return;
+      released = true;
       const wait = Math.max(0, MIN_MS - (performance.now() - started));
       leaveTimer = window.setTimeout(() => {
         setPhase("leaving");
@@ -50,14 +83,37 @@ export default function Preloader() {
       }, wait);
     };
 
-    if (document.readyState === "complete") leave();
-    else window.addEventListener("load", leave, { once: true });
-    const cap = window.setTimeout(leave, MAX_MS);
+    const bump = () => {
+      done = Math.min(total, done + 1);
+      if (done >= total) release();
+    };
+
+    assets.forEach((src) => {
+      const img = new window.Image();
+      img.decoding = "async";
+      img.onload = bump;
+      img.onerror = bump;
+      img.src = src;
+    });
+
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(bump).catch(bump);
+    } else {
+      bump();
+    }
+    if (document.readyState === "complete") bump();
+    else window.addEventListener("load", bump, { once: true });
+
+    capTimer = window.setTimeout(release, MAX_MS);
+    const failSafe = window.setTimeout(() => {
+      setPhase("gone");
+      finish();
+    }, FAILSAFE_MS);
 
     return () => {
-      window.removeEventListener("load", leave);
-      window.clearTimeout(cap);
       window.clearTimeout(leaveTimer);
+      window.clearTimeout(capTimer);
+      window.clearTimeout(failSafe);
     };
   }, []);
 
@@ -72,94 +128,43 @@ export default function Preloader() {
         phase === "leaving" ? "is-leaving" : ""
       }`}
     >
-      <svg viewBox="0 0 780 320" className="w-[min(72vw,420px)] overflow-visible" aria-hidden="true">
-        {/* slanted rounded frame — double line, like the logo */}
-        <path
-          className="gww-frame"
-          pathLength={1}
-          d="M128 10 H742 Q770 10 762 38 L704 282 Q697 310 668 310 H38 Q10 310 18 282 L78 38 Q85 10 128 10 Z"
-          fill="none"
-          stroke="#fff"
-          strokeWidth="5"
+      <div className="w-[min(76vw,360px)]">
+        {/* Raw <img> on purpose: the loader logo must paint instantly, without
+            waiting on the image optimiser. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/figma/img/logo.webp"
+          alt="Cargo World Wide"
+          width={779}
+          height={320}
+          decoding="async"
+          fetchPriority="high"
+          className="gww-logo h-auto w-full [filter:brightness(0)_invert(1)]"
         />
-        <path
-          className="gww-frame gww-frame--inner"
-          pathLength={1}
-          d="M134 20 H732 Q756 20 749 44 L694 274 Q688 300 662 300 H46 Q22 300 29 276 L86 44 Q92 20 134 20 Z"
-          fill="none"
-          stroke="#fff"
-          strokeWidth="2"
-          strokeOpacity="0.7"
-        />
-
-        {/* the big C, open on the right */}
-        <circle
-          className="gww-c"
-          cx="200"
-          cy="160"
-          r="96"
-          fill="none"
-          stroke="#fff"
-          strokeWidth="44"
-          strokeLinecap="round"
-          pathLength={100}
-          transform="rotate(40 200 160)"
-        />
-
-        {/* GWW, rising in letter by letter */}
-        <g className="gww-letters" fill="#fff" fontFamily="var(--font-inter), Arial, sans-serif" fontWeight="800">
-          <text className="gww-l gww-l1" x="152" y="214" fontSize="150">G</text>
-          <text className="gww-l gww-l2" x="290" y="214" fontSize="150">W</text>
-          <text className="gww-l gww-l3" x="420" y="214" fontSize="150">W</text>
-        </g>
-        <text
-          className="gww-tag"
-          x="304"
-          y="252"
-          fill="#fff"
-          fontSize="27"
-          fontWeight="700"
-          letterSpacing="1"
-          fontFamily="var(--font-inter), Arial, sans-serif"
-        >
-          CARGO WORLDWIDE
-        </text>
-
-        {/* speed bars: shoot in, then keep pulsing while loading */}
-        <g fill="#fff">
-          <rect className="gww-bar gww-bar1" x="582" y="84" width="176" height="30" rx="15" />
-          <rect className="gww-bar gww-bar2" x="612" y="144" width="132" height="30" rx="15" />
-          <rect className="gww-bar gww-bar3" x="650" y="202" width="80" height="30" rx="15" />
-        </g>
-      </svg>
+      </div>
+      <link rel="preload" as="image" href="/figma/img/logo.webp" fetchPriority="high" />
 
       <style>{`
-        .gww-loader { transition: transform .85s cubic-bezier(.77,0,.18,1); animation: gww-fallback 0s 6s forwards; }
+        .gww-loader { transition: transform .85s cubic-bezier(.77,0,.18,1), visibility .85s; animation: gww-fallback 0s ${FAILSAFE_MS}ms forwards; }
         .gww-loader.is-leaving { transform: translateY(-100%); }
-        .gww-loader.is-leaving svg { transition: opacity .35s ease, transform .6s cubic-bezier(.77,0,.18,1); opacity: 0; transform: translateY(-40px); }
+        .gww-loader.is-leaving > div { transition: opacity .3s ease; opacity: 0; }
+
+        .gww-logo {
+          opacity: 0;
+          transform: translateY(14px) scale(.985);
+          animation:
+            gww-logo-in .8s cubic-bezier(.2,.8,.2,1) .05s forwards,
+            gww-breathe 2.4s ease-in-out 1s infinite;
+        }
+        @keyframes gww-logo-in { to { opacity: 1; transform: none; } }
+        @keyframes gww-breathe { 0%, 100% { opacity: 1 } 50% { opacity: .62 } }
+
         @keyframes gww-fallback { to { visibility: hidden; } }
 
-        .gww-frame { stroke-dasharray: 1; stroke-dashoffset: 1; animation: gww-draw .9s cubic-bezier(.65,0,.35,1) forwards; }
-        .gww-frame--inner { animation-delay: .12s; }
-        @keyframes gww-draw { to { stroke-dashoffset: 0; } }
-
-        .gww-c { stroke-dasharray: 78 100; stroke-dashoffset: 78; animation: gww-c .8s cubic-bezier(.65,0,.35,1) .2s forwards; }
-        @keyframes gww-c { to { stroke-dashoffset: 0; } }
-
-        .gww-l { opacity: 0; transform: translateY(26px); animation: gww-rise .55s cubic-bezier(.2,.8,.2,1) forwards; }
-        .gww-l1 { animation-delay: .5s; } .gww-l2 { animation-delay: .62s; } .gww-l3 { animation-delay: .74s; }
-        @keyframes gww-rise { to { opacity: 1; transform: none; } }
-
-        .gww-tag { opacity: 0; animation: gww-fade .5s ease .95s forwards; }
-        @keyframes gww-fade { to { opacity: 1; } }
-
-        .gww-bar { transform-box: fill-box; transform-origin: right center; transform: scaleX(0); opacity: 0;
-          animation: gww-shoot .5s cubic-bezier(.2,.8,.2,1) forwards, gww-pulse 1.1s ease-in-out infinite; }
-        .gww-bar1 { animation-delay: .85s, 1.4s; } .gww-bar2 { animation-delay: .95s, 1.5s; } .gww-bar3 { animation-delay: 1.05s, 1.6s; }
-        @keyframes gww-shoot { to { transform: scaleX(1); opacity: 1; } }
-        @keyframes gww-pulse { 0%,100% { transform: scaleX(1); opacity: 1; } 50% { transform: scaleX(.55); opacity: .55; } }
-
-        @media (prefers-reduced-motion: reduce) { .gww-loader { display: none; } }
+        @media (prefers-reduced-motion: reduce) {
+          .gww-loader { display: none; }
+          .gww-logo { opacity: 1; transform: none; animation: none; }
+        }
       `}</style>
     </div>
   );
