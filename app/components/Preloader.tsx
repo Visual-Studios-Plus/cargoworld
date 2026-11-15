@@ -88,14 +88,27 @@ export default function Preloader() {
       if (done >= total) release();
     };
 
-    assets.forEach((src) => {
+    // Warm the cache in small batches so the hero images are not stuck behind
+    // forty logo requests.
+    const queue = [...assets];
+    let spawned = 0;
+    const nextAsset = () => {
+      const src = queue.shift();
+      if (!src) return;
       const img = new window.Image();
       img.decoding = "async";
-      img.onload = bump;
-      img.onerror = bump;
+      const settle = () => {
+        bump();
+        nextAsset();
+      };
+      img.onload = settle;
+      img.onerror = settle;
       img.src = src;
-    });
-
+    };
+    while (spawned < 6 && spawned < assets.length) {
+      spawned++;
+      nextAsset();
+    }
     if (document.fonts?.ready) {
       document.fonts.ready.then(bump).catch(bump);
     } else {
