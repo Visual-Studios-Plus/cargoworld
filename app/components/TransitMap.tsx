@@ -43,7 +43,8 @@ const halo = {
 };
 
 const CSS = `
-.tm-line{stroke-dasharray:1;stroke-dashoffset:0}
+/* Hold every lane hidden until the map is in view, then draw it in. */
+.tm-line{stroke-dasharray:1;stroke-dashoffset:1}
 .tm-drawn .tm-line{animation:tm-draw 2.2s cubic-bezier(.5,0,.2,1) both}
 .tm-drawn .tm-line.d1{animation-delay:.2s}
 .tm-drawn .tm-line.d2{animation-delay:.4s}

@@ -28,6 +28,7 @@ export default function SiteMotion() {
   useEffect(() => {
     let disposed = false;
     let ctx: ReturnType<typeof import("gsap").gsap.context> | undefined;
+    let refreshOnPreloader: (() => void) | undefined;
     const splits: Array<{ revert: () => void }> = [];
 
     // Headings are held back by CSS (html.motion-hold, set by an inline script
@@ -343,10 +344,18 @@ export default function SiteMotion() {
       if (document.readyState !== "complete") {
         window.addEventListener("load", () => ScrollTrigger.refresh(), { once: true });
       }
+
+      // The loader can lift after the triggers were measured (images still
+      // settling, sections changing height). Re-measure once the page is
+      // actually visible so the first sections reveal on cue instead of
+      // playing behind the panel or starting already-triggered.
+      refreshOnPreloader = () => ScrollTrigger.refresh();
+      window.addEventListener("preloader:done", refreshOnPreloader);
     })();
 
     return () => {
       disposed = true;
+      if (refreshOnPreloader) window.removeEventListener("preloader:done", refreshOnPreloader);
       revealPendingHeadlines();
       splits.forEach((split) => split.revert());
       ctx?.revert();

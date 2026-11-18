@@ -17,18 +17,16 @@ export default function Home() {
       <Hero />
       <GridReveal />
 
-           {/* Slides over the sticky hero */}
+      {/* Slides over the sticky hero */}
       <div data-hero-next className="relative z-10 flex w-full flex-col bg-[#ffffff]">
-      <WhyUs />
- <QuickQuote />
-
-      <TransitNetwork />
-      <Timeline />
-
-      <Services />
-      <CoreCarriers />
-      <CallToAction />
-      <Footer />
+        <TransitNetwork />
+        <QuickQuote />
+        <WhyUs />
+        <Timeline />
+        <Services />
+        <CoreCarriers />
+        <CallToAction />
+        <Footer />
       </div>
     </main>
   );
